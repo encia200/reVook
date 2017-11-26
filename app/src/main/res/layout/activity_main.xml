@@ -10,7 +10,7 @@
         android:id="@+id/main_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/main_tab"></android.support.v4.view.ViewPager>
+        android:layout_above="@+id/main_tab"/>
 
     <android.support.design.widget.TabLayout
         android:id="@+id/main_tab"
@@ -19,5 +19,5 @@
         android:layout_alignParentBottom="true"
         android:background="#00366B"
         app:tabGravity="fill"
-        app:tabMode="fixed"></android.support.design.widget.TabLayout>
+        app:tabMode="fixed"/>
 </RelativeLayout>

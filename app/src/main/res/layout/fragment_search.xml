@@ -4,9 +4,319 @@
     android:layout_height="match_parent"
     tools:context="com.jy.revook_1111.SearchFragment">
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/layout_search"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="search" />
+        android:layout_height="48dp"
+        android:background="@color/colorPrimaryDark"
+        android:orientation="horizontal"
+        android:paddingBottom="6dp"
+        android:paddingTop="6dp">
 
+        <ImageView
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="3dp"
+            android:background="@drawable/background_rounding"
+            android:src="@drawable/ic_search_black_24dp" />
+
+        <EditText
+            android:id="@+id/edittext_search"
+            android:layout_width="0dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_weight="1"
+            android:background="@drawable/round"
+            android:ems="10"
+            android:paddingLeft="15dp"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="50dp"
+            android:layout_height="36dp"
+            android:layout_marginRight="8dp"
+            android:background="@drawable/background_rounding"
+            android:fontFamily="@font/family_font"
+            android:text="검색"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/text_recommand_book"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_below="@+id/layout_search"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/family_font"
+        android:text="지금 인기있는 책"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/layout_recommand_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_recommand_book"
+        android:layout_margin="8dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/img_recommand_1"
+                android:layout_width="100dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/background_recommand_book"
+                android:padding="2dp" />
+
+            <TextView
+                android:id="@+id/text_recommand_title_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/family_font"
+                android:singleLine="true"
+                android:text="나미야 잡화점의 기적"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/text_recommand_author_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:fontFamily="@font/family_font"
+                android:paddingRight="12dp"
+                android:singleLine="true"
+                android:text="히가시노 게이고"
+                android:textSize="12sp"
+                android:textStyle="normal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/img_recommand_2"
+                android:layout_width="100dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/background_recommand_book"
+                android:padding="2dp" />
+
+            <TextView
+                android:id="@+id/text_recommand_title_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/family_font"
+                android:singleLine="true"
+                android:text="미움받을 용기"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/text_recommand_author_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:fontFamily="@font/family_font"
+                android:paddingRight="12dp"
+                android:singleLine="true"
+                android:text="기시미 이치로"
+                android:textSize="12sp"
+                android:textStyle="normal" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/img_recommand_3"
+                android:layout_width="100dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/background_recommand_book"
+                android:padding="2dp" />
+
+            <TextView
+                android:id="@+id/text_recommand_title_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:fontFamily="@font/family_font"
+                android:singleLine="true"
+                android:text="신경 끄기의 기술"
+                android:textSize="16sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/text_recommand_author_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:fontFamily="@font/family_font"
+                android:paddingRight="12dp"
+                android:singleLine="true"
+                android:text="마크 맨슨"
+                android:textSize="12sp"
+                android:textStyle="normal" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/text_recommand_tag"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_below="@+id/layout_recommand_title"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/family_font"
+        android:text="지금 인기있는 태그"
+        android:textColor="@android:color/black"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/layout_recommand_tag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_recommand_tag"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <TextView
+                android:id="@+id/recommand_tag_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:background="@drawable/background_recommand_tag"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                android:text="#소중함"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/recommand_tag_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:background="@drawable/background_recommand_tag"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                android:text="#대인관계"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/recommand_tag_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:background="@drawable/background_recommand_tag"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                android:text="#영어"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/recommand_tag_4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:background="@drawable/background_recommand_tag"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                android:text="#멘탈갑"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <TextView
+                android:id="@+id/recommand_tag_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:background="@drawable/background_recommand_tag"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                android:text="#디자인"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/recommand_tag_6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:background="@drawable/background_recommand_tag"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                android:text="#힐링"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/recommand_tag_7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:background="@drawable/background_recommand_tag"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                android:text="#캘리"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/recommand_tag_8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="3dp"
+                android:background="@drawable/background_recommand_tag"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                android:text="#평화"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </LinearLayout>
 </RelativeLayout>
