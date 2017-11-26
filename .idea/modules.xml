@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\remna\AndroidStudioProjects\reVook_1111\app\app.iml" filepath="C:\Users\remna\AndroidStudioProjects\reVook_1111\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/reVook_1111.iml" filepath="$PROJECT_DIR$/reVook_1111.iml" />
+      <module fileurl="file://C:\Users\remna\AndroidStudioProjects\reVook_1111\reVook_1111.iml" filepath="C:\Users\remna\AndroidStudioProjects\reVook_1111\reVook_1111.iml" />
     </modules>
   </component>
 </project>
