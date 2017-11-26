@@ -36,6 +36,7 @@ public class APISearchNaverBook {
             br.close();
             Log.d("RESPONSE",response.toString());
             Log.d("Hello","hello");
+            Log.d("Wie", "Wie");
             return response.toString();
         } catch (Exception e) {
             System.out.println(e);
