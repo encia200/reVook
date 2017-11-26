@@ -1,6 +1,7 @@
 package com.jy.revook_1111;
 
 import android.util.Log;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -34,6 +35,7 @@ public class APISearchNaverBook {
             }
             br.close();
             Log.d("RESPONSE",response.toString());
+            Log.d("Hello","hello");
             return response.toString();
         } catch (Exception e) {
             System.out.println(e);
