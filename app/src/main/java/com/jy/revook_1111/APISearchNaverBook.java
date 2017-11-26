@@ -1,105 +1,43 @@
-/*
 package com.jy.revook_1111;
 
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserFactory;
-
+import android.util.Log;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URL;
-
-*/
-/**
- * Created by encia on 2017-11-26.
- *//*
-
+import java.net.URLEncoder;
 
 public class APISearchNaverBook {
-    String clientId = "ErSA6Vu68HcRM4ggzSQm";//애플리케이션 클라이언트 아이디값";
-    String clientSecret = "hvjcnMyWQi";//애플리케이션 클라이언트 시크릿값";
-
-    Button b1;
-    EditText et1;
-    TextView tv1;
-    NaverSearchTask task;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-        b1 = (Button) findViewById(R.id.button1);
-        et1 = (EditText) findViewById(R.id.editText1);
-        tv1 = (TextView) findViewById(R.id.textView1);
-
-        b1.setOnClickListener(this);
-    }
-
-    class NaverSearchTask extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String ... search) {
-            String url = "http://openapi.naver.com/search?key=네이버오픈API키&query=" + search[0] + "&target=news&start=1&display=10";
-            XmlPullParserFactory factory;
-            XmlPullParser parser;
-            URL xmlUrl;
-            String returnResult = "";
-
-            try {
-                boolean flag1 = false;
-
-                xmlUrl = new URL(url);
-                xmlUrl.openConnection().getInputStream();
-                factory = XmlPullParserFactory.newInstance();
-                parser = factory.newPullParser();
-                parser.setInput(xmlUrl.openStream(), "utf-8");
-                int eventType = parser.getEventType();
-                while (eventType != XmlPullParser.END_DOCUMENT) {
-                    switch (eventType) {
-                        case XmlPullParser.START_DOCUMENT:
-                            break;
-                        case XmlPullParser.END_DOCUMENT:
-                            break;
-                        case XmlPullParser.START_TAG:
-                            if (parser.getName().equals("title")) {
-                                flag1 = true;
-                            }
-                            break;
-                        case XmlPullParser.END_TAG:
-                            break;
-                        case XmlPullParser.TEXT:
-                            if (flag1 == true) {
-                                returnResult += parser.getText()+"\n";
-                                flag1 = false;
-                            }
-                            break;
-                    }
-                    eventType = parser.next();
-                }
-            } catch (Exception e) {
-
+    public static String search(String searchWord) {
+        String clientId = "ErSA6Vu68HcRM4ggzSQm";//애플리케이션 클라이언트 아이디값";
+        String clientSecret = "hvjcnMyWQi";//애플리케이션 클라이언트 시크릿값";
+        try {
+            String text = URLEncoder.encode("그린팩토리", "UTF-8");
+            String apiURL = "https://openapi.naver.com/v1/search/blog?query=" + text; // json 결과
+            //String apiURL = "https://openapi.naver.com/v1/search/blog.xml?query="+ text; // xml 결과
+            URL url = new URL(apiURL);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestMethod("GET");
+            con.setRequestProperty("X-Naver-Client-Id", clientId);
+            con.setRequestProperty("X-Naver-Client-Secret", clientSecret);
+            int responseCode = con.getResponseCode();
+            BufferedReader br;
+            if (responseCode == 200) { // 정상 호출
+                br = new BufferedReader(new InputStreamReader(con.getInputStream()));
+            } else {  // 에러 발생
+                br = new BufferedReader(new InputStreamReader(con.getErrorStream()));
             }
-
-            return returnResult;
+            String inputLine;
+            StringBuffer response = new StringBuffer();
+            while ((inputLine = br.readLine()) != null) {
+                response.append(inputLine);
+            }
+            br.close();
+            Log.d("RESPONSE",response.toString());
+            return response.toString();
+        } catch (Exception e) {
+            System.out.println(e);
         }
-
-        @Override
-        protected void onPostExecute(String result) {
-            tv1.setText(result);
-        }
-
+        return null;
     }
-
-    @Override
-    public void onClick(View arg0) {
-        // TODO Auto-generated method stub
-        task = new NaverSearchTask();
-        task.execute(et1.getText().toString());
-        et1.setText("");
-    }}
-*/
+}
