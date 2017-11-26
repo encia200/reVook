@@ -1,7 +1,9 @@
 package com.jy.revook_1111;
 
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,13 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 public class SearchFragment extends Fragment {
+
+    private final String SEARCH_WITH_TITLE = "d_titl";
+    private final String SEARCH_WITH_AUTHOR = "d_auth";
+    private final String SEARCH_WITH_ISBN = "d_isbn";
+    private final String SEARCH_WITH_PUBLISHER = "d_publ";
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_search, container, false);
@@ -30,9 +39,21 @@ public class SearchFragment extends Fragment {
         btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(),APISearchNaverBook.search(edittext_search.getText().toString()),Toast.LENGTH_LONG).show();
+
+                new Thread(){
+                    public void run(){
+                        APISearchNaverBook.search(edittext_search.getText().toString(), SEARCH_WITH_TITLE);
+                    }
+                }.start();
+
+
             }
         });
         return v;
+    }
+
+    public void bookSearch()
+    {
+
     }
 }
