@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp"
+    tools:context="com.jy.revook_1111.EditorActivity">
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/editor_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="책 제목을 입력하세요."
+            android:textColorHint="@color/colorAccent" />
+    </android.support.design.widget.TextInputLayout>
+
+    <ImageView
+        android:id="@+id/editor_img"
+        android:layout_width="match_parent"
+        android:layout_height="320dp"
+        android:background="@drawable/cardview_default"
+
+        android:layout_below="@+id/editor_title"/>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/editor_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editor_title"
+        android:layout_marginTop="16dp">
+
+        <android.support.design.widget.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="내용을 입력하세요."
+            android:textColorHint="@color/colorAccent" />
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/btn_editor_img_upload"
+        android:layout_width="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/background_editor_btn"
+        android:fontFamily="@font/family_font"
+        android:text="이미지"
+        android:textColor="@android:color/white"
+        android:textSize="24dp" />
+
+</RelativeLayout>

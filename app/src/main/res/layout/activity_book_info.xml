@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp"
+    tools:context="com.jy.revook_1111.BookInfoActivity">
+
+    <ImageView
+        android:id="@+id/bookinfo_book_img"
+        android:layout_width="120dp"
+        android:layout_height="160dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/background_recommand_book" />
+
+    <TextView
+        android:id="@+id/bookinfo_book_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_toRightOf="@+id/bookinfo_book_img"
+        android:text="제목"
+        android:textSize="21dp" />
+
+    <TextView
+        android:id="@+id/bookinfo_book_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bookinfo_book_title"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_toRightOf="@+id/bookinfo_book_img"
+        android:text="저자"
+        android:textSize="21dp" />
+
+    <TextView
+        android:id="@+id/bookinfo_book_publishier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bookinfo_book_author"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_toRightOf="@+id/bookinfo_book_img"
+        android:text="출판사"
+        android:textSize="21dp" />
+
+    <TextView
+        android:id="@+id/bookinfo_book_pages"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bookinfo_book_publishier"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_toRightOf="@+id/bookinfo_book_img"
+        android:text="페이지 수"
+        android:textSize="21dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/btn_upload_review"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="16dp"
+        android:clickable="true"
+        app:backgroundTint="@color/colorPrimaryDark"
+        app:srcCompat="@drawable/review" />
+
+
+</RelativeLayout>

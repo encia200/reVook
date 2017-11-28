@@ -1,9 +1,8 @@
 package com.jy.revook_1111;
 
 
-import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -43,12 +41,21 @@ public class SearchFragment extends Fragment {
                 new Thread(){
                     public void run(){
                         APISearchNaverBook.search(edittext_search.getText().toString(), SEARCH_WITH_TITLE);
+
                     }
                 }.start();
-
-
             }
         });
+
+        Button temp_move_to_bookinfo = (Button) v.findViewById(R.id.temp_move_to_bookinfo);
+        temp_move_to_bookinfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity().getApplicationContext(),BookInfoActivity.class);
+                startActivity(intent);
+            }
+        });
+
         return v;
     }
 

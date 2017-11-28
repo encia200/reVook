@@ -14,6 +14,20 @@ public class BookInfo {
     String description = "";
     String isbn ="";
 
+    @Override
+    public String toString() {
+        return "BookInfo{" +
+                "title='" + title + '\'' +
+                ", link='" + link + '\'' +
+                ", publisher='" + publisher + '\'' +
+                ", price='" + price + '\'' +
+                ", image='" + image + '\'' +
+                ", author='" + author + '\'' +
+                ", description='" + description + '\'' +
+                ", isbn='" + isbn + '\'' +
+                '}';
+    }
+
     public BookInfo(String title, String link, String publisher, String price, String image, String author,
                     String description, String isbn){
         this.title = title;

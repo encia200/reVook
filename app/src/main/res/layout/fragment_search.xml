@@ -318,5 +318,13 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="16sp" />
         </LinearLayout>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="임시 책 정보 이동"
+            android:layout_marginTop="20dp"
+            android:id="@+id/temp_move_to_bookinfo"
+            android:layout_gravity="center_horizontal"/>
     </LinearLayout>
 </RelativeLayout>

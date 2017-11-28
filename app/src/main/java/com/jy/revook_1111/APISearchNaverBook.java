@@ -1,11 +1,8 @@
 package com.jy.revook_1111;
 
-import android.util.Log;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONStringer;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -26,7 +23,7 @@ public class APISearchNaverBook {
         String clientSecret = "hvjcnMyWQi";//애플리케이션 클라이언트 시크릿값";
         try {
             String text = URLEncoder.encode(searchWord, "UTF-8");
-            String apiURL = "https://openapi.naver.com/v1/search/book_adv.json?" + searchMode + "=" + text; // json 결과
+            String apiURL = "https://openapi.naver.com/v1/search/book_adv.json?" + searchMode + "=" + text+"&display=4"; // json 결과
             // String apiURL = "https://openapi.naver.com/v1/search/blog.xml?query=java"; // xml 결과
             URL url = new URL(apiURL);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -57,6 +54,7 @@ public class APISearchNaverBook {
 
         try {
             jsonText = readAll(br);
+//            Log.d("JSON",jsonText);
             JSONObject json = new JSONObject(jsonText);
             JSONArray jsonArray = new JSONArray(json.getString("items"));
 
@@ -72,7 +70,7 @@ public class APISearchNaverBook {
         }
     }
 
-    private static BookInfo createBookInfo(JSONObject json){
+    private static BookInfo createBookInfo(JSONObject json) {
         String title, link, publisher, price, image, author, description, isbn;
         BookInfo tempBook;
         try {
@@ -84,8 +82,8 @@ public class APISearchNaverBook {
             author = json.getString("author");
             description = json.getString("description");
             isbn = json.getString("isbn");
-            tempBook = new BookInfo(title, link, publisher, price, image, author,
-                    description, isbn);
+            tempBook = new BookInfo(title, link, publisher, price, image, author, description, isbn);
+            //System.out.println(tempBook);
             return tempBook;
         } catch (JSONException e) {
             e.printStackTrace();
@@ -101,5 +99,4 @@ public class APISearchNaverBook {
         }
         return sb.toString();
     }
-
 }

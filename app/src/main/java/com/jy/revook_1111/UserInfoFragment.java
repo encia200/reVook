@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
@@ -16,6 +17,11 @@ import com.google.firebase.auth.FirebaseAuth;
  * A simple {@link Fragment} subclass.
  */
 public class UserInfoFragment extends Fragment {
+
+    /* 사용자 정보 */
+    private TextView nameTextView;
+    private TextView emailTextView;
+    private FirebaseAuth auth;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -26,13 +32,21 @@ public class UserInfoFragment extends Fragment {
         btn_userInfo_logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FirebaseAuth.getInstance().signOut();
+                auth.signOut();
                 LoginManager.getInstance().logOut();
-                Intent intent = new Intent(getActivity().getApplicationContext(), LoginActivity.class);
                 getActivity().finish();
+                Intent intent = new Intent(getActivity().getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
             }
         });
+
+        auth = FirebaseAuth.getInstance();
+
+        nameTextView = (TextView) v.findViewById(R.id.user_text_name);
+        emailTextView = (TextView) v.findViewById(R.id.user_text_email);
+
+        nameTextView.setText(auth.getCurrentUser().getDisplayName());
+        emailTextView.setText(auth.getCurrentUser().getEmail());
 
         return v;
     }
