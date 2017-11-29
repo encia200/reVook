@@ -150,14 +150,14 @@ public class EditorActivity extends AppCompatActivity {
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
 
-                ImageDTO imageDTO = new ImageDTO();
-                imageDTO.imageUrl = downloadUrl.toString();
-                imageDTO.title = editor_title.getText().toString();
-                imageDTO.description = editor_content.getText().toString();
-                imageDTO.uid = auth.getCurrentUser().getUid();
-                imageDTO.userId = auth.getCurrentUser().getEmail();
+                ReviewDTO reviewDTO = new ReviewDTO();
+                reviewDTO.imageUrl = downloadUrl.toString();
+                reviewDTO.title = editor_title.getText().toString();
+                reviewDTO.content = editor_content.getText().toString();
+                reviewDTO.uid = auth.getCurrentUser().getUid();
+                reviewDTO.userId = auth.getCurrentUser().getEmail();
 
-                database.getReference().child("images").push().setValue(imageDTO);
+                database.getReference().child("reviews").push().setValue(reviewDTO);
 
                 setResult(UPLOADSUCESS_CODE);
                 finish();
