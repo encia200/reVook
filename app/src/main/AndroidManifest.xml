@@ -51,7 +51,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".EditorActivity" />
-        <activity android:name=".BookInfoActivity"></activity>
+        <activity android:name=".BookInfoActivity" />
+        <activity android:name=".temp_bookCard"></activity>
     </application>
 
 </manifest>

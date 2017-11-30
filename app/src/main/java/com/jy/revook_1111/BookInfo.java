@@ -9,7 +9,7 @@ public class BookInfo {
     String link = "";
     String publisher = "";
     String price = "";
-    String image = "";
+    String imageURL = "";
     String author = "";
     String description = "";
     String isbn ="";
@@ -21,22 +21,33 @@ public class BookInfo {
                 ", link='" + link + '\'' +
                 ", publisher='" + publisher + '\'' +
                 ", price='" + price + '\'' +
-                ", image='" + image + '\'' +
+                ", image='" + imageURL + '\'' +
                 ", author='" + author + '\'' +
                 ", description='" + description + '\'' +
                 ", isbn='" + isbn + '\'' +
                 '}';
     }
 
-    public BookInfo(String title, String link, String publisher, String price, String image, String author,
+    public BookInfo(String title, String link, String publisher, String price, String imageURL, String author,
                     String description, String isbn){
         this.title = title;
         this.link = link;
         this.publisher = publisher;
         this.price = price;
-        this.image = image;
+        this.imageURL = imageURL;
         this.author = author;
         this.description = description;
         this.isbn = isbn;
+        editBookImageURL();
+        editBookTitle();
+    }
+
+    private void editBookTitle(){
+        this.title = this.title.replace("<b>", "");
+        this.title = this.title.replace("</b>", "");
+    }
+    private void editBookImageURL(){
+        this.imageURL = this.imageURL.replace("type=m1", "");
+        System.out.println("***************************" + this.imageURL);
     }
 }

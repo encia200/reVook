@@ -4,6 +4,7 @@ package com.jy.revook_1111;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,7 @@ public class SearchFragment extends Fragment {
     private final String SEARCH_WITH_ISBN = "d_isbn";
     private final String SEARCH_WITH_PUBLISHER = "d_publ";
 
-
+    private ViewPager viewPager;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_search, container, false);
@@ -40,10 +41,20 @@ public class SearchFragment extends Fragment {
 
                 new Thread(){
                     public void run(){
+                        if(APISearchNaverBook.bookInfoList != null)
+                        {
+                            APISearchNaverBook.bookInfoList.clear();
+                        }
+
                         APISearchNaverBook.search(edittext_search.getText().toString(), SEARCH_WITH_TITLE);
+
+                        startActivity(new Intent(getActivity(), temp_bookCard.class));
 
                     }
                 }.start();
+
+
+
             }
         });
 

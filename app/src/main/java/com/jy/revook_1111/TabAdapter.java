@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 public class TabAdapter extends FragmentStatePagerAdapter {
     private int tabCount;
-
+    public static boolean is_searched = false;
     public TabAdapter(FragmentManager fm, int tabCount) {
         super(fm);
         this.tabCount = tabCount;
@@ -17,8 +17,16 @@ public class TabAdapter extends FragmentStatePagerAdapter {
         // Returning the current tabs
         switch (position) {
             case 0:
-                SearchFragment searchFragment = new SearchFragment();
-                return searchFragment;
+                if(is_searched){
+                    is_searched = false;
+                    BookSearchFragment bookSearchFragment = new BookSearchFragment();
+                    return bookSearchFragment;
+                }else{
+                    SearchFragment searchFragment = new SearchFragment();
+                    return searchFragment;
+                }
+
+
             case 1:
                 ReviewFragment reviewFragment = new ReviewFragment();
                 return reviewFragment;

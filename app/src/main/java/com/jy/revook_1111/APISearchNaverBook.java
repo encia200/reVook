@@ -41,6 +41,7 @@ public class APISearchNaverBook {
             parseBufferedReaderToJson(br);
             for (int i = 0; i < bookInfoList.size(); i++) {
                 System.out.println(bookInfoList.get(i).title);
+                System.out.println(bookInfoList.get(i).imageURL);
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -71,18 +72,18 @@ public class APISearchNaverBook {
     }
 
     private static BookInfo createBookInfo(JSONObject json) {
-        String title, link, publisher, price, image, author, description, isbn;
+        String title, link, publisher, price, imageURL, author, description, isbn;
         BookInfo tempBook;
         try {
             title = json.getString("title");
             link = json.getString("link");
             publisher = json.getString("publisher");
             price = json.getString("price");
-            image = json.getString("image");
+            imageURL = json.getString("image");
             author = json.getString("author");
             description = json.getString("description");
             isbn = json.getString("isbn");
-            tempBook = new BookInfo(title, link, publisher, price, image, author, description, isbn);
+            tempBook = new BookInfo(title, link, publisher, price, imageURL, author, description, isbn);
             //System.out.println(tempBook);
             return tempBook;
         } catch (JSONException e) {
