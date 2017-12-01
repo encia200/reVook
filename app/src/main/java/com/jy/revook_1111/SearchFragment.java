@@ -46,15 +46,14 @@ public class SearchFragment extends Fragment {
                             APISearchNaverBook.bookInfoList.clear();
                         }
 
-                        APISearchNaverBook.search(edittext_search.getText().toString(), SEARCH_WITH_TITLE);
+                        APISearchNaverBook.searchWord = edittext_search.getText().toString();
+                        APISearchNaverBook.searchMode = SEARCH_WITH_TITLE;
+                        APISearchNaverBook.search();
 
                         startActivity(new Intent(getActivity(), temp_bookCard.class));
 
                     }
                 }.start();
-
-
-
             }
         });
 

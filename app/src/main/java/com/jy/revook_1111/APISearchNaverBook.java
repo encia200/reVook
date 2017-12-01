@@ -17,13 +17,18 @@ import java.util.List;
 public class APISearchNaverBook {
 
     public static List<BookInfo> bookInfoList = null;
+    public static int start = 1;
+    public static int display = 2;
+    public static String searchWord = null;
+    public static String searchMode = null;
 
-    public static void search(String searchWord, String searchMode) {
+
+    public static void search() {
         String clientId = "ErSA6Vu68HcRM4ggzSQm";//애플리케이션 클라이언트 아이디값";
         String clientSecret = "hvjcnMyWQi";//애플리케이션 클라이언트 시크릿값";
         try {
             String text = URLEncoder.encode(searchWord, "UTF-8");
-            String apiURL = "https://openapi.naver.com/v1/search/book_adv.json?" + searchMode + "=" + text+"&display=4"; // json 결과
+            String apiURL = "https://openapi.naver.com/v1/search/book_adv.json?" + searchMode + "=" + text+"&start=" + Integer.toString(start) + "&display=" + Integer.toString(display); // json 결과
             // String apiURL = "https://openapi.naver.com/v1/search/blog.xml?query=java"; // xml 결과
             URL url = new URL(apiURL);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -64,7 +69,7 @@ public class APISearchNaverBook {
                 newBook = createBookInfo(json);
                 bookInfoList.add(newBook);
             }
-
+            System.out.println("###################### arraySize" + bookInfoList.size());
 
         } catch (Exception e) {
             System.out.println(e);
@@ -99,5 +104,11 @@ public class APISearchNaverBook {
             sb.append((char) cp);
         }
         return sb.toString();
+    }
+
+    public static void moreList()
+    {
+        start += display;
+        search();
     }
 }

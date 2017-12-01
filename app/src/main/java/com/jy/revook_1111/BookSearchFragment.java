@@ -14,6 +14,8 @@ import com.bumptech.glide.Glide;
 import com.jy.revook_1111.Card_BookSearch;
 import com.jy.revook_1111.R;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 /**
@@ -31,6 +33,8 @@ public class BookSearchFragment extends Fragment{
 
         listView = (ListView) view.findViewById(R.id.book_search_list);
         ArrayList<Card_BookSearch> list = new ArrayList<>();
+        View footer = getLayoutInflater().inflate(R.layout.listview_footer, null, false);
+        listView.addFooterView(footer);
         makeBookSearchList(list);
         CustomListAdapter adapter = new CustomListAdapter(getActivity(), R.layout.card_layout_book_search, list);
         listView.setAdapter(adapter);
