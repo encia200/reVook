@@ -16,9 +16,9 @@ import java.util.List;
 
 public class APISearchNaverBook {
 
-    public static List<BookInfo> bookInfoList = null;
+    public static List<BookInfo> bookInfoList = new ArrayList<>();
     public static int start = 1;
-    public static int display = 2;
+    public static int display = 4;
     public static String searchWord = null;
     public static String searchMode = null;
 
@@ -48,6 +48,7 @@ public class APISearchNaverBook {
                 System.out.println(bookInfoList.get(i).title);
                 System.out.println(bookInfoList.get(i).imageURL);
             }
+            con.disconnect();
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -55,7 +56,6 @@ public class APISearchNaverBook {
 
     private static void parseBufferedReaderToJson(BufferedReader br) {
         BookInfo newBook;
-        bookInfoList = new ArrayList<>();
         String jsonText;
 
         try {
@@ -108,6 +108,7 @@ public class APISearchNaverBook {
 
     public static void moreList()
     {
+        //ff
         start += display;
         search();
     }

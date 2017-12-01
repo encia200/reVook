@@ -17,8 +17,7 @@ public class TabAdapter extends FragmentStatePagerAdapter {
         // Returning the current tabs
         switch (position) {
             case 0:
-                if(is_searched){
-                    is_searched = false;
+                if(temp_bookCard.isSearching){
                     BookSearchFragment bookSearchFragment = new BookSearchFragment();
                     return bookSearchFragment;
                 }else{

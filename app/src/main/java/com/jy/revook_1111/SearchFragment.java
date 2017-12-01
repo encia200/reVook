@@ -21,7 +21,6 @@ public class SearchFragment extends Fragment {
     private final String SEARCH_WITH_ISBN = "d_isbn";
     private final String SEARCH_WITH_PUBLISHER = "d_publ";
 
-    private ViewPager viewPager;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_search, container, false);
@@ -35,19 +34,19 @@ public class SearchFragment extends Fragment {
 
         final EditText edittext_search = (EditText) v.findViewById(R.id.edittext_search);
         Button btn_search = (Button) v.findViewById(R.id.btn_search);
+
+        /*검색버튼 */
         btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 new Thread(){
                     public void run(){
-                        if(APISearchNaverBook.bookInfoList != null)
-                        {
                             APISearchNaverBook.bookInfoList.clear();
-                        }
-
+                        temp_bookCard.isSearching = true;
                         APISearchNaverBook.searchWord = edittext_search.getText().toString();
                         APISearchNaverBook.searchMode = SEARCH_WITH_TITLE;
+                        APISearchNaverBook.start=1;
                         APISearchNaverBook.search();
 
                         startActivity(new Intent(getActivity(), temp_bookCard.class));
@@ -69,8 +68,4 @@ public class SearchFragment extends Fragment {
         return v;
     }
 
-    public void bookSearch()
-    {
-
-    }
 }
