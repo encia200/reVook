@@ -16,10 +16,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" />
+        <activity android:name=".Activity.MainActivity" />
         <activity
-            android:name=".SplashActivity"
-            android:theme="@style/SplashTheme">
+            android:name=".Activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,7 +26,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".Activity.LoginActivity"
             android:label="@string/title_activity_login" />
 
         <meta-data
@@ -50,8 +49,9 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".EditorActivity" />
-        <activity android:name=".BookInfoActivity" />
+        <activity android:name=".Activity.EditorActivity" />
+        <activity android:name=".Activity.BookInfoActivity" />
+        <activity android:name=".Activity.SignupActivity" />
         <activity android:name=".temp_bookCard"></activity>
     </application>
 

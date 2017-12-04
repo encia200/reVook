@@ -1,4 +1,4 @@
-package com.jy.revook_1111;
+package com.jy.revook_1111.Fragment;
 
 
 import android.content.Intent;
@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
+import com.jy.revook_1111.Activity.LoginActivity;
+import com.jy.revook_1111.R;
 
 /**
  * A simple {@link Fragment} subclass.

@@ -1,4 +1,4 @@
-package com.jy.revook_1111;
+package com.jy.revook_1111.Fragment;
 
 
 import android.os.Bundle;
@@ -6,6 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.jy.revook_1111.R;
 
 
 /**

@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.jy.revook_1111.SearchFragment">
+    tools:context="com.jy.revook_1111.Fragment.SearchFragment">
 
     <LinearLayout
         android:id="@+id/layout_search"

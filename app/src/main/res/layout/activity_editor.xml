@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="8dp"
-    tools:context="com.jy.revook_1111.EditorActivity">
+    tools:context="com.jy.revook_1111.Activity.EditorActivity">
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/design_layout_editor_title"

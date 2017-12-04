@@ -1,5 +1,7 @@
 package com.jy.revook_1111;
 
+import com.jy.revook_1111.Data.BookInfo;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

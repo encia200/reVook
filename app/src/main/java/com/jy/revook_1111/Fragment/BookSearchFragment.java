@@ -1,7 +1,6 @@
-package com.jy.revook_1111;
+package com.jy.revook_1111.Fragment;
 
 import android.content.Context;
-import android.graphics.Typeface;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,13 +9,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.jy.revook_1111.APISearchNaverBook;
+import com.jy.revook_1111.Adapter.CustomListAdapter;
 import com.jy.revook_1111.Card_BookSearch;
 import com.jy.revook_1111.R;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -24,7 +21,7 @@ import java.util.ArrayList;
  * Created by remna on 2017-12-01.
  */
 
-public class BookSearchFragment extends Fragment{
+public class BookSearchFragment extends Fragment {
     private static Context context;
     private static ListView listView;
     private Button button_moreList;
@@ -93,11 +90,10 @@ public class BookSearchFragment extends Fragment{
         listView.setAdapter(adapter);
     }
 
-    public static void makeBookMoreList()
-    {
+    public static void makeBookMoreList() {
         String bookTitle;
         int j;
-        for(int i = list.size(); i<APISearchNaverBook.bookInfoList.size(); i++){
+        for (int i = list.size(); i < APISearchNaverBook.bookInfoList.size(); i++) {
             j = 0;
             bookTitle = APISearchNaverBook.bookInfoList.get(i).title;
             while (j < bookTitle.length()) {

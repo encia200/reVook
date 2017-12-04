@@ -1,27 +1,19 @@
-package com.jy.revook_1111;
-
-import android.graphics.Bitmap;
-import android.graphics.Typeface;
-import android.widget.ArrayAdapter;
-
-/**
- * Created by User on 4/17/2017.
- */
-
+package com.jy.revook_1111.Adapter;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.jy.revook_1111.Card_BookSearch;
+import com.jy.revook_1111.R;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -32,7 +24,10 @@ import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.util.ArrayList;
-import java.util.List;
+
+/**
+ * Created by User on 4/17/2017.
+ */
 
 /**
  * Created by User on 4/4/2017.

@@ -1,10 +1,12 @@
-package com.jy.revook_1111;
+package com.jy.revook_1111.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
+import com.jy.revook_1111.R;
 
 public class BookInfoActivity extends AppCompatActivity {
 

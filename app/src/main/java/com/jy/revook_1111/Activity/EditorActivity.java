@@ -1,4 +1,4 @@
-package com.jy.revook_1111;
+package com.jy.revook_1111.Activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -27,6 +27,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.jy.revook_1111.R;
+import com.jy.revook_1111.Data.ReviewDTO;
 
 import java.io.File;
 

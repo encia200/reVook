@@ -1,4 +1,4 @@
-package com.jy.revook_1111;
+package com.jy.revook_1111.Activity;
 
 
 import android.content.Intent;
@@ -32,6 +32,7 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.jy.revook_1111.R;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener {
     private static final int RC_SIGN_IN = 10;
@@ -59,7 +60,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
                 .build();
 
-        SignInButton btn_google_login = (SignInButton) findViewById(R.id.btn_google_login);
+        SignInButton btn_google_login = (SignInButton) findViewById(R.id.loginactivity_btn_google_login);
 
         btn_google_login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,10 +70,10 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             }
         });
 
-        editTextEmail = (EditText) findViewById(R.id.edittext_email);
-        editTextPassword = (EditText) findViewById(R.id.edittext_password);
+        editTextEmail = (EditText) findViewById(R.id.loginactivity_edittext_email);
+        editTextPassword = (EditText) findViewById(R.id.loginactivity_edittext_password);
 
-        final Button btn_email_login = (Button) findViewById((R.id.btn_email_login));
+        final Button btn_email_login = (Button) findViewById((R.id.loginactivity_btn_email_login));
         btn_email_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,7 +83,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
         // Initialize Facebook Login button
         mCallbackManager = CallbackManager.Factory.create();
-        LoginButton btn_facebook_login = (LoginButton) findViewById(R.id.btn_facebook_login);
+        LoginButton btn_facebook_login = (LoginButton) findViewById(R.id.loginactivity_btn_facebook_login);
         btn_facebook_login.setReadPermissions("email", "public_profile");
         btn_facebook_login.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override

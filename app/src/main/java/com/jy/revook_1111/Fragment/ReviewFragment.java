@@ -1,4 +1,4 @@
-package com.jy.revook_1111;
+package com.jy.revook_1111.Fragment;
 
 
 import android.annotation.TargetApi;
@@ -22,6 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
+import com.jy.revook_1111.R;
+import com.jy.revook_1111.Data.ReviewDTO;
 
 import java.util.ArrayList;
 import java.util.List;

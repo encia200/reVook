@@ -1,4 +1,4 @@
-package com.jy.revook_1111;
+package com.jy.revook_1111.Data;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,4 +13,6 @@ public class ReviewDTO {
 
     public int starCount = 0;
     public Map<String, Boolean> stars = new HashMap<>();
+
+
 }

@@ -1,18 +1,18 @@
-package com.jy.revook_1111;
+package com.jy.revook_1111.Data;
 
 /**
  * Created by remna on 2017-11-27.
  */
 
 public class BookInfo {
-    String title = "";
-    String link = "";
-    String publisher = "";
-    String price = "";
-    String imageURL = "";
-    String author = "";
-    String description = "";
-    String isbn ="";
+    public String title = "";
+    public String link = "";
+    public String publisher = "";
+    public String price = "";
+    public String imageURL = "";
+    public String author = "";
+    public String description = "";
+    public String isbn ="";
 
     @Override
     public String toString() {
@@ -42,11 +42,11 @@ public class BookInfo {
         editBookTitle();
     }
 
-    private void editBookTitle(){
+    public void editBookTitle(){
         this.title = this.title.replace("<b>", "");
         this.title = this.title.replace("</b>", "");
     }
-    private void editBookImageURL(){
+    public void editBookImageURL(){
         this.imageURL = this.imageURL.replace("type=m1", "");
         System.out.println("***************************" + this.imageURL);
     }

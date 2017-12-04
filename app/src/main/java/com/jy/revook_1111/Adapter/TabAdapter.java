@@ -1,8 +1,16 @@
-package com.jy.revook_1111;
+package com.jy.revook_1111.Adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+
+import com.jy.revook_1111.Fragment.BookSearchFragment;
+import com.jy.revook_1111.Fragment.HomeFragment;
+import com.jy.revook_1111.Fragment.NotifyFragment;
+import com.jy.revook_1111.Fragment.ReviewFragment;
+import com.jy.revook_1111.Fragment.SearchFragment;
+import com.jy.revook_1111.Fragment.UserInfoFragment;
+import com.jy.revook_1111.temp_bookCard;
 
 public class TabAdapter extends FragmentStatePagerAdapter {
     private int tabCount;

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="8dp"
-    tools:context="com.jy.revook_1111.BookInfoActivity">
+    tools:context="com.jy.revook_1111.Activity.BookInfoActivity">
 
     <ImageView
         android:id="@+id/bookinfo_book_img"
