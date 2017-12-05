@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "529073296496-55qq9ftkm4n2lbjaoiu785gpv3d8c1ti.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.jy.revook_1111",
+            "certificate_hash": "445068d3f41647efee0dfc5b747031ee13600d33"
+          }
+        },
+        {
           "client_id": "529073296496-eq0esglu9lrrsg5ruro1smdu7fcfi30i.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

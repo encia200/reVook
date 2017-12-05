@@ -46,6 +46,8 @@ public class CustomListAdapter  extends ArrayAdapter<Card_BookSearch> {
      */
     private static class ViewHolder {
         TextView title;
+        TextView author;
+        TextView price;
         ImageView image;
         ProgressBar dialog;
     }
@@ -72,7 +74,8 @@ public class CustomListAdapter  extends ArrayAdapter<Card_BookSearch> {
         //get the persons information
         String title = getItem(position).getBookTitle();
         String imgUrl = getItem(position).getImgURL();
-
+        String author = getItem(position).getBookAuthor();
+        String price = getItem(position).getBookPrice();
 
         try{
 
@@ -90,7 +93,8 @@ public class CustomListAdapter  extends ArrayAdapter<Card_BookSearch> {
                 holder.title = (TextView) convertView.findViewById(R.id.card_book_search_title);
                 holder.image = (ImageView) convertView.findViewById(R.id.card_book_search_bookImage);
                 holder.dialog = (ProgressBar) convertView.findViewById(R.id.card_book_search_progressBar);
-
+                holder.author = (TextView) convertView.findViewById(R.id.card_book_search_author);
+                holder.price = (TextView) convertView.findViewById(R.id.card_book_search_price);
                 result = convertView;
 
                 convertView.setTag(holder);
@@ -107,6 +111,8 @@ public class CustomListAdapter  extends ArrayAdapter<Card_BookSearch> {
             lastPosition = position;
 
             holder.title.setText(title);
+            holder.author.setText(author);
+            holder.price.setText(price);
 
             //create the imageloader object
             ImageLoader imageLoader = ImageLoader.getInstance();

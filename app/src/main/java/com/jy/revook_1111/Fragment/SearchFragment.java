@@ -4,6 +4,8 @@ package com.jy.revook_1111.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +17,6 @@ import com.bumptech.glide.Glide;
 import com.jy.revook_1111.APISearchNaverBook;
 import com.jy.revook_1111.Activity.BookInfoActivity;
 import com.jy.revook_1111.R;
-import com.jy.revook_1111.temp_bookCard;
 
 public class SearchFragment extends Fragment {
 
@@ -46,16 +47,27 @@ public class SearchFragment extends Fragment {
                 new Thread(){
                     public void run(){
                             APISearchNaverBook.bookInfoList.clear();
-                        temp_bookCard.isSearching = true;
                         APISearchNaverBook.searchWord = edittext_search.getText().toString();
                         APISearchNaverBook.searchMode = SEARCH_WITH_TITLE;
                         APISearchNaverBook.start=1;
                         APISearchNaverBook.search();
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Fragment fragment = new BookSearchFragment();
+                                FragmentManager fragmentManager = getFragmentManager();
+                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                fragmentTransaction.replace(R.id.searchFragment,fragment);
+                                fragmentTransaction.addToBackStack("YES");
+                                fragmentTransaction.commit();
+                            }
+                        });
 
-                        startActivity(new Intent(getActivity(), temp_bookCard.class));
+                        //startActivity(new Intent(getActivity(), temp_bookCard.class));
 
                     }
                 }.start();
+
             }
         });
 

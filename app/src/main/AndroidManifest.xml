@@ -52,7 +52,6 @@
         <activity android:name=".Activity.EditorActivity" />
         <activity android:name=".Activity.BookInfoActivity" />
         <activity android:name=".Activity.SignupActivity" />
-        <activity android:name=".temp_bookCard"></activity>
     </application>
 
 </manifest>

@@ -64,18 +64,18 @@ public class BookSearchFragment extends Fragment {
                 }
             });
         }
-
-
         return view;
     }
 
     public static void makeBookSearchList() {
         list = new ArrayList<>();
-        String bookTitle;
+        String bookTitle, bookAuthor, bookPrice;
         int j;
         for (int i = 0; i < APISearchNaverBook.bookInfoList.size(); i++) {
             j = 0;
             bookTitle = APISearchNaverBook.bookInfoList.get(i).title;
+            bookAuthor = APISearchNaverBook.bookInfoList.get(i).author;
+            bookPrice = "₩" + APISearchNaverBook.bookInfoList.get(i).price;
             while (j < bookTitle.length()) {
                 if (bookTitle.charAt(j) == '(')
                     break;
@@ -84,18 +84,20 @@ public class BookSearchFragment extends Fragment {
             if (j != 0)
                 bookTitle = bookTitle.substring(0, j);
 
-            list.add(new Card_BookSearch(bookTitle, APISearchNaverBook.bookInfoList.get(i).imageURL));
+            list.add(new Card_BookSearch(bookTitle, bookAuthor, bookPrice, APISearchNaverBook.bookInfoList.get(i).imageURL));
         }
         adapter = new CustomListAdapter(context, R.layout.card_layout_book_search, list);
         listView.setAdapter(adapter);
     }
 
     public static void makeBookMoreList() {
-        String bookTitle;
+        String bookTitle, bookAuthor, bookPrice;
         int j;
         for (int i = list.size(); i < APISearchNaverBook.bookInfoList.size(); i++) {
             j = 0;
             bookTitle = APISearchNaverBook.bookInfoList.get(i).title;
+            bookAuthor = APISearchNaverBook.bookInfoList.get(i).author;
+            bookPrice = "₩" + APISearchNaverBook.bookInfoList.get(i).price;
             while (j < bookTitle.length()) {
                 if (bookTitle.charAt(j) == '(')
                     break;
@@ -104,7 +106,7 @@ public class BookSearchFragment extends Fragment {
             if (j != 0)
                 bookTitle = bookTitle.substring(0, j);
 
-            list.add(new Card_BookSearch(bookTitle, APISearchNaverBook.bookInfoList.get(i).imageURL));
+            list.add(new Card_BookSearch(bookTitle, bookAuthor, bookPrice, APISearchNaverBook.bookInfoList.get(i).imageURL));
         }
     }
 }

@@ -12,7 +12,7 @@ import com.jy.revook_1111.Adapter.TabAdapter;
 public class MainActivity extends AppCompatActivity {
     private static final int TAB_COUNT = 5;
     private TabLayout tabLayout;
-    private ViewPager viewPager;
+    public static ViewPager viewPager;
     private TabLayout.Tab tab;
 
     private int[] tabIcons = {

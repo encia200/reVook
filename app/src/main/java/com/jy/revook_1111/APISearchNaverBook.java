@@ -110,7 +110,6 @@ public class APISearchNaverBook {
 
     public static void moreList()
     {
-        //ff
         start += display;
         search();
     }
