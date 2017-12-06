@@ -1,9 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:gravity="center_vertical"
+    android:orientation="vertical"
+    android:padding="24dp"
     tools:context="com.jy.revook_1111.Activity.SignupActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <ImageView
+        android:id="@+id/signupactivity_image_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/img_splash_revook" />
+
+    <com.mikhaellopez.circularimageview.CircularImageView
+        android:id="@+id/signupactivity_imageview_profile"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_below="@+id/signupactivity_image_logo"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/ic_add_to_photos_black_24dp" />
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/signupactivity_textInputLayout_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/signupactivity_imageview_profile"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/background_edittexts_login">
+
+        <EditText
+            android:id="@+id/signupactivity_edittext_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:hint="이메일"
+            android:inputType="textEmailAddress"
+            android:textSize="16dp" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/signupactivity_textInputLayout_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/signupactivity_textInputLayout_email"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/background_edittexts_login">
+
+        <EditText
+            android:id="@+id/signupactivity_edittext_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:hint="패스워드"
+            android:inputType="textPassword"
+            android:textSize="16dp" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/signupactivity_textInputLayout_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/signupactivity_textInputLayout_password"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/background_edittexts_login">
+
+        <EditText
+            android:id="@+id/signupactivity_edittext_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="15dp"
+            android:hint="이름"
+            android:textSize="16dp" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/signupactivity_button_signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/signupactivity_textInputLayout_name"
+        android:layout_centerHorizontal="true"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/background_loginactivity_btn"
+        android:paddingHorizontal="30dp"
+        android:text="회원 가입"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20sp" />
+</RelativeLayout>

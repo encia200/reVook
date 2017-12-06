@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,6 +25,7 @@ public class SplashActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         linearLayout = (LinearLayout) findViewById(R.id.splashactivity_linearlayout);
         mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
@@ -67,12 +69,11 @@ public class SplashActivity extends Activity {
             });
 
             builder.create().show();
-        }
-        else{
+        } else {
             Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
-        //intent.putExtra("state", "launch");
-        startActivity(intent);
-        finish();
+            //intent.putExtra("state", "launch");
+            startActivity(intent);
+            finish();
         }
     }
 }
