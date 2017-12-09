@@ -45,8 +45,8 @@ public class EditorActivity extends AppCompatActivity {
     private String imagePath;
     private EditText editor_title;
     private EditText editor_content;
-    Button btn_editor_img;
-    Button btn_editor_upload;
+    private Button btn_editor_img;
+    private Button btn_editor_upload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,11 +56,7 @@ public class EditorActivity extends AppCompatActivity {
         storage = FirebaseStorage.getInstance();
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
-        /* 권한 */
-        /*if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            requestPermissions(new String[]{android.Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
-        }
-*/
+
         editor_img = (ImageView) findViewById(R.id.editor_img);
         editor_title = (EditText) findViewById(R.id.editor_title);
         editor_content = (EditText) findViewById(R.id.editor_content);
@@ -144,7 +140,7 @@ public class EditorActivity extends AppCompatActivity {
             public void onFailure(@NonNull Exception exception) {
                 // Handle unsuccessful uploads
                 setResult(UPLOADFAIL_CODE);
-                Toast.makeText(getApplicationContext(),"업로드 실패",Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "업로드 실패", Toast.LENGTH_LONG).show();
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override

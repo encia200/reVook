@@ -1,6 +1,5 @@
 package com.jy.revook_1111.Activity;
 
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -23,11 +22,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.UploadTask;
+import com.jy.revook_1111.ApplicationController;
 import com.jy.revook_1111.R;
 import com.jy.revook_1111.model.UserModel;
 
 public class SignupActivity extends AppCompatActivity {
     private static final int PICK_FROM_ALBUM = 10;
+    private static final int SIGN_UP_SUCCESS = 30;
     private EditText email;
     private EditText name;
     private EditText password;
@@ -75,24 +76,49 @@ public class SignupActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     final String uid = task.getResult().getUser().getUid();
-                                    if (imageUri == null) {
-                                        imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + "com.jy.revook_1111.Activity" + '/' + R.drawable.ic_account_circle_black_24dp);
+                                    if (imageUri != null) {
+                                        FirebaseStorage.getInstance().getReference().child("userImages").child(uid).putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                                                String imageUrl = task.getResult().getDownloadUrl().toString();
+
+                                                UserModel userModel = new UserModel();
+                                                userModel.userName = name.getText().toString();
+                                                userModel.email = email.getText().toString();
+                                                userModel.profileImageUrl = imageUrl;
+                                                ApplicationController.currentUser = userModel;
+
+                                                FirebaseDatabase.getInstance().getReference().child("users").child(uid).setValue(userModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                    @Override
+                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                        Intent intent = new Intent();
+                                                        intent.putExtra("email", email.getText().toString());
+                                                        intent.putExtra("password", password.getText().toString());
+                                                        setResult(SIGN_UP_SUCCESS, intent);
+                                                        finish();
+                                                    }
+                                                });
+                                            }
+                                        });
                                     }
-                                    FirebaseStorage.getInstance().getReference().child("userImages").child(uid).putFile(imageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                                            String imageUrl = task.getResult().getDownloadUrl().toString();
+                                    else {
+                                        UserModel userModel = new UserModel();
+                                        userModel.userName = name.getText().toString();
+                                        userModel.email = email.getText().toString();
 
-                                            UserModel userModel = new UserModel();
-                                            userModel.userName = name.getText().toString();
-                                            userModel.profileImageUrl = imageUrl;
-
-                                            FirebaseDatabase.getInstance().getReference().child("users").child(uid).setValue(userModel);
-                                        }
-                                    });
+                                        FirebaseDatabase.getInstance().getReference().child("users").child(uid).setValue(userModel).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                Intent intent = new Intent();
+                                                intent.putExtra("email", email.getText().toString());
+                                                intent.putExtra("password", password.getText().toString());
+                                                setResult(SIGN_UP_SUCCESS, intent);
+                                                finish();
+                                            }
+                                        });
+                                    }
                                 }
                             });
-                    // 회원가입 완료후 이동
                 }
             }
         });

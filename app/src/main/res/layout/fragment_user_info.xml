@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="16dp"
     tools:context="com.jy.revook_1111.Fragment.UserInfoFragment">
 
     <LinearLayout
@@ -9,10 +10,12 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/user_img_profile"
+        <com.mikhaellopez.circularimageview.CircularImageView
+            android:id="@+id/userinfofragment_image_profile"
             android:layout_width="72dp"
-            android:layout_height="72dp" />
+            android:layout_height="72dp"
+            android:layout_marginRight="8dp"
+            android:src="@drawable/ic_account_circle_black_24dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -22,14 +25,14 @@
             android:paddingTop="8dp">
 
             <TextView
-                android:id="@+id/user_text_name"
+                android:id="@+id/userinfofragment_textview_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="리북이"
                 android:textSize="20sp" />
 
             <TextView
-                android:id="@+id/user_text_email"
+                android:id="@+id/userinfofragment_textview_useremail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="revook@revook.co.kr"
@@ -39,11 +42,14 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btn_userInfo_logout"
-        android:layout_width="match_parent"
+        android:id="@+id/userinfofragment_btn_logout"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/background_editor_btn"
         android:text="logout"
-        android:textSize="15sp" />
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
 
 </RelativeLayout>

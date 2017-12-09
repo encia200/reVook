@@ -1,16 +1,26 @@
 package com.jy.revook_1111.Activity;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 
-import com.jy.revook_1111.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.jy.revook_1111.Adapter.TabAdapter;
+import com.jy.revook_1111.ApplicationController;
+import com.jy.revook_1111.R;
+import com.jy.revook_1111.model.UserModel;
 
 public class MainActivity extends AppCompatActivity {
     private static final int TAB_COUNT = 5;
+    private FirebaseAuth firebaseAuth;
     private TabLayout tabLayout;
     public static ViewPager viewPager;
     private TabLayout.Tab tab;
@@ -34,6 +44,30 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        Intent intent = getIntent();
+        ApplicationController.currentUser = new UserModel();
+        ApplicationController.currentUser.uid = intent.getStringExtra("uid");
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(ApplicationController.currentUser.uid);
+        ValueEventListener databaseListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                ApplicationController.currentUser = dataSnapshot.getValue(UserModel.class);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+                //Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
+                // ...
+            }
+        };
+        databaseReference.addValueEventListener(databaseListener);
+        /*ApplicationController.currentUser.email = databaseReference.child("email").getKey();
+        ApplicationController.currentUser.password = databaseReference.child("password").getKey();
+        ApplicationController.currentUser.profileImageUrl = databaseReference.child("profileImageUrl").getKey();
+        ApplicationController.currentUser.userName = databaseReference.child("userName").getKey();*/
 
         // Initializing the TabLayout
         tabLayout = (TabLayout) findViewById(R.id.main_tab);
@@ -80,8 +114,5 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
-
     }
 }
