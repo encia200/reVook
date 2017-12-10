@@ -30,21 +30,21 @@ public class BookInfo {
 
     public BookInfo(String title, String link, String publisher, String price, String imageURL, String author,
                     String description, String isbn){
-        this.title = title;
         this.link = link;
         this.publisher = publisher;
         this.price = price;
         this.imageURL = imageURL;
         this.author = author;
-        this.description = description;
         this.isbn = isbn;
         editBookImageURL();
-        editBookTitle();
+        this.title = reomoveTagString(title);
+        this.description = reomoveTagString(description);
     }
 
-    public void editBookTitle(){
-        this.title = this.title.replace("<b>", "");
-        this.title = this.title.replace("</b>", "");
+    public String reomoveTagString(String ab){
+        ab = ab.replace("<b>", "");
+        ab = ab.replace("</b>", "");
+        return ab;
     }
     public void editBookImageURL(){
         this.imageURL = this.imageURL.replace("type=m1", "");

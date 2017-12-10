@@ -1,7 +1,9 @@
 package com.jy.revook_1111.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,8 +13,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.jy.revook_1111.Activity.BookInfoActivity;
+import com.jy.revook_1111.Activity.MainActivity;
 import com.jy.revook_1111.Card_BookSearch;
+import com.jy.revook_1111.Data.BookInfo;
 import com.jy.revook_1111.R;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -24,7 +30,6 @@ import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.util.ArrayList;
-
 /**
  * Created by User on 4/17/2017.
  */
@@ -33,10 +38,11 @@ import java.util.ArrayList;
  * Created by User on 4/4/2017.
  */
 
-public class CustomListAdapter  extends ArrayAdapter<Card_BookSearch> {
+public class CustomListAdapter extends ArrayAdapter<Card_BookSearch> {
 
     private static final String TAG = "CustomListAdapter";
-
+    private String index;
+    private String title;
     private Context mContext;
     private int mResource;
     private int lastPosition = -1;
@@ -54,6 +60,7 @@ public class CustomListAdapter  extends ArrayAdapter<Card_BookSearch> {
 
     /**
      * Default constructor for the PersonListAdapter
+     *
      * @param context
      * @param resource
      * @param objects
@@ -69,7 +76,7 @@ public class CustomListAdapter  extends ArrayAdapter<Card_BookSearch> {
 
     @NonNull
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         //get the persons information
         String title = getItem(position).getBookTitle();
@@ -77,7 +84,7 @@ public class CustomListAdapter  extends ArrayAdapter<Card_BookSearch> {
         String author = getItem(position).getBookAuthor();
         String price = getItem(position).getBookPrice();
 
-        try{
+        try {
 
 
             //create the view result for showing the animation
@@ -86,20 +93,18 @@ public class CustomListAdapter  extends ArrayAdapter<Card_BookSearch> {
             //ViewHolder object
             final ViewHolder holder;
 
-            if(convertView == null){
-                LayoutInflater inflater = LayoutInflater.from(mContext);
+            if (convertView == null) {
+                final LayoutInflater inflater = LayoutInflater.from(mContext);
                 convertView = inflater.inflate(mResource, parent, false);
-                holder= new ViewHolder();
+                holder = new ViewHolder();
                 holder.title = (TextView) convertView.findViewById(R.id.card_book_search_title);
                 holder.image = (ImageView) convertView.findViewById(R.id.card_book_search_bookImage);
                 holder.dialog = (ProgressBar) convertView.findViewById(R.id.card_book_search_progressBar);
                 holder.author = (TextView) convertView.findViewById(R.id.card_book_search_author);
                 holder.price = (TextView) convertView.findViewById(R.id.card_book_search_price);
                 result = convertView;
-
                 convertView.setTag(holder);
-            }
-            else{
+            } else {
                 holder = (ViewHolder) convertView.getTag();
                 result = convertView;
             }
@@ -113,43 +118,52 @@ public class CustomListAdapter  extends ArrayAdapter<Card_BookSearch> {
             holder.title.setText(title);
             holder.author.setText(author);
             holder.price.setText(price);
-
+            if(imgUrl.length() == 0) {
+                holder.image.setImageResource(R.drawable.nobookimg);
+                holder.dialog.setVisibility(View.INVISIBLE);
+            }
             //create the imageloader object
-            ImageLoader imageLoader = ImageLoader.getInstance();
 
-            int defaultImage = mContext.getResources().getIdentifier("@drawable/image_failed",null,mContext.getPackageName());
+            else {
+                ImageLoader imageLoader = ImageLoader.getInstance();
 
-            //create display options
-            DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true)
-                    .cacheOnDisc(true).resetViewBeforeLoading(true)
-                    .showImageForEmptyUri(defaultImage)
-                    .showImageOnFail(defaultImage)
-                    .showImageOnLoading(defaultImage).build();
+                int defaultImage = mContext.getResources().getIdentifier("@drawable/nobookimg", null, mContext.getPackageName());
 
-            //download and display image from url
-            imageLoader.displayImage(imgUrl, holder.image, options,new ImageLoadingListener() {
-                @Override
-                public void onLoadingStarted(String imageUri, View view) {
-                    holder.dialog.setVisibility(View.VISIBLE);
-                }
-                @Override
-                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                    holder.dialog.setVisibility(View.GONE);
-                }
-                @Override
-                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                    holder.dialog.setVisibility(View.GONE);
-                }
-                @Override
-                public void onLoadingCancelled(String imageUri, View view) {
+                //create display options
+                DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true)
+                        .cacheOnDisc(true).resetViewBeforeLoading(true)
+                        .showImageForEmptyUri(defaultImage)
+                        .showImageOnFail(defaultImage)
+                        .showImageOnLoading(defaultImage).build();
 
-                }}
+                //download and display image from url
+                imageLoader.displayImage(imgUrl, holder.image, options, new ImageLoadingListener() {
+                            @Override
+                            public void onLoadingStarted(String imageUri, View view) {
+                                holder.dialog.setVisibility(View.VISIBLE);
+                            }
 
-            );
+                            @Override
+                            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                                holder.dialog.setVisibility(View.GONE);
+                            }
 
+                            @Override
+                            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                                holder.dialog.setVisibility(View.GONE);
+                            }
+
+                            @Override
+                            public void onLoadingCancelled(String imageUri, View view) {
+
+                            }
+                        }
+
+                );
+            }
             return convertView;
-        }catch (IllegalArgumentException e){
-            Log.e(TAG, "getView: IllegalArgumentException: " + e.getMessage() );
+        } catch (IllegalArgumentException e) {
+            Log.e(TAG, "getView: IllegalArgumentException: " + e.getMessage());
             return convertView;
         }
 
@@ -158,7 +172,7 @@ public class CustomListAdapter  extends ArrayAdapter<Card_BookSearch> {
     /**
      * Required for setting up the Universal Image loader Library
      */
-    private void setupImageLoader(){
+    private void setupImageLoader() {
         // UNIVERSAL IMAGE LOADER SETUP
         DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder()
                 .cacheOnDisc(true).cacheInMemory(true)

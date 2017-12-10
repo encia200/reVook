@@ -1,6 +1,10 @@
 package com.jy.revook_1111;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import com.jy.revook_1111.Data.BookInfo;
+import com.jy.revook_1111.Fragment.BookSearchFragment;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,6 +27,7 @@ public class APISearchNaverBook {
     public static int display = 4;
     public static String searchWord = null;
     public static String searchMode = null;
+    public static int tot_items = 0;
 
 
     public static void search() {
@@ -30,7 +35,7 @@ public class APISearchNaverBook {
         String clientSecret = "hvjcnMyWQi";//애플리케이션 클라이언트 시크릿값";
         try {
             String text = URLEncoder.encode(searchWord, "UTF-8");
-            String apiURL = "https://openapi.naver.com/v1/search/book_adv.json?" + searchMode + "=" + text+"&start=" + Integer.toString(start) + "&display=" + Integer.toString(display); // json 결과
+            String apiURL = "https://openapi.naver.com/v1/search/book_adv.json?" + searchMode + "=" + text + "&start=" + Integer.toString(start) + "&display=" + Integer.toString(display); // json 결과
             // String apiURL = "https://openapi.naver.com/v1/search/blog.xml?query=java"; // xml 결과
             URL url = new URL(apiURL);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
@@ -48,7 +53,6 @@ public class APISearchNaverBook {
             parseBufferedReaderToJson(br);
             for (int i = 0; i < bookInfoList.size(); i++) {
                 System.out.println(bookInfoList.get(i).title);
-                System.out.println(bookInfoList.get(i).imageURL);
             }
             con.disconnect();
         } catch (Exception e) {
@@ -62,8 +66,10 @@ public class APISearchNaverBook {
 
         try {
             jsonText = readAll(br);
-//            Log.d("JSON",jsonText);
+            Log.d("JSON", jsonText);
             JSONObject json = new JSONObject(jsonText);
+            tot_items = json.getInt("total");
+            Log.d("JSON", "tot_items : " + String.valueOf(tot_items));
             JSONArray jsonArray = new JSONArray(json.getString("items"));
 
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -85,13 +91,14 @@ public class APISearchNaverBook {
             title = json.getString("title");
             link = json.getString("link");
             publisher = json.getString("publisher");
-            price = json.getString("price");
+            int tmp_price = Integer.parseInt(json.getString("price"));
+            price = String.format("%,d", tmp_price);
+            price = price + "원";
             imageURL = json.getString("image");
             author = json.getString("author");
             description = json.getString("description");
             isbn = json.getString("isbn");
             tempBook = new BookInfo(title, link, publisher, price, imageURL, author, description, isbn);
-            //System.out.println(tempBook);
             return tempBook;
         } catch (JSONException e) {
             e.printStackTrace();
@@ -108,9 +115,15 @@ public class APISearchNaverBook {
         return sb.toString();
     }
 
-    public static void moreList()
-    {
-        start += display;
+    public static void moreList() {
+        if ((start - 1 + 4) < tot_items) {
+            start += display;
+        } else if (start == tot_items) {
+            return;
+        } else if ((start + 4) > tot_items) {
+            start = start + (tot_items - start);
+        }
+
         search();
     }
 }

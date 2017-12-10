@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.jy.revook_1111.Fragment.BookSearchFragment;
 import com.jy.revook_1111.Fragment.HomeFragment;
 import com.jy.revook_1111.Fragment.NotifyFragment;
 import com.jy.revook_1111.Fragment.ReviewFragment;
@@ -21,6 +22,7 @@ public class TabAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
         // Returning the current tabs
+        BookSearchFragment.isSearching = false;
         switch (position) {
             case 0:
                 SearchFragment searchFragment = new SearchFragment();

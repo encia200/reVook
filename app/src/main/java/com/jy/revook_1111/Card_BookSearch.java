@@ -9,13 +9,18 @@ public class Card_BookSearch {
     private String bookTitle;
     private String bookAuthor;
     private String bookPrice;
+    private String index;
 
-    public Card_BookSearch(String bookTitle, String bookAuthor, String bookPrice, String imgURL){
+    public Card_BookSearch(String index, String bookTitle, String bookAuthor, String bookPrice, String imgURL){
+        this.index = index;
         this.imgURL = imgURL;
         this.bookAuthor = bookAuthor;
         this.bookTitle = bookTitle;
         this.bookPrice = bookPrice;
     }
+
+    public String getIndex(){return this.index;}
+    public void setIndex(String index) { this.index = index;}
 
     public String getBookPrice(){return this.bookPrice;}
     public void setBookPrice(String bookPrice){this.bookPrice = bookPrice;}

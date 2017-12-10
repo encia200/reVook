@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.jy.revook_1111.APISearchNaverBook;
@@ -44,38 +45,43 @@ public class SearchFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                new Thread(){
-                    public void run(){
+                /*검색어가 같으면 */
+                if (BookSearchFragment.isSearching && edittext_search.getText().toString().equals(APISearchNaverBook.searchWord)) {
+                    Toast.makeText(getContext(), "이미 검색중인 도서입니다.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                    BookSearchFragment.isSearching = true;
+                /*처음 검색 시*/
+                    new Thread() {
+                        public void run() {
                             APISearchNaverBook.bookInfoList.clear();
-                        APISearchNaverBook.searchWord = edittext_search.getText().toString();
-                        APISearchNaverBook.searchMode = SEARCH_WITH_TITLE;
-                        APISearchNaverBook.start=1;
-                        APISearchNaverBook.search();
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Fragment fragment = new BookSearchFragment();
-                                FragmentManager fragmentManager = getFragmentManager();
-                                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                                fragmentTransaction.replace(R.id.searchFragment,fragment);
-                                fragmentTransaction.addToBackStack("YES");
-                                fragmentTransaction.commit();
-                            }
-                        });
+                            APISearchNaverBook.searchWord = edittext_search.getText().toString();
+                            APISearchNaverBook.searchMode = SEARCH_WITH_TITLE;
+                            APISearchNaverBook.start = 1;
+                            APISearchNaverBook.search();
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    Fragment fragment = new BookSearchFragment();
+                                    FragmentManager fragmentManager = getFragmentManager();
+                                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                    fragmentTransaction.replace(R.id.searchFragment, fragment);
+                                    fragmentTransaction.addToBackStack("YES");
+                                    fragmentTransaction.commit();
+                                }
+                            });
+                        }
+                    }.start();
 
-                        //startActivity(new Intent(getActivity(), temp_bookCard.class));
-
-                    }
-                }.start();
-
-            }
+                }
         });
 
         Button temp_move_to_bookinfo = (Button) v.findViewById(R.id.temp_move_to_bookinfo);
         temp_move_to_bookinfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getActivity().getApplicationContext(),BookInfoActivity.class);
+                Intent intent = new Intent(getActivity().getApplicationContext(), BookInfoActivity.class);
                 startActivity(intent);
             }
         });
