@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="360dp"
+    android:layout_height="600dp"
+    android:background="@drawable/dialog_background">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:id="@+id/custom_dialog_bookimg"
+                android:layout_width="167dp"
+                android:layout_height="223dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/custom_dialog_title"
+                app:layout_constraintVertical_bias="0.027" />
+
+            <TextView
+                android:id="@+id/custom_dialog_title"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/kopub_font"
+                android:gravity="center"
+                android:text="TITLE"
+                android:textColor="@android:color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.501"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/custom_dialog_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/custom_dialog_title"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="24dp"
+                android:layout_toRightOf="@+id/custom_dialog_bookimg"
+                android:text="저자"
+                android:textColor="@android:color/black"
+                android:textSize="21dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/custom_dialog_bookimg" />
+
+            <TextView
+                android:id="@+id/custom_dialog_author_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/custom_dialog_title"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_toRightOf="@+id/custom_dialog_bookimg"
+                android:text="홍길동"
+                android:textColor="@android:color/black"
+                android:textSize="21dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/custom_dialog_author"
+                app:layout_constraintTop_toBottomOf="@+id/custom_dialog_bookimg" />
+
+            <TextView
+                android:id="@+id/custom_dialog_publisher"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/custom_dialog_author"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+                android:layout_toRightOf="@+id/custom_dialog_bookimg"
+                android:text="출판사"
+                android:textColor="@android:color/black"
+                android:textSize="21dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/custom_dialog_author" />
+
+            <TextView
+                android:id="@+id/custom_dialog_publisher_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/custom_dialog_author"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="12dp"
+                android:layout_toRightOf="@+id/custom_dialog_bookimg"
+                android:text="숭실출판"
+                android:textColor="@android:color/black"
+                android:textSize="21dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/custom_dialog_publisher"
+                app:layout_constraintTop_toBottomOf="@+id/custom_dialog_author_input" />
+
+            <TextView
+                android:id="@+id/custom_dialog_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/custom_dialog_publisher"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="12dp"
+                android:layout_toRightOf="@+id/custom_dialog_bookimg"
+                android:text="가격"
+                android:textColor="@android:color/black"
+                android:textSize="21dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/custom_dialog_publisher" />
+
+            <TextView
+                android:id="@+id/custom_dialog_price_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/custom_dialog_publisher"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="12dp"
+                android:layout_toRightOf="@+id/custom_dialog_bookimg"
+                android:text="20000원"
+                android:textColor="@android:color/black"
+                android:textSize="21dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/custom_dialog_price"
+                app:layout_constraintTop_toBottomOf="@+id/custom_dialog_publisher_input" />
+
+            <TextView
+                android:id="@+id/custom_dialog_isbn"
+                android:layout_width="66dp"
+                android:layout_height="28dp"
+                android:gravity="end"
+                android:layout_below="@+id/custom_dialog_publisher"
+                android:layout_marginTop="12dp"
+                android:layout_toRightOf="@+id/custom_dialog_bookimg"
+                android:text="ISBN"
+                android:textColor="@android:color/black"
+                android:textSize="21dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/custom_dialog_price" />
+
+            <TextView
+                android:id="@+id/custom_dialog_price_isbn_input"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/custom_dialog_publisher"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="8dp"
+                android:layout_toRightOf="@+id/custom_dialog_bookimg"
+                android:text="12345"
+                android:textColor="@android:color/black"
+                android:textSize="21dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/custom_dialog_isbn"
+                app:layout_constraintTop_toBottomOf="@+id/custom_dialog_price_input" />
+
+            <TextView
+                android:id="@+id/custom_dialog_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/custom_dialog_publisher"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="8dp"
+                android:layout_toRightOf="@+id/custom_dialog_bookimg"
+                android:text="설명"
+                android:textColor="@android:color/black"
+                android:textSize="21dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/custom_dialog_isbn" />
+
+            <TextView
+                android:id="@+id/custom_dialog_price_description_input"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/custom_dialog_publisher"
+                android:layout_marginStart="28dp"
+                android:layout_marginTop="8dp"
+                android:layout_toRightOf="@+id/custom_dialog_bookimg"
+                android:text="어쩌구 저쩌구"
+                android:textColor="@android:color/black"
+                android:textSize="21dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/custom_dialog_description"
+                app:layout_constraintTop_toBottomOf="@+id/custom_dialog_price_isbn_input" />
+
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/btn_upload_review"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:clickable="true"
+                app:backgroundTint="@color/colorPrimaryDark"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.927"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/custom_dialog_price_description_input"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/review" />
+
+            <ProgressBar
+                android:id="@+id/custom_dialog_progress"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </android.support.constraint.ConstraintLayout>
+    </ScrollView>
+
+</LinearLayout>
