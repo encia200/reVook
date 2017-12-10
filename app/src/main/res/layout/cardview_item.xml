@@ -14,22 +14,53 @@
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:padding="5dp">
 
-            <TextView
-                android:id="@+id/cardview_userId"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="5dp"
-                android:fontFamily="@font/family_font"
-                android:text="이메일" />
+            <RelativeLayout
+                android:id="@+id/cardview_userinfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.mikhaellopez.circularimageview.CircularImageView
+                    android:id="@+id/cardview_userprofile"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/ic_account_circle_black_24dp" />
+
+                <TextView
+                    android:id="@+id/cardview_userName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/cardview_userprofile"
+                    android:fontFamily="@font/family_font"
+                    android:text="이름"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/cardview_follow_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/background_editor_btn"
+                    android:padding="3dp"
+                    android:text="팔로우"
+                    android:textColor="@android:color/white"
+                    android:textSize="16dp" />
+
+            </RelativeLayout>
 
             <ImageView
                 android:id="@+id/cardview_imageview"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_below="@id/cardview_userId"
+                android:layout_below="@id/cardview_userinfo"
+                android:layout_marginTop="16dp"
                 android:scaleType="centerCrop" />
 
             <TextView

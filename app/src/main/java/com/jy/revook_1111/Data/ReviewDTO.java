@@ -9,10 +9,8 @@ public class ReviewDTO {
     public String title;
     public String content;
     public String uid;
-    public String userId;
+    public String userName;
 
     public int starCount = 0;
     public Map<String, Boolean> stars = new HashMap<>();
-
-
 }

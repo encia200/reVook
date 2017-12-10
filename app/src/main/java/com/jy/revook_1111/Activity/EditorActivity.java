@@ -153,7 +153,7 @@ public class EditorActivity extends AppCompatActivity {
                 reviewDTO.title = editor_title.getText().toString();
                 reviewDTO.content = editor_content.getText().toString();
                 reviewDTO.uid = auth.getCurrentUser().getUid();
-                reviewDTO.userId = auth.getCurrentUser().getEmail();
+                reviewDTO.userName = auth.getCurrentUser().getDisplayName();
 
                 database.getReference().child("reviews").push().setValue(reviewDTO);
 

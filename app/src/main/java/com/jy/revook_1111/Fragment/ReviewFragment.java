@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -22,8 +23,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
-import com.jy.revook_1111.R;
+import com.jy.revook_1111.ApplicationController;
 import com.jy.revook_1111.Data.ReviewDTO;
+import com.jy.revook_1111.R;
+import com.jy.revook_1111.model.UserModel;
+import com.mikhaellopez.circularimageview.CircularImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +42,9 @@ public class ReviewFragment extends Fragment {
     private FirebaseAuth auth;
     private FirebaseDatabase database;
     private List<ReviewDTO> reviewDTOs = new ArrayList<>();
-    private List<String> uidLists = new ArrayList<>();
+    private List<String> reviewUidLists = new ArrayList<>();
+    private List<UserModel> userModels = new ArrayList<>();
+    private List<String> userUidLists = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -64,12 +70,13 @@ public class ReviewFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 reviewDTOs.clear();
-                uidLists.clear();
+                reviewUidLists.clear();
+
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     ReviewDTO reviewDTO = snapshot.getValue(ReviewDTO.class);
-                    String uidKey = snapshot.getKey();
+                    String reviewUidKey = snapshot.getKey();
                     reviewDTOs.add(reviewDTO);
-                    uidLists.add(uidKey);
+                    reviewUidLists.add(reviewUidKey);
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -79,7 +86,24 @@ public class ReviewFragment extends Fragment {
 
             }
         });
+        database.getReference().child("users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                userModels.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                    UserModel userModel = snapshot.getValue(UserModel.class);
+                    String userUidKey = snapshot.getKey();
+                    userModels.add(userModel);
+                    userUidLists.add(userUidKey);
+                }
+                adapter.notifyDataSetChanged();
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         return v;
     }
 
@@ -97,31 +121,58 @@ public class ReviewFragment extends Fragment {
             //XML세팅
             this.parent = parent;
             View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.cardview_item, parent, false);
-            return new CustonViewHolder(view);
+            return new CustomViewHolder(view);
         }
 
         @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
-
         @Override
-        public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-
-            Glide.with(parent.getContext()).load(reviewDTOs.get(position).imageUrl).into(((CustonViewHolder) holder).imageView);
-            ((CustonViewHolder) holder).title.setText(reviewDTOs.get(position).title);
-            ((CustonViewHolder) holder).content.setText(reviewDTOs.get(position).content);
-            ((CustonViewHolder) holder).userId.setText(reviewDTOs.get(position).userId);
-            ((CustonViewHolder) holder).starButton.setOnClickListener(new View.OnClickListener() {
+        public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
+            final UserModel[] userModel = new UserModel[1];
+            database.getReference().child("users").child(reviewDTOs.get(position).uid).addValueEventListener(new ValueEventListener() {
                 @Override
-                public void onClick(View v) {
-                    onStarClicked(database.getReference().child("reviews").child(uidLists.get(position)));
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    userModel[0] = dataSnapshot.getValue(UserModel.class);
+                    if (userModel[0].profileImageUrl != null)
+                        Glide.with(parent.getContext()).load(userModel[0].profileImageUrl).into(((CustomViewHolder) holder).profileImage);
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
                 }
             });
-            ((CustonViewHolder) holder).starCount.setText(Integer.toString(reviewDTOs.get(position).starCount));
+
+
+            if (reviewDTOs.get(position).imageUrl != null)
+                Glide.with(parent.getContext()).load(reviewDTOs.get(position).imageUrl).into(((CustomViewHolder) holder).imageView);
+            ((CustomViewHolder) holder).title.setText(reviewDTOs.get(position).title);
+            ((CustomViewHolder) holder).content.setText(reviewDTOs.get(position).content);
+            ((CustomViewHolder) holder).userName.setText(reviewDTOs.get(position).userName);
+            ((CustomViewHolder) holder).starButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onStarClicked(database.getReference().child("reviews").child(reviewUidLists.get(position)));
+                }
+            });
+            ((CustomViewHolder) holder).starCount.setText(Integer.toString(reviewDTOs.get(position).starCount));
+            ((CustomViewHolder) holder).follow.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    onFollowClicked(database.getReference().child("users").child(reviewDTOs.get(position).uid), database.getReference().child("users").child(auth.getCurrentUser().getUid()));
+                }
+            });
 
             // 불러온 리뷰의 좋아요 uid리스트에 내 uid 있는지 확인
             if (reviewDTOs.get(position).stars.containsKey(auth.getCurrentUser().getUid())) {
-                ((CustonViewHolder)holder).starButton.setImageResource(R.drawable.ic_favorite_black_24dp);
-            }else{
-                ((CustonViewHolder)holder).starButton.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+                ((CustomViewHolder) holder).starButton.setImageResource(R.drawable.ic_favorite_black_24dp);
+            } else {
+                ((CustomViewHolder) holder).starButton.setImageResource(R.drawable.ic_favorite_border_black_24dp);
+            }
+
+            if (ApplicationController.currentUser.followings.containsKey(reviewDTOs.get(position).uid)) {
+                ((CustomViewHolder) holder).follow.setText("팔로우 취소");
+            } else {
+                ((CustomViewHolder) holder).follow.setText("팔로우");
             }
         }
 
@@ -164,23 +215,92 @@ public class ReviewFragment extends Fragment {
             });
         }
 
-        private class CustonViewHolder extends RecyclerView.ViewHolder {
+        private void onFollowClicked(final DatabaseReference toUser, DatabaseReference fromUser) {
+            final UserModel[] toUserModel = new UserModel[1];
+            final UserModel[] fromUserModel = new UserModel[1];
+
+            if (!toUser.getKey().equals(fromUser.getKey())) {
+                toUser.runTransaction(new Transaction.Handler() {
+                    @Override
+                    public Transaction.Result doTransaction(MutableData mutableData) {
+                        toUserModel[0] = mutableData.getValue(UserModel.class);
+                        if (toUserModel[0] == null) {
+                            return Transaction.success(mutableData);
+                        }
+                        if (toUserModel[0].followers.containsKey(auth.getCurrentUser().getUid())) {
+                            // Unstar the post and remove self from stars
+                            toUserModel[0].followerCount = toUserModel[0].followerCount - 1;
+                            toUserModel[0].followers.remove(auth.getCurrentUser().getUid());
+                        } else {
+                            // Star the post and add self to stars
+                            toUserModel[0].followerCount = toUserModel[0].followerCount + 1;
+                            toUserModel[0].followers.put(auth.getCurrentUser().getUid(), true);
+                        }
+
+                        // Set value and report transaction success
+                        mutableData.setValue(toUserModel[0]);
+                        return Transaction.success(mutableData);
+                    }
+
+                    @Override
+                    public void onComplete(DatabaseError databaseError, boolean b,
+                                           DataSnapshot dataSnapshot) {
+                        // Transaction completed
+                        //Log.d(TAG, "postTransaction:onComplete:" + databaseError);
+                    }
+                });
+                fromUser.runTransaction(new Transaction.Handler() {
+                    @Override
+                    public Transaction.Result doTransaction(MutableData mutableData) {
+                        fromUserModel[0] = mutableData.getValue(UserModel.class);
+                        if (fromUserModel[0] == null) {
+                            return Transaction.success(mutableData);
+                        }
+                        if (fromUserModel[0].followings.containsKey(toUser.getKey())) {
+                            fromUserModel[0].followingCount = fromUserModel[0].followingCount - 1;
+                            fromUserModel[0].followings.remove(toUser.getKey());
+                        } else {
+                            // Star the post and add self to stars
+                            fromUserModel[0].followingCount = fromUserModel[0].followingCount + 1;
+                            fromUserModel[0].followings.put(toUser.getKey(), true);
+                        }
+
+                        // Set value and report transaction success
+                        mutableData.setValue(fromUserModel[0]);
+                        return Transaction.success(mutableData);
+                    }
+
+                    @Override
+                    public void onComplete(DatabaseError databaseError, boolean b,
+                                           DataSnapshot dataSnapshot) {
+                        // Transaction completed
+                        //Log.d(TAG, "postTransaction:onComplete:" + databaseError);
+                    }
+                });
+            }
+        }
+
+        private class CustomViewHolder extends RecyclerView.ViewHolder {
+            CircularImageView profileImage;
             ImageView imageView;
             TextView title;
             TextView content;
-            TextView userId;
+            TextView userName;
             ImageView starButton;
             TextView starCount;
+            Button follow;
 
 
-            CustonViewHolder(View view) {
+            CustomViewHolder(View view) {
                 super(view);
+                profileImage = (CircularImageView) view.findViewById(R.id.cardview_userprofile);
                 imageView = (ImageView) view.findViewById(R.id.cardview_imageview);
                 title = (TextView) view.findViewById(R.id.cardview_title);
                 content = (TextView) view.findViewById(R.id.cardview_content);
-                userId = (TextView) view.findViewById(R.id.cardview_userId);
+                userName = (TextView) view.findViewById(R.id.cardview_userName);
                 starButton = (ImageView) view.findViewById(R.id.cardview_starButton_img);
                 starCount = (TextView) view.findViewById(R.id.cardview_starcount);
+                follow = (Button) view.findViewById(R.id.cardview_follow_btn);
             }
         }
     }

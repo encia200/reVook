@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         Intent intent = getIntent();
         ApplicationController.currentUser = new UserModel();
         ApplicationController.currentUser.uid = intent.getStringExtra("uid");
@@ -68,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
         ApplicationController.currentUser.password = databaseReference.child("password").getKey();
         ApplicationController.currentUser.profileImageUrl = databaseReference.child("profileImageUrl").getKey();
         ApplicationController.currentUser.userName = databaseReference.child("userName").getKey();*/
-
         // Initializing the TabLayout
         tabLayout = (TabLayout) findViewById(R.id.main_tab);
         tabLayout.setSelectedTabIndicatorColor(0xff009EFF);
