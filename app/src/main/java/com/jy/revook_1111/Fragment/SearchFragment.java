@@ -76,16 +76,6 @@ public class SearchFragment extends Fragment {
 
                 }
         });
-
-        Button temp_move_to_bookinfo = (Button) v.findViewById(R.id.temp_move_to_bookinfo);
-        temp_move_to_bookinfo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity().getApplicationContext(), BookInfoActivity.class);
-                startActivity(intent);
-            }
-        });
-
         return v;
     }
 

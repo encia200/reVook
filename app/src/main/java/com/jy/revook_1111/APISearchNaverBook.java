@@ -35,8 +35,8 @@ public class APISearchNaverBook {
         String clientSecret = "hvjcnMyWQi";//애플리케이션 클라이언트 시크릿값";
         try {
             String text = URLEncoder.encode(searchWord, "UTF-8");
-            String apiURL = "https://openapi.naver.com/v1/search/book_adv.json?" + searchMode + "=" + text + "&start=" + Integer.toString(start) + "&display=" + Integer.toString(display); // json 결과
-            // String apiURL = "https://openapi.naver.com/v1/search/blog.xml?query=java"; // xml 결과
+            String apiURL = "https://openapi.naver.com/v1/search/book_adv.json?" + searchMode + "=" + text + "&sort=count" + "&start=" + Integer.toString(start) + "&display=" + Integer.toString(display); // json 결과
+            //String apiURL = "https://openapi.naver.com/v1/search/book_adv.json?" + searchMode + "=" + "소설" + "&d_catg=100" + "&sort=count" + "&start=" + Integer.toString(start) + "&display=" + Integer.toString(display); // json 결과
             URL url = new URL(apiURL);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");

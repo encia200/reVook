@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     android:id="@+id/searchFragment"
     tools:context="com.jy.revook_1111.Fragment.SearchFragment">
 
@@ -9,7 +10,7 @@
         android:id="@+id/layout_search"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="@color/colorPrimaryDark"
+        android:background="#ffffff"
         android:orientation="horizontal"
         android:paddingBottom="6dp"
         android:paddingTop="6dp">
@@ -21,7 +22,6 @@
             android:layout_marginBottom="3dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="3dp"
-            android:background="@drawable/background_rounding"
             android:src="@drawable/ic_search_black_24dp" />
 
         <EditText
@@ -32,7 +32,8 @@
             android:layout_marginLeft="6dp"
             android:layout_marginRight="6dp"
             android:layout_weight="1"
-            android:background="@drawable/round"
+            android:hint="책 제목을 입력하세요."
+            android:background="@drawable/dialog_background_white"
             android:ems="10"
             android:paddingLeft="15dp"
             android:textSize="20sp" />
@@ -41,14 +42,21 @@
             android:id="@+id/btn_search"
             android:layout_width="50dp"
             android:layout_height="36dp"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:layout_marginRight="8dp"
             android:background="@drawable/background_rounding"
-            android:fontFamily="@font/family_font"
             android:text="검색"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
-            android:textStyle="bold" />
+             />
     </LinearLayout>
+
+    <View
+        android:layout_below="@id/layout_search"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorPrimaryDark"/>
 
     <TextView
         android:id="@+id/text_recommand_book"
@@ -319,13 +327,5 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="16sp" />
         </LinearLayout>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="임시 책 정보 이동"
-            android:layout_marginTop="20dp"
-            android:id="@+id/temp_move_to_bookinfo"
-            android:layout_gravity="center_horizontal"/>
     </LinearLayout>
 </RelativeLayout>
