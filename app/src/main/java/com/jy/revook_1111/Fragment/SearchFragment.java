@@ -2,17 +2,22 @@ package com.jy.revook_1111.Fragment;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethod;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -65,6 +70,8 @@ public class SearchFragment extends Fragment {
     private EditText editText_search;
     private Button btn_search;
 
+    private ConstraintLayout constraintLayout;
+    private InputMethodManager imm;
     private FontSetting fontSetting;
 
     @Override
@@ -150,6 +157,8 @@ public class SearchFragment extends Fragment {
 
     private void idSetting(View v)
     {
+        imm = (InputMethodManager) getContext().getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+
         famousNoble = (TextView) v.findViewById(R.id.search_famous_noble);
         famousNoble_title1 = (TextView)v.findViewById(R.id.search_famous_noble_title1);
         famousNoble_title2 = (TextView)v.findViewById(R.id.search_famous_noble_title2);
@@ -160,6 +169,17 @@ public class SearchFragment extends Fragment {
         famousNoble_img1 = (ImageView) v.findViewById(R.id.search_famous_noble_img1);
         famousNoble_img2 = (ImageView) v.findViewById(R.id.search_famous_noble_img2);
         famousNoble_img3 = (ImageView) v.findViewById(R.id.search_famous_noble_img3);
+
+        constraintLayout = (ConstraintLayout) v.findViewById(R.id.searchFragment);
+        constraintLayout.setOnTouchListener(new View.OnTouchListener() {
+                                                @Override
+                                                public boolean onTouch(View view, MotionEvent motionEvent) {
+                                                    editText_search.clearFocus();
+                                                    imm.hideSoftInputFromWindow(editText_search.getWindowToken(), 0);
+                                                    return false;
+                                                }
+                                            }
+        );
 
         editText_search.setOnKeyListener(new View.OnKeyListener() {
             @Override
