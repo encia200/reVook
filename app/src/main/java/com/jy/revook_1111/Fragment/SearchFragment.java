@@ -1,10 +1,15 @@
 package com.jy.revook_1111.Fragment;
 
 
+import android.app.Activity;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +21,12 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.jy.revook_1111.APISearchNaverBook;
+import com.jy.revook_1111.Activity.CustomDialog;
 import com.jy.revook_1111.Data.BookInfo;
 import com.jy.revook_1111.FontSetting;
 import com.jy.revook_1111.R;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -62,10 +70,9 @@ public class SearchFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         final View v = inflater.inflate(R.layout.fragment_search, container, false);
-
         idSetting(v);
         fontSetting(v);
-
+        ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(getContext()));
         new Thread(){
             @Override
             public void run() {
@@ -73,6 +80,7 @@ public class SearchFragment extends Fragment {
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+
                         setImage(container);
                         setTitle();
                     }
@@ -152,6 +160,48 @@ public class SearchFragment extends Fragment {
         famousNoble_img1 = (ImageView) v.findViewById(R.id.search_famous_noble_img1);
         famousNoble_img2 = (ImageView) v.findViewById(R.id.search_famous_noble_img2);
         famousNoble_img3 = (ImageView) v.findViewById(R.id.search_famous_noble_img3);
+
+        editText_search.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                //Enter key Action
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    btn_search.performClick();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        famousNoble_img1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                        CustomDialog cd = new CustomDialog(getActivity(), 0, CustomDialog.SEARCH_FRAGMENT);
+                        cd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        cd.setCancelable(true);
+                        cd.show();
+            }
+        });
+
+        famousNoble_img2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CustomDialog cd = new CustomDialog(getActivity(), 1, CustomDialog.SEARCH_FRAGMENT);
+                cd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                cd.setCancelable(true);
+                cd.show();
+            }
+        });
+
+        famousNoble_img3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CustomDialog cd = new CustomDialog(getActivity(), 2, CustomDialog.SEARCH_FRAGMENT);
+                cd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                cd.setCancelable(true);
+                cd.show();
+            }
+        });
     }
 
     private void fontSetting(View v)

@@ -104,7 +104,7 @@ public class BookSearchFragment extends Fragment {
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
-                CustomDialog cd = new CustomDialog(getActivity(), i);
+                CustomDialog cd = new CustomDialog(getActivity(), i, CustomDialog.BOOK_SEARCH_FRAGMENT);
                 cd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
                 cd.setCancelable(true);
                 cd.show();
