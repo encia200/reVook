@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.common.api.Api;
 import com.jy.revook_1111.APISearchNaverBook;
+import com.jy.revook_1111.FontSetting;
 import com.jy.revook_1111.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -41,6 +44,9 @@ public class CustomDialog extends Dialog implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.custom_dialog);
+
+        setTypeFace();
+
         setBookInfo();
           FloatingActionButton btn_upload_review = (FloatingActionButton) findViewById(R.id.btn_upload_review);
         btn_upload_review.setOnClickListener(new View.OnClickListener() {
@@ -63,6 +69,22 @@ public class CustomDialog extends Dialog implements View.OnClickListener{
         ProgressBar dialog;
     }
 
+    private void setTypeFace()
+    {
+        FontSetting fontSetting = new FontSetting(getContext());
+        TextView textView = (TextView)findViewById(R.id.custom_dialog_author);
+        textView.setTypeface(fontSetting.getTypeface_Contents());
+        textView = (TextView)findViewById(R.id.custom_dialog_price);
+        textView.setTypeface(fontSetting.getTypeface_Contents());
+        textView = (TextView)findViewById(R.id.custom_dialog_publisher);
+        textView.setTypeface(fontSetting.getTypeface_Contents());
+        textView = (TextView)findViewById(R.id.custom_dialog_isbn);
+        textView.setTypeface(fontSetting.getTypeface_Contents());
+        textView = (TextView)findViewById(R.id.custom_dialog_description);
+        textView.setTypeface(fontSetting.getTypeface_Contents());
+
+    }
+
      public void setBookInfo(){
         mContext = getContext();
         final ViewHolder holder = new ViewHolder();
@@ -73,16 +95,21 @@ public class CustomDialog extends Dialog implements View.OnClickListener{
         String publisher = APISearchNaverBook.bookInfoList.get(index).publisher;
         String isbn = APISearchNaverBook.bookInfoList.get(index).isbn;
         String description = APISearchNaverBook.bookInfoList.get(index).description;
-
-
+        FontSetting fontSetting = new FontSetting(getContext());
          holder.title = (TextView) findViewById(R.id.custom_dialog_title);
+         holder.title.setTypeface(fontSetting.getTypeface_Title());
          holder.image = (ImageView) findViewById(R.id.custom_dialog_bookimg);
          holder.dialog = (ProgressBar) findViewById(R.id.custom_dialog_progress);
          holder.author = (TextView) findViewById(R.id.custom_dialog_author_input);
+         holder.author.setTypeface(fontSetting.getTypeface_Contents());
          holder.price = (TextView) findViewById(R.id.custom_dialog_price_input);
+         holder.price.setTypeface(fontSetting.getTypeface_Contents());
          holder.publisher = (TextView) findViewById(R.id.custom_dialog_publisher_input);
+         holder.publisher.setTypeface(fontSetting.getTypeface_Contents());
          holder.isbn = (TextView)findViewById(R.id.custom_dialog_price_isbn_input);
-         holder.description = (TextView)findViewById(R.id.custom_dialog_price_description_input);
+         holder.isbn.setTypeface(fontSetting.getTypeface_Contents());
+         holder.description = (TextView)findViewById(R.id.custom_dialog_description_input);
+         holder.description.setTypeface(fontSetting.getTypeface_Contents());
 
          holder.title.setText(title);
          holder.author.setText(author);

@@ -36,7 +36,6 @@
                     android:layout_marginBottom="5dp"
                     android:layout_marginLeft="5dp"
                     android:layout_toRightOf="@+id/cardview_userprofile"
-                    android:fontFamily="@font/family_font"
                     android:text="이름"
                     android:textSize="20sp" />
 
@@ -70,7 +69,6 @@
                 android:layout_below="@+id/cardview_imageview"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="5dp"
-                android:fontFamily="@font/family_font"
                 android:text="제목" />
 
             <TextView
@@ -80,7 +78,6 @@
                 android:layout_below="@+id/cardview_title"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="5dp"
-                android:fontFamily="@font/family_font"
                 android:text="내용" />
 
             <TextView
@@ -90,7 +87,6 @@
                 android:layout_alignBottom="@+id/cardview_starButton_img"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
-                android:fontFamily="@font/family_font"
                 android:text=""
                 android:textSize="22sp" />
 

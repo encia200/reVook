@@ -50,7 +50,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".Activity.EditorActivity" />
-        <activity android:name=".Activity.BookInfoActivity" android:theme="@android:style/Theme.Dialog"></activity>
         <activity android:name=".Activity.SignupActivity" />
     </application>
 

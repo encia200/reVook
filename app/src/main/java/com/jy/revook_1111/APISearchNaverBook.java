@@ -66,10 +66,9 @@ public class APISearchNaverBook {
 
         try {
             jsonText = readAll(br);
-            Log.d("JSON", jsonText);
+
             JSONObject json = new JSONObject(jsonText);
             tot_items = json.getInt("total");
-            Log.d("JSON", "tot_items : " + String.valueOf(tot_items));
             JSONArray jsonArray = new JSONArray(json.getString("items"));
 
             for (int i = 0; i < jsonArray.length(); i++) {
@@ -87,6 +86,7 @@ public class APISearchNaverBook {
     private static BookInfo createBookInfo(JSONObject json) {
         String title, link, publisher, price, imageURL, author, description, isbn;
         BookInfo tempBook;
+
         try {
             title = json.getString("title");
             link = json.getString("link");

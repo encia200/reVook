@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@android:color/white"
-    android:layout_height="570dp"
-    android:layout_marginTop="48dp"
+    android:layout_height="610dp"
+    android:orientation="vertical"
+    android:paddingTop="49dp"
     android:id="@+id/BookSearchFragment"
     >
+
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/book_search_list"
+        android:background="@android:color/white"
         >
-
     </ListView>
 
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

@@ -37,7 +37,7 @@
                 card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent"
                 card_view:layout_constraintVertical_bias="0.0"
-                tools:layout_editor_absoluteX="0dp">
+                >
 
                 <TextView
                     android:id="@+id/card_book_search_title"
@@ -47,7 +47,6 @@
                     android:layout_marginEnd="8dp"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
-                    android:fontFamily="@font/kopub_font"
                     android:singleLine="true"
                     android:text="TITLE"
                     android:textColor="@android:color/white"
@@ -65,7 +64,6 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginStart="14dp"
                     android:layout_marginTop="40dp"
-                    android:fontFamily="@font/kopub_font"
                     android:singleLine="true"
                     android:text="Author"
                     android:textColor="@android:color/white"
@@ -80,7 +78,6 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginEnd="20dp"
                     android:layout_marginTop="40dp"
-                    android:fontFamily="@font/kopub_font"
                     android:singleLine="true"
                     android:text="Price"
                     android:textColor="@android:color/white"

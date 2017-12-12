@@ -1,9 +1,7 @@
 package com.jy.revook_1111.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,12 +11,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.jy.revook_1111.Activity.BookInfoActivity;
-import com.jy.revook_1111.Activity.MainActivity;
 import com.jy.revook_1111.Card_BookSearch;
-import com.jy.revook_1111.Data.BookInfo;
+import com.jy.revook_1111.FontSetting;
 import com.jy.revook_1111.R;
 import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
@@ -83,7 +78,7 @@ public class CustomListAdapter extends ArrayAdapter<Card_BookSearch> {
         String imgUrl = getItem(position).getImgURL();
         String author = getItem(position).getBookAuthor();
         String price = getItem(position).getBookPrice();
-
+        FontSetting fontSetting = new FontSetting(getContext());
         try {
 
 
@@ -102,6 +97,11 @@ public class CustomListAdapter extends ArrayAdapter<Card_BookSearch> {
                 holder.dialog = (ProgressBar) convertView.findViewById(R.id.card_book_search_progressBar);
                 holder.author = (TextView) convertView.findViewById(R.id.card_book_search_author);
                 holder.price = (TextView) convertView.findViewById(R.id.card_book_search_price);
+
+                holder.title.setTypeface(fontSetting.getTypeface_Title());
+                holder.price.setTypeface(fontSetting.getTypeface_Contents());
+                holder.author.setTypeface(fontSetting.getTypeface_Contents());
+
                 result = convertView;
                 convertView.setTag(holder);
             } else {

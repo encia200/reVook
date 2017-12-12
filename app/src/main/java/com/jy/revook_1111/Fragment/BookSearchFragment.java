@@ -1,7 +1,6 @@
 package com.jy.revook_1111.Fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v4.app.Fragment;
@@ -9,7 +8,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,12 +15,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.jy.revook_1111.APISearchNaverBook;
-import com.jy.revook_1111.Activity.BookInfoActivity;
 import com.jy.revook_1111.Activity.CustomDialog;
-import com.jy.revook_1111.Activity.MainActivity;
 import com.jy.revook_1111.Adapter.CustomListAdapter;
 import com.jy.revook_1111.Card_BookSearch;
 import com.jy.revook_1111.R;
