@@ -7,7 +7,7 @@
     android:padding="8dp"
     tools:context="com.jy.revook_1111.Activity.EditorActivity">
 
-    <android.support.design.widget.TextInputLayout
+    <!--<android.support.design.widget.TextInputLayout
         android:id="@+id/design_layout_editor_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -18,19 +18,19 @@
             android:layout_height="wrap_content"
             android:hint="책 제목을 입력하세요."
             android:textColorHint="@color/colorAccent" />
-    </android.support.design.widget.TextInputLayout>
+    </android.support.design.widget.TextInputLayout>-->
 
     <ImageView
         android:id="@+id/editor_img"
         android:layout_width="match_parent"
         android:layout_height="320dp"
-        android:layout_below="@+id/design_layout_editor_title"/>
+        android:layout_centerVertical="true" />
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/design_layout_editor_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/design_layout_editor_title"
+        android:layout_centerVertical="true"
         android:layout_marginTop="16dp">
 
         <android.support.design.widget.TextInputEditText
@@ -46,23 +46,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="16dp"
         android:background="@drawable/background_editor_btn"
         android:text="이미지"
-        android:layout_alignParentLeft="true"
         android:textColor="@android:color/white"
         android:textSize="24dp" />
+
     <Button
         android:id="@+id/btn_editor_upload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:layout_marginBottom="16dp"
         android:layout_marginRight="16dp"
         android:background="@drawable/background_editor_btn"
         android:text="작성"
-        android:layout_alignParentRight="true"
         android:textColor="@android:color/white"
         android:textSize="24dp" />
 

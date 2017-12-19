@@ -145,7 +145,7 @@ public class ReviewFragment extends Fragment {
 
             if (reviewDTOs.get(position).imageUrl != null)
                 Glide.with(parent.getContext()).load(reviewDTOs.get(position).imageUrl).into(((CustomViewHolder) holder).imageView);
-            ((CustomViewHolder) holder).title.setText(reviewDTOs.get(position).title);
+    //        ((CustomViewHolder) holder).title.setText(reviewDTOs.get(position).title);
             ((CustomViewHolder) holder).content.setText(reviewDTOs.get(position).content);
             ((CustomViewHolder) holder).userName.setText(reviewDTOs.get(position).userName);
             ((CustomViewHolder) holder).starButton.setOnClickListener(new View.OnClickListener() {
@@ -283,7 +283,7 @@ public class ReviewFragment extends Fragment {
         private class CustomViewHolder extends RecyclerView.ViewHolder {
             CircularImageView profileImage;
             ImageView imageView;
-            TextView title;
+//            TextView title;
             TextView content;
             TextView userName;
             ImageView starButton;
@@ -295,7 +295,7 @@ public class ReviewFragment extends Fragment {
                 super(view);
                 profileImage = (CircularImageView) view.findViewById(R.id.cardview_userprofile);
                 imageView = (ImageView) view.findViewById(R.id.cardview_imageview);
-                title = (TextView) view.findViewById(R.id.cardview_title);
+//                title = (TextView) view.findViewById(R.id.cardview_title);
                 content = (TextView) view.findViewById(R.id.cardview_content);
                 userName = (TextView) view.findViewById(R.id.cardview_userName);
                 starButton = (ImageView) view.findViewById(R.id.cardview_starButton_img);

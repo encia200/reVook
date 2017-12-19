@@ -43,7 +43,7 @@ public class EditorActivity extends AppCompatActivity {
     public final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
     private ImageView editor_img;
     private String imagePath;
-    private EditText editor_title;
+    //private EditText editor_title;
     private EditText editor_content;
     private Button btn_editor_img;
     private Button btn_editor_upload;
@@ -58,7 +58,7 @@ public class EditorActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
 
         editor_img = (ImageView) findViewById(R.id.editor_img);
-        editor_title = (EditText) findViewById(R.id.editor_title);
+        //editor_title = (EditText) findViewById(R.id.editor_title);
         editor_content = (EditText) findViewById(R.id.editor_content);
         btn_editor_img = (Button) findViewById(R.id.btn_editor_img);
         btn_editor_img.setOnClickListener(new View.OnClickListener() {
@@ -150,7 +150,7 @@ public class EditorActivity extends AppCompatActivity {
 
                 ReviewDTO reviewDTO = new ReviewDTO();
                 reviewDTO.imageUrl = downloadUrl.toString();
-                reviewDTO.title = editor_title.getText().toString();
+                //reviewDTO.title = editor_title.getText().toString();
                 reviewDTO.content = editor_content.getText().toString();
                 reviewDTO.uid = auth.getCurrentUser().getUid();
                 reviewDTO.userName = auth.getCurrentUser().getDisplayName();
