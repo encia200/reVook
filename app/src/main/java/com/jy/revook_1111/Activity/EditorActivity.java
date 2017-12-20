@@ -32,15 +32,21 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.jy.revook_1111.ApplicationController;
 import com.jy.revook_1111.Data.ReviewDTO;
 import com.jy.revook_1111.R;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.StringTokenizer;
 
 public class EditorActivity extends AppCompatActivity implements View.OnClickListener, View.OnTouchListener {
 
@@ -145,9 +151,12 @@ public class EditorActivity extends AppCompatActivity implements View.OnClickLis
         editor_content_edittext = (EditText) findViewById(R.id.editoractivity_editor_edittext);
         editor_content_edittext.setOnTouchListener(this);
         editor_content_date = (EditText) findViewById(R.id.editoractivity_editor_datetext);
-        //editor_content_date.setText();
+        SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd");
+        editor_content_date.setText(mFormat.format(new Date(System.currentTimeMillis())));
         editor_content_date.setOnTouchListener(this);
         editor_content_watermark = (EditText) findViewById(R.id.editoractivity_editor_watermarktext);
+        StringTokenizer tokens = new StringTokenizer(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+        editor_content_watermark.setText(tokens.nextToken("@"));
         editor_content_watermark.setOnTouchListener(this);
         /*btn_toolbar_background = (Button) findViewById(R.id.editoractivity_btn_background_color_select);
         btn_toolbar_background.setOnClickListener(new View.OnClickListener() {
@@ -261,15 +270,27 @@ public class EditorActivity extends AppCompatActivity implements View.OnClickLis
                 // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
                 Uri downloadUrl = taskSnapshot.getDownloadUrl();
 
-                ReviewDTO reviewDTO = new ReviewDTO();
+                final ReviewDTO reviewDTO = new ReviewDTO();
                 reviewDTO.imageUrl = downloadUrl.toString();
                 //reviewDTO.title = editor_title.getText().toString();
                 reviewDTO.content = editor_content_edittext.getText().toString();
                 reviewDTO.uid = auth.getCurrentUser().getUid();
                 reviewDTO.userName = auth.getCurrentUser().getDisplayName();
 
-                database.getReference().child("reviews").push().setValue(reviewDTO);
-
+                database.getReference().child("reviews").push().setValue(reviewDTO, new DatabaseReference.CompletionListener() {
+                    @Override
+                    public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
+                        if (databaseError != null) {
+                            System.out.println("Data could not be saved " + databaseError.getMessage());
+                        } else {
+                            reviewDTO.reviewkey = databaseReference.getKey();
+                            database.getReference().child("reviews").child(reviewDTO.reviewkey).child("reviewkey").setValue(reviewDTO.reviewkey);
+                            ApplicationController.currentUser.reviews.put(reviewDTO.reviewkey, true);
+                            database.getReference().child("users").child(ApplicationController.currentUser.uid).child("reviewCount").setValue(ApplicationController.currentUser.reviewCount = ApplicationController.currentUser.reviewCount + 1);
+                            database.getReference().child("users").child(ApplicationController.currentUser.uid).child("reviews").setValue(ApplicationController.currentUser.reviews);
+                        }
+                    }
+                });
                 setResult(UPLOADSUCESS_CODE);
                 finish();
             }
