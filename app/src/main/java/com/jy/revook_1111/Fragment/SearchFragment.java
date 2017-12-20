@@ -54,17 +54,32 @@ public class SearchFragment extends Fragment {
     private final String SEARCH_WITH_PUBLISHER = "d_publ";
 
     private final static int SEARCH_FOR_NOBLE = 1;
+    private final static int SEARCH_FOR_COMIC = 2;
 
     public static List<BookInfo> famousNobleList = new ArrayList<>();
+    public static List<BookInfo> famousComicList = new ArrayList<>();
+
+    public static Fragment fragment;
+    public static FragmentManager fragmentManager;
+    public static FragmentTransaction fragmentTransaction;
 
     private TextView famousNoble;
     private TextView famousNoble_title1;
     private TextView famousNoble_title2;
     private TextView famousNoble_title3;
 
+    private TextView famousComic;
+    private TextView famousComic_title1;
+    private TextView famousComic_title2;
+    private TextView famousComic_title3;
+
     private ImageView famousNoble_img1;
     private ImageView famousNoble_img2;
     private ImageView famousNoble_img3;
+
+    private ImageView famousComic_img1;
+    private ImageView famousComic_img2;
+    private ImageView famousComic_img3;
 
     private TextView search_bar_title;
     private EditText editText_search;
@@ -84,6 +99,7 @@ public class SearchFragment extends Fragment {
             @Override
             public void run() {
                 search(SEARCH_FOR_NOBLE);
+                search(SEARCH_FOR_COMIC);
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
@@ -95,8 +111,6 @@ public class SearchFragment extends Fragment {
 
             }
         }.start();
-
-
 
 
         /*검색버튼 */
@@ -113,6 +127,32 @@ public class SearchFragment extends Fragment {
                     return;
                 }
 
+                if(BookSearchFragment.isSearching)
+                {
+                    new Thread() {
+                        public void run() {
+                            APISearchNaverBook.bookInfoList.clear();
+                            APISearchNaverBook.searchWord = editText_search.getText().toString();
+                            APISearchNaverBook.searchMode = SEARCH_WITH_TITLE;
+                            APISearchNaverBook.start = 1;
+                            APISearchNaverBook.search();
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    fragmentTransaction = getFragmentManager().beginTransaction();
+                                    fragmentTransaction.remove(fragment);
+                                    fragment = new BookSearchFragment();
+                                    fragmentManager = getFragmentManager();
+                                    fragmentTransaction = fragmentManager.beginTransaction();
+                                    fragmentTransaction.replace(R.id.searchFragment, fragment);
+                                    fragmentTransaction.addToBackStack(null);
+                                    fragmentTransaction.commit();
+                                }
+                            });
+                        }
+                    }.start();
+                }
+                else {
                     BookSearchFragment.isSearching = true;
                 /*처음 검색 시*/
                     new Thread() {
@@ -125,16 +165,17 @@ public class SearchFragment extends Fragment {
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    Fragment fragment = new BookSearchFragment();
-                                    FragmentManager fragmentManager = getFragmentManager();
-                                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                                   fragment = new BookSearchFragment();
+                                    fragmentManager = getFragmentManager();
+                                    fragmentTransaction = fragmentManager.beginTransaction();
                                     fragmentTransaction.replace(R.id.searchFragment, fragment);
-                                    fragmentTransaction.addToBackStack("YES");
+                                    fragmentTransaction.addToBackStack(null);
                                     fragmentTransaction.commit();
                                 }
                             });
                         }
                     }.start();
+                }
 
                 }
         });
@@ -146,6 +187,9 @@ public class SearchFragment extends Fragment {
         Glide.with(container.getContext()).load(famousNobleList.get(0).imageURL).into(famousNoble_img1);
         Glide.with(container.getContext()).load(famousNobleList.get(1).imageURL).into(famousNoble_img2);
         Glide.with(container.getContext()).load(famousNobleList.get(2).imageURL).into(famousNoble_img3);
+        Glide.with(container.getContext()).load(famousComicList.get(0).imageURL).into(famousComic_img1);
+        Glide.with(container.getContext()).load(famousComicList.get(1).imageURL).into(famousComic_img2);
+        Glide.with(container.getContext()).load(famousComicList.get(2).imageURL).into(famousComic_img3);
     }
 
     private void setTitle()
@@ -153,6 +197,9 @@ public class SearchFragment extends Fragment {
         famousNoble_title1.setText(famousNobleList.get(0).title);
         famousNoble_title2.setText(famousNobleList.get(1).title);
         famousNoble_title3.setText(famousNobleList.get(2).title);
+        famousComic_title1.setText(famousComicList.get(0).title);
+        famousComic_title2.setText(famousComicList.get(1).title);
+        famousComic_title3.setText(famousComicList.get(2).title);
     }
 
     private void idSetting(View v)
@@ -163,13 +210,19 @@ public class SearchFragment extends Fragment {
         famousNoble_title1 = (TextView)v.findViewById(R.id.search_famous_noble_title1);
         famousNoble_title2 = (TextView)v.findViewById(R.id.search_famous_noble_title2);
         famousNoble_title3 = (TextView)v.findViewById(R.id.search_famous_noble_title3);
+        famousComic = (TextView) v.findViewById(R.id.search_famous_comic);
+        famousComic_title1 = (TextView)v.findViewById(R.id.search_famous_comic_title1);
+        famousComic_title2 = (TextView)v.findViewById(R.id.search_famous_comic_title2);
+        famousComic_title3 = (TextView)v.findViewById(R.id.search_famous_comic_title3);
         search_bar_title = (TextView) v.findViewById(R.id.search_bar_title);
         btn_search = (Button) v.findViewById(R.id.btn_search);
         editText_search = (EditText) v.findViewById(R.id.edittext_search);
         famousNoble_img1 = (ImageView) v.findViewById(R.id.search_famous_noble_img1);
         famousNoble_img2 = (ImageView) v.findViewById(R.id.search_famous_noble_img2);
         famousNoble_img3 = (ImageView) v.findViewById(R.id.search_famous_noble_img3);
-
+        famousComic_img1 = (ImageView) v.findViewById(R.id.search_famous_comic_img1);
+        famousComic_img2 = (ImageView) v.findViewById(R.id.search_famous_comic_img2);
+        famousComic_img3 = (ImageView) v.findViewById(R.id.search_famous_comic_img3);
         constraintLayout = (ConstraintLayout) v.findViewById(R.id.searchFragment);
         constraintLayout.setOnTouchListener(new View.OnTouchListener() {
                                                 @Override
@@ -196,32 +249,69 @@ public class SearchFragment extends Fragment {
         famousNoble_img1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                        CustomDialog cd = new CustomDialog(getActivity(), 0, CustomDialog.SEARCH_FRAGMENT);
-                        cd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                        cd.setCancelable(true);
-                        cd.show();
+                        onClick1(SEARCH_FOR_NOBLE);
             }
         });
 
         famousNoble_img2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CustomDialog cd = new CustomDialog(getActivity(), 1, CustomDialog.SEARCH_FRAGMENT);
-                cd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                cd.setCancelable(true);
-                cd.show();
+                onClick2(SEARCH_FOR_NOBLE);
             }
         });
 
         famousNoble_img3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CustomDialog cd = new CustomDialog(getActivity(), 2, CustomDialog.SEARCH_FRAGMENT);
-                cd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                cd.setCancelable(true);
-                cd.show();
+                onClick3(SEARCH_FOR_NOBLE);
             }
         });
+
+        famousComic_img1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClick1(SEARCH_FOR_COMIC);
+            }
+        });
+
+        famousComic_img2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClick2(SEARCH_FOR_COMIC);
+            }
+        });
+
+        famousComic_img3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClick3(SEARCH_FOR_COMIC);
+            }
+        });
+
+    }
+
+    public void onClick1(int mode)
+    {
+        CustomDialog cd = new CustomDialog(getActivity(), 0, CustomDialog.SEARCH_FRAGMENT + mode);
+        cd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        cd.setCancelable(true);
+        cd.show();
+    }
+
+    public void onClick2(int mode)
+    {
+        CustomDialog cd = new CustomDialog(getActivity(), 1, CustomDialog.SEARCH_FRAGMENT + mode);
+        cd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        cd.setCancelable(true);
+        cd.show();
+    }
+
+    public void onClick3(int mode)
+    {
+        CustomDialog cd = new CustomDialog(getActivity(), 2, CustomDialog.SEARCH_FRAGMENT + mode);
+        cd.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        cd.setCancelable(true);
+        cd.show();
     }
 
     private void fontSetting(View v)
@@ -233,6 +323,12 @@ public class SearchFragment extends Fragment {
         famousNoble_title1.setTypeface(fontSetting.getTypeface_Contents());
         famousNoble_title2.setTypeface(fontSetting.getTypeface_Contents());
         famousNoble_title3.setTypeface(fontSetting.getTypeface_Contents());
+
+        famousComic.setTypeface(fontSetting.getTypeface_Title());
+
+        famousComic_title1.setTypeface(fontSetting.getTypeface_Contents());
+        famousComic_title2.setTypeface(fontSetting.getTypeface_Contents());
+        famousComic_title3.setTypeface(fontSetting.getTypeface_Contents());
 
         search_bar_title.setTypeface(fontSetting.getTypeface_Title());
         editText_search.setTypeface(fontSetting.getTypeface_Contents());
@@ -247,7 +343,10 @@ public class SearchFragment extends Fragment {
             switch (mode)
             {
                 case SEARCH_FOR_NOBLE:
-                    apiURL = "https://openapi.naver.com/v1/search/book_adv.json?d_titl=소설&d_catg=100&sort=count&start=1&display=3";
+                    apiURL = "https://openapi.naver.com/v1/search/book.json?query=소설&d_catg=100&sort=count&start=1&display=3";
+                    break;
+                case SEARCH_FOR_COMIC:
+                    apiURL = "https://openapi.naver.com/v1/search/book.json?query=만화&d_catg=330&sort=count&start=1&display=3";
                     break;
             }
             URL url = new URL(apiURL);
@@ -268,6 +367,9 @@ public class SearchFragment extends Fragment {
             {
                 case SEARCH_FOR_NOBLE:
                     parseBufferedReaderToJson(br, SEARCH_FOR_NOBLE);
+                    break;
+                case SEARCH_FOR_COMIC:
+                    parseBufferedReaderToJson(br, SEARCH_FOR_COMIC);
                     break;
             }
 
@@ -293,6 +395,9 @@ public class SearchFragment extends Fragment {
                 {
                     case SEARCH_FOR_NOBLE:
                         famousNobleList.add(newBook);
+                        break;
+                    case SEARCH_FOR_COMIC:
+                        famousComicList.add(newBook);
                         break;
                 }
             }

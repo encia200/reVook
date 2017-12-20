@@ -47,12 +47,13 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         ApplicationController.currentUser = new UserModel();
-        ApplicationController.currentUser.uid = intent.getStringExtra("uid");
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(ApplicationController.currentUser.uid);
+
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         ValueEventListener databaseListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ApplicationController.currentUser = dataSnapshot.getValue(UserModel.class);
+                ApplicationController.initFollowers();
             }
 
             @Override
