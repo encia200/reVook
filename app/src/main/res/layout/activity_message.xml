@@ -18,19 +18,38 @@
         android:layout_alignParentStart="true"
         ></android.support.v7.widget.RecyclerView>
 
-    <EditText
+
+    <LinearLayout
+        android:layout_height="48dp"
+        android:layout_width="match_parent"
+        android:background="@drawable/linesquare"
+        android:orientation="horizontal"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/messageActivity_button"
-        android:id="@+id/messageActivity_editText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <Button
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:text="SEND"
-        android:id="@+id/messageActivity_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+       >
+
+        <EditText
+            android:id="@+id/messageActivity_editText"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_weight="4"
+            android:layout_margin="5dp"
+            android:layout_gravity="center_vertical"
+            android:background="@drawable/linesquare"
+            android:paddingLeft="10dp"
+            android:textSize="13dp"
+            />
+
+
+        <Button
+            android:id="@+id/messageActivity_button"
+            android:layout_width="34dp"
+            android:layout_height="35dp"
+            android:layout_margin="5dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:text="SEND"
+            android:textColor="@android:color/white"
+            android:background="@drawable/linesquare_navy" />
+    </LinearLayout>
 
 </RelativeLayout>
