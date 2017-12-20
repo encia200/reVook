@@ -15,4 +15,5 @@ public class UserModel {
     public Map<String, Boolean> followers = new HashMap<>();
     public int followingCount = 0;
     public Map<String, Boolean> followings = new HashMap<>();
+
 }
