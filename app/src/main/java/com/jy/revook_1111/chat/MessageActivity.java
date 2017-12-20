@@ -71,13 +71,17 @@ public class MessageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
+
+        FontSetting fontSetting = new FontSetting(getApplicationContext());
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid(); // 채팅을 요구하는 아이디
         destinationUid = getIntent().getStringExtra("destinationUid"); // 채팅을 당하는 아이디
         Log.e("message", "MESSAGEACTIVITY : " + destinationUid);
 
         button = (Button) findViewById(R.id.messageActivity_button);
         editText = (EditText) findViewById(R.id.messageActivity_editText);
+        editText.setTypeface(fontSetting.typeface_Contents);
         recyclerView = (RecyclerView) findViewById(R.id.messageActivity_recyclerview);
+        button.setTypeface(fontSetting.getTypeface_Contents());
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -247,6 +251,7 @@ public class MessageActivity extends AppCompatActivity {
                         .apply(new RequestOptions().circleCrop())
                         .into(messageViewHolder.imageView_profile);
                 messageViewHolder.textView_name.setText(destinationUserModel.userName);
+                messageViewHolder.textView_name.setTypeface(fontSetting.getTypeface_Contents());
                 messageViewHolder.linearLayout_destination.setVisibility(View.VISIBLE);
                 messageViewHolder.textView_message.setBackgroundResource(R.drawable.leftbubble);
                 messageViewHolder.textView_message.setText(comments.get(position).message);
@@ -258,6 +263,7 @@ public class MessageActivity extends AppCompatActivity {
             simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
             String time = simpleDateFormat.format(date);
             messageViewHolder.textView_timestamp.setText(time);
+            messageViewHolder.textView_timestamp.setTypeface(fontSetting.getTypeface_Contents());
         }
 
         @Override
