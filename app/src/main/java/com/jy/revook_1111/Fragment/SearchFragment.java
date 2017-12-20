@@ -290,8 +290,6 @@ public class SearchFragment extends Fragment {
 
     }
 
-
-
     public void onClick1(int mode)
     {
         CustomDialog cd = new CustomDialog(getActivity(), 0, CustomDialog.SEARCH_FRAGMENT + mode);

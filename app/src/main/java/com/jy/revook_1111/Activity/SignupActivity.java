@@ -85,6 +85,7 @@ public class SignupActivity extends AppCompatActivity {
                                                 UserModel userModel = new UserModel();
                                                 userModel.userName = name.getText().toString();
                                                 userModel.email = email.getText().toString();
+                                                userModel.uid = uid;
                                                 userModel.profileImageUrl = imageUrl;
                                                 ApplicationController.currentUser = userModel;
 
@@ -105,6 +106,7 @@ public class SignupActivity extends AppCompatActivity {
                                         UserModel userModel = new UserModel();
                                         userModel.userName = name.getText().toString();
                                         userModel.email = email.getText().toString();
+                                        userModel.uid = uid;
 
                                         FirebaseDatabase.getInstance().getReference().child("users").child(uid).setValue(userModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                                             @Override

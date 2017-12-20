@@ -41,6 +41,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.jy.revook_1111.ApplicationController;
 import com.jy.revook_1111.R;
+import com.jy.revook_1111.model.UserModel;
 
 public class LoginActivity extends AppCompatActivity implements GoogleApiClient.OnConnectionFailedListener, View.OnClickListener {
     private static final int RC_SIGN_IN = 10; // 구글 로그인 코드
@@ -136,7 +137,8 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                    intent.putExtra("uid", user.getUid());
+                    //intent.putExtra("uid", user.getUid());
+                    //FirebaseDatabase.getInstance().getReference().child("users").push().setValue(ApplicationController.currentUser);
                     startActivity(intent);
                     finish();
                 } else {
@@ -167,12 +169,14 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
                             FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("userName").setValue(mFirebaseAuth.getCurrentUser().getDisplayName());
                             FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("email").setValue(mFirebaseAuth.getCurrentUser().getEmail());
+                            FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("uid").setValue(mFirebaseAuth.getCurrentUser().getUid());
 
                             FirebaseDatabase.getInstance().getReference().child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     ApplicationController.currentUser.userName = dataSnapshot.child("userName").getValue().toString();
                                     ApplicationController.currentUser.email = dataSnapshot.child("email").getValue().toString();
+                                    ApplicationController.currentUser.uid = dataSnapshot.child("uid").getValue().toString();
                                     if (dataSnapshot.child("profileImage").getValue() != null) {
                                         ApplicationController.currentUser.profileImageUrl = dataSnapshot.child("profileImage").getValue().toString();
                                     }
@@ -236,12 +240,14 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
 
                     FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("userName").setValue(mFirebaseAuth.getCurrentUser().getDisplayName());
                     FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("email").setValue(mFirebaseAuth.getCurrentUser().getEmail());
+                    FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("uid").setValue(mFirebaseAuth.getCurrentUser().getUid());
 
                     FirebaseDatabase.getInstance().getReference().child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
                             ApplicationController.currentUser.userName = dataSnapshot.child("userName").getValue().toString();
                             ApplicationController.currentUser.email = dataSnapshot.child("email").getValue().toString();
+                            ApplicationController.currentUser.uid = dataSnapshot.child("uid").getValue().toString();
                             if (dataSnapshot.child("profileImage").getValue() != null) {
                                 ApplicationController.currentUser.profileImageUrl = dataSnapshot.child("profileImage").getValue().toString();
                             }
