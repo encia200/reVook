@@ -333,6 +333,7 @@ public class SearchFragment extends Fragment {
         search_bar_title.setTypeface(fontSetting.getTypeface_Title());
         editText_search.setTypeface(fontSetting.getTypeface_Contents());
         btn_search.setTypeface(fontSetting.getTypeface_Contents());
+
     }
 
     public static void search(int mode) {
