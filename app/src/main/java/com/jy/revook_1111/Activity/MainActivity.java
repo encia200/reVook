@@ -13,10 +13,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.jy.revook_1111.Adapter.TabAdapter;
 import com.jy.revook_1111.ApplicationController;
 import com.jy.revook_1111.R;
 import com.jy.revook_1111.model.UserModel;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private static final int TAB_COUNT = 5;
@@ -46,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Intent intent = getIntent();
-
+        ApplicationController.currentUser = new UserModel();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         ValueEventListener databaseListener = new ValueEventListener() {
             @Override
@@ -112,5 +116,16 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+        passPushTokenToServer();
+    }
+
+    void passPushTokenToServer()
+    {
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        String token = FirebaseInstanceId.getInstance().getToken();
+        Map<String, Object> map = new HashMap<>();
+        map.put("pushToken", token);
+
+        FirebaseDatabase.getInstance().getReference().child("users").child(uid).updateChildren(map);
     }
 }

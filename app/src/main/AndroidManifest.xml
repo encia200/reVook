@@ -53,6 +53,15 @@
         <activity android:name=".Activity.EditorActivity" />
         <activity android:name=".Activity.SignupActivity" />
         <activity android:name=".chat.MessageActivity"></activity>
+
+        <service
+            android:name=".MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
+
     </application>
 
 </manifest>

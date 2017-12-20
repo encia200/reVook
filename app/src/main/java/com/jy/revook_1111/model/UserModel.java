@@ -9,6 +9,7 @@ public class UserModel {
     public String password;
     public String userName;
     public String profileImageUrl;
+    public String pushToken;
 
     public int followerCount = 0;
     public Map<String, Boolean> followers = new HashMap<>();

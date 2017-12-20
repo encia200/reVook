@@ -27,16 +27,31 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 import com.jy.revook_1111.ApplicationController;
 import com.jy.revook_1111.FontSetting;
 import com.jy.revook_1111.R;
 import com.jy.revook_1111.model.ChatModel;
+import com.jy.revook_1111.model.NotificationModel;
 import com.jy.revook_1111.model.UserModel;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 public class MessageActivity extends AppCompatActivity {
 
@@ -48,6 +63,9 @@ public class MessageActivity extends AppCompatActivity {
     private String chatRoomUid;
 
     private RecyclerView recyclerView;
+
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+    private UserModel destinationUserModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,12 +98,14 @@ public class MessageActivity extends AppCompatActivity {
                     ChatModel.Comment comment = new ChatModel.Comment();
                     comment.uid = uid;
                     comment.message = editText.getText().toString();
+                    comment.timestamp = ServerValue.TIMESTAMP;
                     Log.e("message", comment.message);
                     FirebaseDatabase.getInstance().getReference().child("chatrooms").child(chatRoomUid).child("comments").push().setValue(comment).addOnCompleteListener(
                             new OnCompleteListener<Void>() {
 
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
+                                    sendGcm();
                                     editText.setText("");
                                 }
                             });
@@ -94,6 +114,38 @@ public class MessageActivity extends AppCompatActivity {
         });
         checkChatRoom();
 
+    }
+
+    void sendGcm(){
+        Gson gson = new Gson();
+
+        String userName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+        NotificationModel notificationModel = new NotificationModel();
+        notificationModel.to = destinationUserModel.pushToken;
+        notificationModel.notification.title = userName;
+        notificationModel.notification.text = editText.getText().toString();
+        notificationModel.data.title = userName;
+        notificationModel.data.text = editText.getText().toString();
+
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf8"),gson.toJson(notificationModel));
+        Request request = new Request.Builder()
+                .header("Content-Type","application/json")
+                .addHeader("Authorization","key=AAAAey851HA:APA91bGfavFXUW5gyFVGmQ14bWVmK-hEzyNgHKpVIzuO6i9DB3qYIjMFG6fFBTN48FRNMhBEhLo_3Jgbp4ING03LLqDZNyPyJ3ytGDz8t87G7IrkW3oAO9Eks_I_XfyOsDdb43aAEFIh")
+                .url("https://gcm-http.googleapis.com/gcm/send")
+                .post(requestBody)
+                .build();
+        OkHttpClient okHttpClient = new OkHttpClient();
+        okHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+            }
+        });
     }
 
     void checkChatRoom() {
@@ -123,7 +175,7 @@ public class MessageActivity extends AppCompatActivity {
     class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         List<ChatModel.Comment> comments;
-        UserModel userModel;
+
         public RecyclerViewAdapter() {
             comments = new ArrayList<>();
 
@@ -131,7 +183,7 @@ public class MessageActivity extends AppCompatActivity {
                     new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                            userModel = dataSnapshot.getValue(UserModel.class);
+                            destinationUserModel = dataSnapshot.getValue(UserModel.class);
                             getMessageList();
                         }
 
@@ -191,17 +243,21 @@ public class MessageActivity extends AppCompatActivity {
             }
             else{
                 Glide.with(holder.itemView.getContext()).
-                        load(userModel.profileImageUrl)
+                        load(destinationUserModel.profileImageUrl)
                         .apply(new RequestOptions().circleCrop())
                         .into(messageViewHolder.imageView_profile);
-                messageViewHolder.textView_name.setText(userModel.userName);
+                messageViewHolder.textView_name.setText(destinationUserModel.userName);
                 messageViewHolder.linearLayout_destination.setVisibility(View.VISIBLE);
                 messageViewHolder.textView_message.setBackgroundResource(R.drawable.leftbubble);
                 messageViewHolder.textView_message.setText(comments.get(position).message);
                 messageViewHolder.textView_message.setTextSize(15);
                 messageViewHolder.linearLayout_main.setGravity(Gravity.LEFT);
             }
-
+            long unixTime = (long) comments.get(position).timestamp;
+            Date date = new Date(unixTime);
+            simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
+            String time = simpleDateFormat.format(date);
+            messageViewHolder.textView_timestamp.setText(time);
         }
 
         @Override
@@ -212,6 +268,7 @@ public class MessageActivity extends AppCompatActivity {
         private class MessageViewHolder extends RecyclerView.ViewHolder {
             public TextView textView_message;
             public TextView textView_name;
+            public TextView textView_timestamp;
             public ImageView imageView_profile;
             public LinearLayout linearLayout_destination;
             public LinearLayout linearLayout_main;
@@ -219,10 +276,18 @@ public class MessageActivity extends AppCompatActivity {
                 super(view);
                 textView_message = (TextView) view.findViewById(R.id.messageItem_textView_message);
                 textView_name = (TextView) view.findViewById(R.id.messageItem_textView_name);
+                textView_timestamp = (TextView)view.findViewById(R.id.messageItem_textView_timestamp);
                 imageView_profile = (ImageView) view.findViewById(R.id.messageItem_imageview_profile);
                 linearLayout_destination = (LinearLayout) view.findViewById(R.id.messageItem_linearlayout_destination);
                 linearLayout_main = (LinearLayout) view.findViewById(R.id.messageItem_linearlayout_main);
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        finish();
+        overridePendingTransition(R.anim.fromleft,R.anim.toright);
     }
 }
