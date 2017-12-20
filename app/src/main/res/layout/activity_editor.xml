@@ -7,62 +7,237 @@
     android:padding="8dp"
     tools:context="com.jy.revook_1111.Activity.EditorActivity">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/design_layout_editor_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/editor_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="책 제목을 입력하세요."
-            android:textColorHint="@color/colorAccent" />
-    </android.support.design.widget.TextInputLayout>
-
-    <ImageView
-        android:id="@+id/editor_img"
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:id="@+id/editoractivity_editor_content"
+        android:layout_width="380dp"
         android:layout_height="320dp"
-        android:layout_below="@+id/design_layout_editor_title"/>
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:background="#00000000">
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/design_layout_editor_content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/design_layout_editor_title"
-        android:layout_marginTop="16dp">
+        <ImageView
+            android:id="@+id/editoractivity_editor_img"
+            android:layout_width="380dp"
+            android:layout_height="320dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/dialog_background_gray" />
 
-        <android.support.design.widget.TextInputEditText
-            android:id="@+id/editor_content"
-            android:layout_width="match_parent"
+        <EditText
+            android:id="@+id/editoractivity_editor_edittext"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@null"
             android:hint="내용을 입력하세요."
-            android:textColorHint="@color/colorAccent" />
-    </android.support.design.widget.TextInputLayout>
+            android:shadowColor="@null"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:textCursorDrawable="@null" />
+
+        <EditText
+            android:id="@+id/editoractivity_editor_datetext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/editoractivity_editor_edittext"
+            android:layout_marginBottom="42dp"
+            android:background="@null"
+            android:hint="날짜"
+            android:shadowColor="@null"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:textCursorDrawable="@null" />
+
+        <EditText
+            android:id="@+id/editoractivity_editor_watermarktext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/editoractivity_editor_datetext"
+            android:layout_alignBottom="@+id/editoractivity_editor_datetext"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="19dp"
+            android:background="@null"
+            android:hint="워터마크"
+            android:shadowColor="@null"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:textCursorDrawable="@null" />
+    </RelativeLayout>
+
+    <HorizontalScrollView
+        android:id="@+id/editoractivity_bg_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editoractivity_editor_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/dialog_background_white">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingHorizontal="16dp">
+
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/bg_dialog_color_yellow"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginVertical="3dp"
+                android:src="@drawable/bg_yellow" />
+
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/bg_dialog_color_brown"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginVertical="3dp"
+                android:src="@drawable/bg_brown" />
+
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/bg_dialog_color_mint"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginVertical="3dp"
+                android:src="@drawable/bg_mint" />
+
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/bg_dialog_color_lightnavy"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginVertical="3dp"
+                android:src="@drawable/bg_lightnavy" />
+
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/bg_dialog_color_navy"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginVertical="3dp"
+                android:src="@drawable/bg_navy" />
+
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/bg_dialog_color_gray"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginVertical="3dp"
+                android:src="@drawable/bg_gray" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <HorizontalScrollView
+        android:id="@+id/editoractivity_font_select"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editoractivity_bg_select"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/dialog_background_white">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingHorizontal="16dp">
+
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/editoractivity_font_dxsaenal_bold"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginVertical="3dp"
+                android:src="@drawable/dxsaenal_bold" />
+
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/editoractivity_font_typo_decosolidfill"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginVertical="3dp"
+                android:src="@drawable/typo_decosolidfill" />
+
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/editoractivity_font_chungchunsidae_r"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginVertical="3dp"
+                android:src="@drawable/chungchunsidae_r" />
+
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/editoractivity_font_nanumpen"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginVertical="3dp"
+                android:src="@drawable/nanumpen" />
+
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/editoractivity_font_timemachine"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginVertical="3dp"
+                android:src="@drawable/timemachine" />
+
+            <com.mikhaellopez.circularimageview.CircularImageView
+                android:id="@+id/editoractivity_font_typo_ssangmundongb"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginVertical="3dp"
+                android:src="@drawable/typo_ssangmundongb" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <LinearLayout
+        android:id="@+id/editoractivity_fontsize_seek"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignLeft="@+id/editoractivity_font_select"
+        android:layout_alignRight="@+id/editoractivity_font_select"
+        android:layout_below="@id/editoractivity_font_select"
+        android:layout_gravity="center"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/dialog_background_white"
+        android:orientation="horizontal"
+        android:paddingHorizontal="8dp">
+
+        <TextView
+            android:id="@+id/editoractivity_fontsize_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp"
+            android:text="12"
+            android:textSize="20dp" />
+
+        <SeekBar
+            android:id="@+id/editoractivity_fontsize_seekbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:max="100"
+            android:progress="12" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_editor_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="16dp"
         android:background="@drawable/background_editor_btn"
-        android:text="이미지"
-        android:layout_alignParentLeft="true"
+        android:text="갤러리"
         android:textColor="@android:color/white"
         android:textSize="24dp" />
+
     <Button
         android:id="@+id/btn_editor_upload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:layout_marginBottom="16dp"
         android:layout_marginRight="16dp"
         android:background="@drawable/background_editor_btn"
         android:text="작성"
-        android:layout_alignParentRight="true"
         android:textColor="@android:color/white"
         android:textSize="24dp" />
 

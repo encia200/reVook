@@ -6,7 +6,7 @@ import java.util.Map;
 public class ReviewDTO {
 
     public String imageUrl;
-    public String title;
+    //public String title;
     public String content;
     public String uid;
     public String userName;
