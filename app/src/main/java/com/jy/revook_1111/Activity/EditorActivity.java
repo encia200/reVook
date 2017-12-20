@@ -52,6 +52,8 @@ public class EditorActivity extends AppCompatActivity implements View.OnClickLis
     private FirebaseDatabase database;
     public final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 1;
     private ImageView editor_img;
+    private EditText editor_content_date;
+    private EditText editor_content_watermark;
     boolean isdrawable = false;
     byte[] data;
     private EditText editor_content_edittext;
@@ -117,6 +119,7 @@ public class EditorActivity extends AppCompatActivity implements View.OnClickLis
         editor_content = (RelativeLayout) findViewById(R.id.editoractivity_editor_content);
         editor_img = (ImageView) findViewById(R.id.editoractivity_editor_img);
 
+
         imagePathVariable = new ImagePathVariable();
         imagePathVariable.setImagePath(Uri.parse("android.resource://" + "com.jy.revook_1111" + "/drawable/dialog_background_gray").toString());
 
@@ -141,6 +144,11 @@ public class EditorActivity extends AppCompatActivity implements View.OnClickLis
         //editor_title = (EditText) findViewById(R.id.editor_title);
         editor_content_edittext = (EditText) findViewById(R.id.editoractivity_editor_edittext);
         editor_content_edittext.setOnTouchListener(this);
+        editor_content_date = (EditText) findViewById(R.id.editoractivity_editor_datetext);
+        editor_content_date.setText();
+        editor_content_date.setOnTouchListener(this);
+        editor_content_watermark = (EditText) findViewById(R.id.editoractivity_editor_watermarktext);
+        editor_content_watermark.setOnTouchListener(this);
         /*btn_toolbar_background = (Button) findViewById(R.id.editoractivity_btn_background_color_select);
         btn_toolbar_background.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -323,7 +331,9 @@ public class EditorActivity extends AppCompatActivity implements View.OnClickLis
 
         }
     }
+
     private int xDelta, yDelta;
+
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         int width = ((ViewGroup) v.getParent()).getWidth() - v.getWidth();

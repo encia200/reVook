@@ -35,6 +35,35 @@
             android:textColor="@android:color/white"
             android:textColorHint="@android:color/white"
             android:textCursorDrawable="@null" />
+
+        <EditText
+            android:id="@+id/editoractivity_editor_datetext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/editoractivity_editor_edittext"
+            android:layout_marginBottom="42dp"
+            android:background="@null"
+            android:hint="날짜"
+            android:shadowColor="@null"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:textCursorDrawable="@null" />
+
+        <EditText
+            android:id="@+id/editoractivity_editor_watermarktext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/editoractivity_editor_datetext"
+            android:layout_alignBottom="@+id/editoractivity_editor_datetext"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="19dp"
+            android:background="@null"
+            android:hint="워터마크"
+            android:shadowColor="@null"
+            android:textColor="@android:color/white"
+            android:textColorHint="@android:color/white"
+            android:textCursorDrawable="@null" />
     </RelativeLayout>
 
     <HorizontalScrollView
