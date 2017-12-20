@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Intent intent = getIntent();
-
+        ApplicationController.currentUser = new UserModel();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         ValueEventListener databaseListener = new ValueEventListener() {
             @Override
@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                // Getting Post failed, log a message
+                // Getting Post failed, log activity message
                 //Log.w(TAG, "loadPost:onCancelled", databaseError.toException());
                 // ...
             }

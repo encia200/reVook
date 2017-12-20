@@ -36,7 +36,6 @@
                     android:layout_marginBottom="5dp"
                     android:layout_marginLeft="5dp"
                     android:layout_toRightOf="@+id/cardview_userprofile"
-                    android:fontFamily="@font/family_font"
                     android:text="이름"
                     android:textSize="20sp" />
 
@@ -53,35 +52,40 @@
                     android:textColor="@android:color/white"
                     android:textSize="16dp" />
 
+                <Button
+                    android:id="@+id/cardview_delete_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/background_editor_btn"
+                    android:padding="3dp"
+                    android:text="삭제"
+                    android:textColor="@android:color/white"
+                    android:textSize="16dp" />
+
             </RelativeLayout>
 
-            <ImageView
-                android:id="@+id/cardview_imageview"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_below="@id/cardview_userinfo"
-                android:layout_marginTop="16dp"
-                android:scaleType="centerCrop" />
-
-            <TextView
-                android:id="@+id/cardview_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/cardview_imageview"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
-                android:fontFamily="@font/family_font"
-                android:text="제목" />
-
-            <TextView
+            <RelativeLayout
                 android:id="@+id/cardview_content"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/cardview_title"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="5dp"
-                android:fontFamily="@font/family_font"
-                android:text="내용" />
+                android:layout_width="match_parent"
+                android:layout_height="320dp"
+                android:layout_below="@id/cardview_userinfo"
+                android:padding="4dp">
+
+                <ImageView
+                    android:id="@+id/cardview_content_imageview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <TextView
+                    android:id="@+id/cardview_content_edittext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@android:color/white"
+                    android:textSize="24dp" />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/cardview_starcount"
@@ -90,7 +94,6 @@
                 android:layout_alignBottom="@+id/cardview_starButton_img"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
-                android:fontFamily="@font/family_font"
                 android:text=""
                 android:textSize="22sp" />
 
@@ -98,12 +101,11 @@
                 android:id="@+id/cardview_starButton_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/cardview_imageview"
+                android:layout_below="@+id/cardview_content"
                 android:layout_marginRight="3dp"
                 android:layout_marginTop="10dp"
                 android:layout_toLeftOf="@+id/cardview_starcount"
                 card_view:srcCompat="@drawable/ic_favorite_border_black_24dp" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
-
 </LinearLayout>

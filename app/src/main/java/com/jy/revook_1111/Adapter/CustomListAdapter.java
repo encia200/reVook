@@ -43,7 +43,7 @@ public class CustomListAdapter extends ArrayAdapter<Card_BookSearch> {
     private int lastPosition = -1;
 
     /**
-     * Holds variables in a View
+     * Holds variables in activity View
      */
     private static class ViewHolder {
         TextView title;

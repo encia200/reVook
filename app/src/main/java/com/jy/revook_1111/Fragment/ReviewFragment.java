@@ -145,8 +145,8 @@ public class ReviewFragment extends Fragment {
 
             if (reviewDTOs.get(position).imageUrl != null)
                 Glide.with(parent.getContext()).load(reviewDTOs.get(position).imageUrl).into(((CustomViewHolder) holder).imageView);
-    //        ((CustomViewHolder) holder).title.setText(reviewDTOs.get(position).title);
-            ((CustomViewHolder) holder).content.setText(reviewDTOs.get(position).content);
+            // ((CustomViewHolder) holder).title.setText(reviewDTOs.get(position).title);
+            // ((CustomViewHolder) holder).content.setText(reviewDTOs.get(position).content);
             ((CustomViewHolder) holder).userName.setText(reviewDTOs.get(position).userName);
             ((CustomViewHolder) holder).starButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -161,6 +161,17 @@ public class ReviewFragment extends Fragment {
                     onFollowClicked(database.getReference().child("users").child(reviewDTOs.get(position).uid), database.getReference().child("users").child(auth.getCurrentUser().getUid()));
                 }
             });
+            if(reviewDTOs.get(position).uid.equals(ApplicationController.currentUser.uid)){
+                ((CustomViewHolder) holder).delete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        database.getReference().child("reviews").child(reviewUidLists.get(position)).removeValue();
+                    }
+                });
+            }else {
+                ((CustomViewHolder) holder).delete.setVisibility(View.GONE);
+            }
+
 
             // 불러온 리뷰의 좋아요 uid리스트에 내 uid 있는지 확인
             if (reviewDTOs.get(position).stars.containsKey(auth.getCurrentUser().getUid())) {
@@ -283,26 +294,27 @@ public class ReviewFragment extends Fragment {
         private class CustomViewHolder extends RecyclerView.ViewHolder {
             CircularImageView profileImage;
             ImageView imageView;
-//            TextView title;
+            //            TextView title;
             TextView content;
             TextView userName;
             ImageView starButton;
             TextView starCount;
             Button follow;
+            Button delete;
 
 
             CustomViewHolder(View view) {
                 super(view);
                 profileImage = (CircularImageView) view.findViewById(R.id.cardview_userprofile);
-                imageView = (ImageView) view.findViewById(R.id.cardview_imageview);
+                imageView = (ImageView) view.findViewById(R.id.cardview_content_imageview);
 //                title = (TextView) view.findViewById(R.id.cardview_title);
-                content = (TextView) view.findViewById(R.id.cardview_content);
+                content = (TextView) view.findViewById(R.id.cardview_content_edittext);
                 userName = (TextView) view.findViewById(R.id.cardview_userName);
                 starButton = (ImageView) view.findViewById(R.id.cardview_starButton_img);
                 starCount = (TextView) view.findViewById(R.id.cardview_starcount);
                 follow = (Button) view.findViewById(R.id.cardview_follow_btn);
+                delete = (Button) view.findViewById(R.id.cardview_delete_btn);
             }
         }
     }
-
 }

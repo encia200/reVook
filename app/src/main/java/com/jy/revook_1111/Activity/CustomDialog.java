@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.graphics.Bitmap;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.view.View;
@@ -15,7 +13,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.android.gms.common.api.Api;
 import com.jy.revook_1111.APISearchNaverBook;
 import com.jy.revook_1111.FontSetting;
 import com.jy.revook_1111.Fragment.SearchFragment;
@@ -77,6 +74,7 @@ public class CustomDialog extends Dialog  {
 
     private void setTypeFace() {
         FontSetting fontSetting = new FontSetting(getContext());
+
         TextView textView = (TextView) findViewById(R.id.custom_dialog_author);
         textView.setTypeface(fontSetting.getTypeface_Contents());
         textView = (TextView) findViewById(R.id.custom_dialog_price);
