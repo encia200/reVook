@@ -99,7 +99,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="62dp"
-        android:text="지금 인기있는 소설"
+        android:text="추천 소설 도서"
         android:textColor="@android:color/black"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -205,5 +205,134 @@
         android:textSize="11dp"
         app:layout_constraintStart_toEndOf="@+id/search_famous_noble_title2"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout5" />
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="272dp"
+        android:background="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/search_famous_comic"
+        android:layout_width="wrap_content"
+        android:layout_height="24dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="추천 만화 도서"
+        android:textColor="@android:color/black"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout6"
+        android:layout_width="94dp"
+        android:layout_height="128dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/linesquare"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_famous_comic">
+
+        <ImageView
+            android:id="@+id/search_famous_comic_img1"
+            android:layout_width="100dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="4dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout7"
+        android:layout_width="94dp"
+        android:layout_height="128dp"
+        android:layout_marginStart="135dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/linesquare"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_famous_comic">
+
+        <ImageView
+            android:id="@+id/search_famous_comic_img2"
+            android:layout_width="100dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="4dp"
+            />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout8"
+        android:layout_width="94dp"
+        android:layout_height="128dp"
+        android:layout_marginStart="244dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/linesquare"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_famous_comic">
+
+        <ImageView
+            android:id="@+id/search_famous_comic_img3"
+            android:layout_width="100dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="4dp"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/search_famous_comic_title1"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="제목1"
+        android:textSize="11dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout6" />
+
+    <TextView
+        android:id="@+id/search_famous_comic_title2"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="제목2"
+        android:textSize="11dp"
+        app:layout_constraintStart_toEndOf="@+id/search_famous_comic_title1"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout7" />
+
+    <TextView
+        android:id="@+id/search_famous_comic_title3"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:singleLine="true"
+        android:text="제목3"
+        android:textSize="11dp"
+        app:layout_constraintStart_toEndOf="@+id/search_famous_comic_title2"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout8" />
 
 </android.support.constraint.ConstraintLayout>

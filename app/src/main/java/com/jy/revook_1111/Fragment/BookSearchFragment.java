@@ -51,11 +51,9 @@ public class BookSearchFragment extends Fragment {
                 if (keyCode == KeyEvent.KEYCODE_BACK) {
                     isSearching = false;
                     APISearchNaverBook.searchWord = null;
-                    FragmentManager fragmentManager = getFragmentManager();
-                    Fragment fragment = fragmentManager.findFragmentById(R.id.searchFragment);
-                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                    fragmentTransaction.detach(fragment);
-                    fragmentTransaction.commit();
+
+                    /*Fragment스택에 쌓여 있던 것들을 비워준다.*/
+                    SearchFragment.fragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
                     return true;
                 } else {
