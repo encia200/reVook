@@ -9,6 +9,7 @@ public class ReviewDTO {
     //public String title;
     public String content;
     public String uid;
+    public String reviewkey;
     public String userName;
 
     public int starCount = 0;

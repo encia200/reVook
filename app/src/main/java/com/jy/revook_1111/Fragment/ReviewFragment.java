@@ -165,6 +165,8 @@ public class ReviewFragment extends Fragment {
                 ((CustomViewHolder) holder).delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        database.getReference().child("users").child(ApplicationController.currentUser.uid).child("reviewCount").setValue(ApplicationController.currentUser.reviewCount = ApplicationController.currentUser.reviewCount - 1);
+                        database.getReference().child("users").child(auth.getCurrentUser().getUid()).child("reviews").child(reviewUidLists.get(position)).removeValue();
                         database.getReference().child("reviews").child(reviewUidLists.get(position)).removeValue();
                     }
                 });

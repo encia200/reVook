@@ -28,10 +28,11 @@
             android:id="@+id/editoractivity_editor_edittext"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_margin="16dp"
             android:background="@null"
             android:hint="내용을 입력하세요."
             android:shadowColor="@null"
+            android:textSize="18dp"
             android:textColor="@android:color/white"
             android:textColorHint="@android:color/white"
             android:textCursorDrawable="@null" />
@@ -42,7 +43,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignStart="@+id/editoractivity_editor_edittext"
-            android:layout_marginBottom="42dp"
+            android:layout_marginBottom="16dp"
             android:background="@null"
             android:hint="날짜"
             android:shadowColor="@null"
@@ -203,7 +204,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="8dp"
-            android:text="12"
+            android:text="18"
             android:textSize="20dp" />
 
         <SeekBar
@@ -212,7 +213,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:max="100"
-            android:progress="12" />
+            android:progress="18" />
     </LinearLayout>
 
     <Button
