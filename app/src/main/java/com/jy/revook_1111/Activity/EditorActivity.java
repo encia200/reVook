@@ -145,7 +145,7 @@ public class EditorActivity extends AppCompatActivity implements View.OnClickLis
         editor_content_edittext = (EditText) findViewById(R.id.editoractivity_editor_edittext);
         editor_content_edittext.setOnTouchListener(this);
         editor_content_date = (EditText) findViewById(R.id.editoractivity_editor_datetext);
-        editor_content_date.setText();
+        //editor_content_date.setText();
         editor_content_date.setOnTouchListener(this);
         editor_content_watermark = (EditText) findViewById(R.id.editoractivity_editor_watermarktext);
         editor_content_watermark.setOnTouchListener(this);
