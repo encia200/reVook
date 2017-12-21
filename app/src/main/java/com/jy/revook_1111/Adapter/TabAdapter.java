@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import com.jy.revook_1111.Fragment.BookSearchFragment;
 import com.jy.revook_1111.Fragment.ChatFragment;
 import com.jy.revook_1111.Fragment.HomeFragment;
-import com.jy.revook_1111.Fragment.PeopleFragment;
+import com.jy.revook_1111.Fragment.FollowerFragment;
 import com.jy.revook_1111.Fragment.ReviewFragment;
 import com.jy.revook_1111.Fragment.SearchFragment;
 import com.jy.revook_1111.Fragment.UserInfoFragment;
@@ -35,10 +35,8 @@ public class TabAdapter extends FragmentStatePagerAdapter {
                 HomeFragment homeFragment = new HomeFragment();
                 return homeFragment;
             case 3:
-                /*ChatFragment chatFragment = new ChatFragment();
-                return chatFragment;*/
-                PeopleFragment peopleFragment = new PeopleFragment();
-                return peopleFragment;
+                ChatFragment chatFragment = new ChatFragment();
+                return chatFragment;
             case 4:
                 UserInfoFragment userInfoFragment = new UserInfoFragment();
                 return userInfoFragment;

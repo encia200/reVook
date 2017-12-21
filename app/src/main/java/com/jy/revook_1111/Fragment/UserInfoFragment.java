@@ -8,6 +8,9 @@ import android.provider.MediaStore;
 import android.service.autofill.Dataset;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,7 +53,7 @@ public class UserInfoFragment extends Fragment {
     private static final int PICK_FROM_ALBUM = 10;
     private FirebaseAuth auth;
 
-    private String uid;
+    public static FragmentManager fragmentManager;
     private List<UserModel> userModels;
     private TextView textViewFollowers;
     private TextView textViewPost;
@@ -58,7 +61,7 @@ public class UserInfoFragment extends Fragment {
     private Button buttonFollowers;
     private Button buttonFollowings;
     private Button buttonPost;
-    private Button buttonLogout;
+    public static Button buttonLogout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -95,7 +98,6 @@ public class UserInfoFragment extends Fragment {
         if (ApplicationController.currentUser.profileImageUrl != null)
             Glide.with(this).load(ApplicationController.currentUser.profileImageUrl).into(profileImageView);
 
-        uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         textViewFollowers = (TextView)v.findViewById(R.id.userfragment_textview_followers);
         textViewFollowers.setTypeface(fontSetting.typeface_Title);
         textViewFollowings = (TextView)v.findViewById(R.id.userfragment_textview_followings);
@@ -112,13 +114,67 @@ public class UserInfoFragment extends Fragment {
         userModels = new ArrayList<>();
         setUserCount();
 
+        buttonFollowers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        buttonLogout.setVisibility(View.INVISIBLE);
+                        Fragment fragment = new FollowerFragment();
+                         fragmentManager = getFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.userInfofragment, fragment);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                    }
+                });
+
+
+            }
+        });
+
+        buttonFollowings.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                buttonLogout.setVisibility(View.INVISIBLE);
+                Fragment fragment = new FollowingFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.userInfofragment, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
+        buttonPost.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                buttonLogout.setVisibility(View.INVISIBLE);
+                Fragment fragment = new MyReviewFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.userInfofragment, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
         return v;
     }
 
     public void setUserCount(){
 
+        Log.e("message", String.valueOf(ApplicationController.currentUser.followerCount));
+        Log.e("message", String.valueOf(ApplicationController.currentUser.followingCount));
+        Log.e("message", String.valueOf(ApplicationController.currentUser.reviewCount));
+
         textViewFollowers.setText(String.valueOf(ApplicationController.currentUser.followerCount));
         textViewFollowings.setText(String.valueOf(ApplicationController.currentUser.followingCount));
+        textViewPost.setText(String.valueOf(ApplicationController.currentUser.reviewCount));
 
     }
 
