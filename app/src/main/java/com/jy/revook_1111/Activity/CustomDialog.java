@@ -6,13 +6,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.github.clans.fab.FloatingActionButton;
 import com.jy.revook_1111.APISearchNaverBook;
 import com.jy.revook_1111.FontSetting;
 import com.jy.revook_1111.Fragment.SearchFragment;
@@ -26,7 +26,7 @@ import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
  * Created by remna on 2017-12-08.
  */
 
-public class CustomDialog extends Dialog  {
+public class CustomDialog extends Dialog {
 
     public Activity a;
     public Dialog d;
@@ -35,6 +35,7 @@ public class CustomDialog extends Dialog  {
     private int fragmentIdentifier;
     public static final int SEARCH_FRAGMENT = 2;
     public static final int BOOK_SEARCH_FRAGMENT = 1;
+    FloatingActionButton menu1, menu2;
 
     public CustomDialog(Activity c, int i, int FRAGMENT) {
         super(c);
@@ -51,24 +52,35 @@ public class CustomDialog extends Dialog  {
         setTypeFace();
         setBookInfo();
 
-        FloatingActionButton btn_upload_review = (FloatingActionButton) findViewById(R.id.btn_upload_review);
-        btn_upload_review.setOnClickListener(new View.OnClickListener() {
+        menu1 = (FloatingActionButton) findViewById(R.id.btn_upload_review);
+        menu2 = (FloatingActionButton) findViewById(R.id.subFloatingMenu2);
+
+        menu1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), EditorActivity.class);
                 getContext().startActivity(intent);
             }
         });
+        menu2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ReadingBookActivity.class);
+                intent.putExtra("title",APISearchNaverBook.bookInfoList.get(index).title.toString());
+                intent.putExtra("image",APISearchNaverBook.bookInfoList.get(index).imageURL.toString());
+                getContext().startActivity(intent);
+            }
+        });
     }
 
     private static class ViewHolder {
-        TextView title;
+        static TextView title;
         TextView author;
         TextView price;
         TextView publisher;
         TextView isbn;
         TextView description;
-        ImageView image;
+        static ImageView image;
         ProgressBar dialog;
     }
 
@@ -102,23 +114,25 @@ public class CustomDialog extends Dialog  {
             publisher = APISearchNaverBook.bookInfoList.get(index).publisher;
             isbn = APISearchNaverBook.bookInfoList.get(index).isbn;
             description = APISearchNaverBook.bookInfoList.get(index).description;
-        } else if(fragmentIdentifier > SEARCH_FRAGMENT){
-            if(fragmentIdentifier == 3 )
-            {  title = SearchFragment.famousNobleList.get(index).title;
-            imgUrl = SearchFragment.famousNobleList.get(index).imageURL;
-            author = SearchFragment.famousNobleList.get(index).author;
-            price = SearchFragment.famousNobleList.get(index).price;
-            publisher = SearchFragment.famousNobleList.get(index).publisher;
-            isbn = SearchFragment.famousNobleList.get(index).isbn;
-            description = SearchFragment.famousNobleList.get(index).description;}
-            if(fragmentIdentifier == 4 )
-            {    title = SearchFragment.famousComicList.get(index).title;
-            imgUrl = SearchFragment.famousComicList.get(index).imageURL;
-            author = SearchFragment.famousComicList.get(index).author;
-            price = SearchFragment.famousComicList.get(index).price;
-            publisher = SearchFragment.famousComicList.get(index).publisher;
-            isbn = SearchFragment.famousComicList.get(index).isbn;
-            description = SearchFragment.famousComicList.get(index).description;}
+        } else if (fragmentIdentifier > SEARCH_FRAGMENT) {
+            if (fragmentIdentifier == 3) {
+                title = SearchFragment.famousNobleList.get(index).title;
+                imgUrl = SearchFragment.famousNobleList.get(index).imageURL;
+                author = SearchFragment.famousNobleList.get(index).author;
+                price = SearchFragment.famousNobleList.get(index).price;
+                publisher = SearchFragment.famousNobleList.get(index).publisher;
+                isbn = SearchFragment.famousNobleList.get(index).isbn;
+                description = SearchFragment.famousNobleList.get(index).description;
+            }
+            if (fragmentIdentifier == 4) {
+                title = SearchFragment.famousComicList.get(index).title;
+                imgUrl = SearchFragment.famousComicList.get(index).imageURL;
+                author = SearchFragment.famousComicList.get(index).author;
+                price = SearchFragment.famousComicList.get(index).price;
+                publisher = SearchFragment.famousComicList.get(index).publisher;
+                isbn = SearchFragment.famousComicList.get(index).isbn;
+                description = SearchFragment.famousComicList.get(index).description;
+            }
         }
 
         FontSetting fontSetting = new FontSetting(getContext());

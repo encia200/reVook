@@ -291,6 +291,7 @@ public class EditorActivity extends AppCompatActivity implements View.OnClickLis
                         }
                     }
                 });
+
                 setResult(UPLOADSUCESS_CODE);
                 finish();
             }
