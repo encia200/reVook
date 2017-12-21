@@ -1,26 +1,31 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/userInfofragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@android:color/white"
     android:padding="16dp"
     tools:context="com.jy.revook_1111.Fragment.UserInfoFragment">
 
     <LinearLayout
+        android:id="@+id/userfragment_linear_profile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:background="@android:color/white"
+        android:orientation="vertical">
 
         <com.mikhaellopez.circularimageview.CircularImageView
             android:id="@+id/userinfofragment_image_profile"
-            android:layout_width="72dp"
-            android:layout_height="72dp"
-            android:layout_marginRight="8dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center_horizontal"
             android:src="@drawable/ic_account_circle_black_24dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
             android:paddingBottom="8dp"
             android:paddingTop="8dp">
 
@@ -28,28 +33,137 @@
                 android:id="@+id/userinfofragment_textview_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
                 android:text="리북이"
+                android:textStyle="bold"
+                android:layout_gravity="center_horizontal"
                 android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/userinfofragment_textview_useremail"
+                android:textColor="@android:color/darker_gray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
                 android:text="revook@revook.co.kr"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
         </LinearLayout>
     </LinearLayout>
 
+    <LinearLayout
+        android:layout_below="@id/userfragment_linear_profile"
+        android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
+        android:layout_height="120dp"
+        android:background="@drawable/linesquare"
+        android:orientation="vertical"
+        >
+        <LinearLayout
+            android:layout_gravity="center_horizontal"
+            android:layout_width="300dp"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/white"
+            android:layout_height="55dp">
+            <TextView
+                android:id="@+id/userfragment_textview_post"
+                android:text="123"
+                android:textSize="15sp"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textColor="@android:color/black"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:background="@android:color/white"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+            <TextView
+                android:id="@+id/userfragment_textview_followers"
+                android:text="123"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/white"
+                android:textColor="@android:color/black"
+                android:textSize="15sp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+            <TextView
+                android:id="@+id/userfragment_textview_followings"
+                android:text="123"
+                android:layout_marginTop="8dp"
+                android:textColor="@android:color/black"
+                android:background="@android:color/white"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_gravity="center_horizontal"
+            android:layout_width="300dp"
+            android:background="@android:color/white"
+            android:layout_height="35dp">
+            <Button
+                android:id="@+id/userfragment_buttton_post"
+                android:text="게시물"
+                android:textSize="10sp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:textColor="@android:color/white"
+                android:layout_weight="1"
+                android:background="@drawable/linesquare_navy"
+                android:layout_width="50dp"
+                android:layout_height="30dp" />
+            <Button
+                android:id="@+id/userfragment_buttton_followers"
+                android:text="팔로워"
+                android:background="@drawable/linesquare_navy"
+                android:textColor="@android:color/white"
+                android:textSize="10sp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:layout_width="50dp"
+                android:layout_height="30dp" />
+            <Button
+                android:id="@+id/userfragment_buttton_followings"
+                android:text="팔로잉"
+                android:textColor="@android:color/white"
+                android:background="@drawable/linesquare_navy"
+                android:textSize="10sp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:layout_width="50dp"
+                android:layout_height="30dp" />
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
     <Button
-        android:id="@+id/userinfofragment_btn_logout"
+        android:id="@+id/userfragment_button_logout"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:background="@drawable/background_editor_btn"
-        android:text="logout"
+        android:text="로그아웃"
         android:textColor="@android:color/white"
-        android:textSize="16sp" />
+        android:textSize="15sp" />
 
 </RelativeLayout>

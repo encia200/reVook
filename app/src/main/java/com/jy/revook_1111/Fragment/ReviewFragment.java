@@ -62,7 +62,8 @@ public class ReviewFragment extends Fragment {
 
         //카드 리스트뷰 어댑터에 연결
         final ReviewRecyclerViewAdapter adapter = new ReviewRecyclerViewAdapter();
-        recyclerView.setAdapter(adapter);
+        recyclerView.
+                setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
         // db 불러오기

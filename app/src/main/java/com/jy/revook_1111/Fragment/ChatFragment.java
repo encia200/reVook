@@ -39,7 +39,7 @@ import java.util.TreeMap;
 
 public class ChatFragment extends Fragment {
 
-    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.mm.DD HH:mm");
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm");
 
     @Nullable
     @Override
@@ -60,7 +60,7 @@ public class ChatFragment extends Fragment {
 
         public ChatRecyclerViewAdapter() {
             uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-            FirebaseDatabase.getInstance().getReference().child("chatrooms").orderByChild("users/" + uid).equalTo(true).addListenerForSingleValueEvent(new ValueEventListener() {
+            FirebaseDatabase.getInstance().getReference().child("chatrooms").orderByChild("users/" + uid).equalTo(true).addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     chatModels.clear();
@@ -132,10 +132,11 @@ public class ChatFragment extends Fragment {
                 }
             });
 
-            simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
             long unixTime = (long) chatModels.get(position).comments.get(lastMessageKey).timestamp;
             Date date = new Date(unixTime);
-            customViewHolder.textView_timestamp.setText(simpleDateFormat.format(date));
+            simpleDateFormat.setTimeZone(TimeZone.getTimeZone("Asia/Seoul"));
+            String time = simpleDateFormat.format(date);
+            customViewHolder.textView_timestamp.setText(time);
         }
 
 

@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ApplicationController.currentUser = dataSnapshot.getValue(UserModel.class);
-                ApplicationController.initFollowers();
+                ApplicationController.initCurrentUserInfo();
             }
 
             @Override

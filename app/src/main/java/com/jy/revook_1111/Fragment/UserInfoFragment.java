@@ -5,8 +5,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.service.autofill.Dataset;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,14 +22,21 @@ import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.UploadTask;
 import com.jy.revook_1111.Activity.LoginActivity;
 import com.jy.revook_1111.ApplicationController;
+import com.jy.revook_1111.FontSetting;
 import com.jy.revook_1111.R;
 import com.jy.revook_1111.model.UserModel;
 import com.mikhaellopez.circularimageview.CircularImageView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -42,12 +53,22 @@ public class UserInfoFragment extends Fragment {
     private static final int PICK_FROM_ALBUM = 10;
     private FirebaseAuth auth;
 
+    public static FragmentManager fragmentManager;
+    private List<UserModel> userModels;
+    private TextView textViewFollowers;
+    private TextView textViewPost;
+    private TextView textViewFollowings;
+    private Button buttonFollowers;
+    private Button buttonFollowings;
+    private Button buttonPost;
+    public static Button buttonLogout;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_user_info, container, false);
 
-        Button btn_userInfo_logout = (Button) v.findViewById(R.id.userinfofragment_btn_logout);
-        btn_userInfo_logout.setOnClickListener(new View.OnClickListener() {
+       buttonLogout = (Button) v.findViewById(R.id.userfragment_button_logout);
+        buttonLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 auth.signOut();
@@ -58,8 +79,11 @@ public class UserInfoFragment extends Fragment {
             }
         });
         auth = FirebaseAuth.getInstance();
+        FontSetting fontSetting = new FontSetting(getContext());
         nameTextView = (TextView) v.findViewById(R.id.userinfofragment_textview_username);
+        nameTextView.setTypeface(fontSetting.typeface_Title);
         emailTextView = (TextView) v.findViewById(R.id.userinfofragment_textview_useremail);
+        emailTextView.setTypeface(fontSetting.typeface_Title);
         profileImageView = (CircularImageView) v.findViewById(R.id.userinfofragment_image_profile);
         profileImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,7 +97,85 @@ public class UserInfoFragment extends Fragment {
         emailTextView.setText(ApplicationController.currentUser.email);
         if (ApplicationController.currentUser.profileImageUrl != null)
             Glide.with(this).load(ApplicationController.currentUser.profileImageUrl).into(profileImageView);
+
+        textViewFollowers = (TextView)v.findViewById(R.id.userfragment_textview_followers);
+        textViewFollowers.setTypeface(fontSetting.typeface_Title);
+        textViewFollowings = (TextView)v.findViewById(R.id.userfragment_textview_followings);
+        textViewFollowings.setTypeface(fontSetting.typeface_Title);
+        textViewPost = (TextView)v.findViewById(R.id.userfragment_textview_post);
+        textViewPost.setTypeface(fontSetting.typeface_Title);
+        buttonFollowers = (Button) v.findViewById(R.id.userfragment_buttton_followers);
+        buttonFollowers.setTypeface(fontSetting.typeface_Contents);
+        buttonFollowings = (Button) v.findViewById(R.id.userfragment_buttton_followings);
+        buttonFollowings.setTypeface(fontSetting.typeface_Contents);
+        buttonPost = (Button) v.findViewById(R.id.userfragment_buttton_post);
+        buttonPost.setTypeface(fontSetting.typeface_Contents);
+        buttonLogout.setTypeface(fontSetting.typeface_Contents);
+        userModels = new ArrayList<>();
+        setUserCount();
+
+        buttonFollowers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        buttonLogout.setVisibility(View.INVISIBLE);
+                        Fragment fragment = new FollowerFragment();
+                         fragmentManager = getFragmentManager();
+                        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                        fragmentTransaction.replace(R.id.userInfofragment, fragment);
+                        fragmentTransaction.addToBackStack(null);
+                        fragmentTransaction.commit();
+                    }
+                });
+
+
+            }
+        });
+
+        buttonFollowings.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                buttonLogout.setVisibility(View.INVISIBLE);
+                Fragment fragment = new FollowingFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.userInfofragment, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
+        buttonPost.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                buttonLogout.setVisibility(View.INVISIBLE);
+                Fragment fragment = new MyReviewFragment();
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.userInfofragment, fragment);
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
+
         return v;
+    }
+
+    public void setUserCount(){
+
+        Log.e("message", String.valueOf(ApplicationController.currentUser.followerCount));
+        Log.e("message", String.valueOf(ApplicationController.currentUser.followingCount));
+        Log.e("message", String.valueOf(ApplicationController.currentUser.reviewCount));
+
+        textViewFollowers.setText(String.valueOf(ApplicationController.currentUser.followerCount));
+        textViewFollowings.setText(String.valueOf(ApplicationController.currentUser.followingCount));
+        textViewPost.setText(String.valueOf(ApplicationController.currentUser.reviewCount));
+
     }
 
     @Override
