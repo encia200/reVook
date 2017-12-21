@@ -7,8 +7,20 @@
     android:padding="16dp"
     tools:context="com.jy.revook_1111.Activity.ReadingBookActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="현재 독서중인 도서 등록하기"
+        android:textSize="23sp"
+        android:textStyle="bold"
+        android:id="@+id/readingbook_text1"
+        />
+
     <ImageView
         android:id="@+id/readingbook_img"
+        android:layout_below="@+id/readingbook_text1"
+        android:layout_marginTop="20dp"
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_centerHorizontal="true" />
@@ -20,44 +32,89 @@
         android:layout_below="@+id/readingbook_img"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="24dp"
-        android:text="나미야 잡화점의 기적"
+        android:layout_marginTop="10dp"
+        android:text="책 제목"
         android:textSize="24dp" />
 
-    <TextView
-        android:id="@+id/readingbook_totalpage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/readingbook_totalpage_input"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/readingbook_title"
-        android:layout_marginLeft="24dp"
-        android:text="총 페이지수"
-        android:textSize="24dp" />
+    <LinearLayout
+        android:id="@+id/readingbook_linear1"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/readingbook_title"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_width="300dp"
+        android:layout_height="60dp">
+        <TextView
+            android:id="@+id/readingbook_totalpage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/readingbook_totalpage_input"
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:layout_below="@+id/readingbook_title"
+            android:text="총 페이지수"
+            android:textSize="24sp" />
 
-    <EditText
-        android:id="@+id/readingbook_totalpage_input"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/readingbook_title"
-        android:layout_marginLeft="16dp"
-        android:layout_toRightOf="@+id/readingbook_totalpage" />
-    <TextView
-        android:id="@+id/readingbook_currentpage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/readingbook_currentpage_input"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/readingbook_totalpage"
-        android:layout_marginLeft="24dp"
-        android:text="읽은 페이지수"
-        android:textSize="24dp" />
+        <EditText
+            android:id="@+id/readingbook_totalpage_input"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_below="@+id/readingbook_title"
+            android:layout_marginLeft="16dp"
+            android:singleLine="true"
+            android:lines="1"
+            android:background="@drawable/linesquare"
+            android:layout_toRightOf="@+id/readingbook_totalpage" />
 
-    <EditText
-        android:id="@+id/readingbook_currentpage_input"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/readingbook_totalpage"
-        android:layout_marginLeft="16dp"
-        android:layout_toRightOf="@+id/readingbook_totalpage" />
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/readingbook_linear2"
+        android:layout_below="@id/readingbook_linear1"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_marginTop="8dp"
+        android:layout_width="300dp"
+        android:layout_height="60dp">
+        <TextView
+            android:id="@+id/readingbook_currentpage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/readingbook_currentpage_input"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/readingbook_totalpage"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:text="읽은 페이지수"
+            android:textSize="24sp" />
+        <EditText
+            android:id="@+id/readingbook_currentpage_input"
+            android:layout_width="80dp"
+            android:layout_gravity="center_vertical"
+            android:layout_height="40dp"
+            android:layout_below="@+id/readingbook_totalpage"
+            android:layout_marginLeft="16dp"
+            android:singleLine="true"
+            android:lines="1"
+            android:background="@drawable/linesquare"
+            android:layout_toRightOf="@+id/readingbook_totalpage" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/readingbook_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/linesquare_navy"
+        android:text="등록"
+        android:textColor="@android:color/white"
+        android:textSize="15sp"
+        android:layout_below="@+id/readingbook_linear2"
+        android:layout_width="80dp"
+        android:layout_height="30dp" />
+
 
 </RelativeLayout>

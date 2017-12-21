@@ -10,6 +10,10 @@ public class UserModel {
     public String userName;
     public String profileImageUrl;
     public String pushToken;
+    public String MyBook_title;
+    public String MyBook_img;
+    public String MyBook_totalPage;
+    public String MyBook_currentPage;
 
     public int followerCount = 0;
     public Map<String, Boolean> followers = new HashMap<>();

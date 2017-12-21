@@ -170,13 +170,13 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("userName").setValue(mFirebaseAuth.getCurrentUser().getDisplayName());
                             FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("email").setValue(mFirebaseAuth.getCurrentUser().getEmail());
                             FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("uid").setValue(mFirebaseAuth.getCurrentUser().getUid());
-
                             FirebaseDatabase.getInstance().getReference().child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     ApplicationController.currentUser.userName = dataSnapshot.child("userName").getValue().toString();
                                     ApplicationController.currentUser.email = dataSnapshot.child("email").getValue().toString();
                                     ApplicationController.currentUser.uid = dataSnapshot.child("uid").getValue().toString();
+
                                     if (dataSnapshot.child("profileImage").getValue() != null) {
                                         ApplicationController.currentUser.profileImageUrl = dataSnapshot.child("profileImage").getValue().toString();
                                     }
@@ -248,6 +248,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             ApplicationController.currentUser.userName = dataSnapshot.child("userName").getValue().toString();
                             ApplicationController.currentUser.email = dataSnapshot.child("email").getValue().toString();
                             ApplicationController.currentUser.uid = dataSnapshot.child("uid").getValue().toString();
+
                             if (dataSnapshot.child("profileImage").getValue() != null) {
                                 ApplicationController.currentUser.profileImageUrl = dataSnapshot.child("profileImage").getValue().toString();
                             }

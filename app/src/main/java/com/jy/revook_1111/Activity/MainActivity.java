@@ -2,10 +2,15 @@ package com.jy.revook_1111.Activity;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -16,8 +21,14 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.jy.revook_1111.Adapter.TabAdapter;
 import com.jy.revook_1111.ApplicationController;
+import com.jy.revook_1111.FontSetting;
+import com.jy.revook_1111.Fragment.HomeFragment;
 import com.jy.revook_1111.R;
 import com.jy.revook_1111.model.UserModel;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -28,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     public static ViewPager viewPager;
     private TabLayout.Tab tab;
+
+
 
     private int[] tabIcons = {
             R.drawable.ic_search_black_24dp,
@@ -49,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Intent intent = getIntent();
         ApplicationController.currentUser = new UserModel();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
         ValueEventListener databaseListener = new ValueEventListener() {
@@ -57,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 ApplicationController.currentUser = dataSnapshot.getValue(UserModel.class);
                 ApplicationController.initCurrentUserInfo();
+                HomeFragment.title = ApplicationController.currentUser.MyBook_title;
+                HomeFragment.imgURL = ApplicationController.currentUser.MyBook_img;
             }
 
             @Override
@@ -117,7 +131,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         passPushTokenToServer();
+
+
+
+
     }
+
 
     void passPushTokenToServer()
     {

@@ -79,8 +79,23 @@ public class CustomDialog extends Dialog {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), ReadingBookActivity.class);
-                intent.putExtra("title", APISearchNaverBook.bookInfoList.get(index).title.toString());
-                intent.putExtra("image", APISearchNaverBook.bookInfoList.get(index).imageURL.toString());
+
+                if(fragmentIdentifier == 3)
+                {
+                 intent.putExtra("title",SearchFragment.famousNobleList.get(index).title);
+                 intent.putExtra("imageURL",SearchFragment.famousNobleList.get(index).imageURL);
+                }
+                else if(fragmentIdentifier == 4)
+                {
+                    intent.putExtra("title", SearchFragment.famousComicList.get(index).title);
+                    intent.putExtra("imageURL", SearchFragment.famousComicList.get(index).imageURL);
+                }
+                else if(fragmentIdentifier == BOOK_SEARCH_FRAGMENT)
+                {
+                    intent.putExtra("title", APISearchNaverBook.bookInfoList.get(index).title);
+                    intent.putExtra("imageURL", APISearchNaverBook.bookInfoList.get(index).imageURL);
+                }
+
                 getContext().startActivity(intent);
             }
         });
