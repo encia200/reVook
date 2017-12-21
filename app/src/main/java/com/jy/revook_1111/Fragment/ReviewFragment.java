@@ -25,14 +25,25 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 import com.jy.revook_1111.ApplicationController;
 import com.jy.revook_1111.Data.ReviewDTO;
 import com.jy.revook_1111.R;
+import com.jy.revook_1111.model.NotificationModel;
 import com.jy.revook_1111.model.UserModel;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
 
 
 /**
@@ -40,7 +51,8 @@ import java.util.List;
  */
 public class ReviewFragment extends Fragment {
     RecyclerView recyclerView;
-
+    private final int FOLLOWING_PUSH = 1;
+    private final int LIKE_PUSH = 2;
     private FirebaseAuth auth;
     private FirebaseDatabase database;
     private List<ReviewDTO> reviewDTOs = new ArrayList<>();
@@ -63,7 +75,6 @@ public class ReviewFragment extends Fragment {
         recyclerView = (RecyclerView) v.findViewById(R.id.rv);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(mLinearLayoutManager);
-
 
 
         //카드 리스트뷰 어댑터에 연결
@@ -249,6 +260,7 @@ public class ReviewFragment extends Fragment {
             }
         }
 
+
         @Override
         public int getItemCount() {
             //이미지 카운터
@@ -270,6 +282,8 @@ public class ReviewFragment extends Fragment {
                         reviewDTO.stars.remove(auth.getCurrentUser().getUid());
                     } else {
                         // Star the post and add self to stars
+                        //좋아요눌렀을때
+                       // sendGcm(, LIKE_PUSH);
                         reviewDTO.starCount = reviewDTO.starCount + 1;
                         reviewDTO.stars.put(auth.getCurrentUser().getUid(), true);
                     }
@@ -305,7 +319,9 @@ public class ReviewFragment extends Fragment {
                             toUserModel[0].followerCount = toUserModel[0].followerCount - 1;
                             toUserModel[0].followers.remove(auth.getCurrentUser().getUid());
                         } else {
+                            // 팔로우 취소할때
                             // Star the post and add self to stars
+
                             toUserModel[0].followerCount = toUserModel[0].followerCount + 1;
                             toUserModel[0].followers.put(auth.getCurrentUser().getUid(), true);
                         }
@@ -333,7 +349,9 @@ public class ReviewFragment extends Fragment {
                             fromUserModel[0].followingCount = fromUserModel[0].followingCount - 1;
                             fromUserModel[0].followings.remove(toUser.getKey());
                         } else {
+                            //팔로우할때
                             // Star the post and add self to stars
+                            sendGcm(toUserModel[0], FOLLOWING_PUSH);
                             fromUserModel[0].followingCount = fromUserModel[0].followingCount + 1;
                             fromUserModel[0].followings.put(toUser.getKey(), true);
                         }
@@ -351,6 +369,46 @@ public class ReviewFragment extends Fragment {
                     }
                 });
             }
+        }
+
+        void sendGcm(UserModel destinationUserModel, int mode) {
+            Gson gson = new Gson();
+
+            String userName = FirebaseAuth.getInstance().getCurrentUser().getDisplayName();
+            NotificationModel notificationModel = new NotificationModel();
+            notificationModel.to = destinationUserModel.pushToken;
+            notificationModel.notification.title = userName;
+            notificationModel.notification.text = "안ㄴ옇세요.";
+            notificationModel.data.title = userName;
+            switch (mode) {
+                case FOLLOWING_PUSH:
+                    notificationModel.data.text = ApplicationController.currentUser.userName + "님이 당신을 팔로우하였습니다.";
+                    break;
+                case LIKE_PUSH:
+                    notificationModel.data.text = ApplicationController.currentUser.userName + "님이 회원님의 게시물을 좋아합니다.";
+                    break;
+            }
+
+
+            RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf8"), gson.toJson(notificationModel));
+            Request request = new Request.Builder()
+                    .header("Content-Type", "application/json")
+                    .addHeader("Authorization", "key=AAAAey851HA:APA91bGfavFXUW5gyFVGmQ14bWVmK-hEzyNgHKpVIzuO6i9DB3qYIjMFG6fFBTN48FRNMhBEhLo_3Jgbp4ING03LLqDZNyPyJ3ytGDz8t87G7IrkW3oAO9Eks_I_XfyOsDdb43aAEFIh")
+                    .url("https://gcm-http.googleapis.com/gcm/send")
+                    .post(requestBody)
+                    .build();
+            OkHttpClient okHttpClient = new OkHttpClient();
+            okHttpClient.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+
+                }
+            });
         }
 
         private class CustomViewHolder extends RecyclerView.ViewHolder {

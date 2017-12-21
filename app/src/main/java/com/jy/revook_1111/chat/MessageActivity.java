@@ -75,7 +75,6 @@ public class MessageActivity extends AppCompatActivity {
         FontSetting fontSetting = new FontSetting(getApplicationContext());
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid(); // 채팅을 요구하는 아이디
         destinationUid = getIntent().getStringExtra("destinationUid"); // 채팅을 당하는 아이디
-        Log.e("message", "MESSAGEACTIVITY : " + destinationUid);
 
         button = (Button) findViewById(R.id.messageActivity_button);
         editText = (EditText) findViewById(R.id.messageActivity_editText);
