@@ -59,7 +59,7 @@ public class ReadingBookActivity extends AppCompatActivity {
         editText2 = (EditText) findViewById(R.id.readingbook_totalpage_input);
         editText2.setTypeface(fontSetting.typeface_Contents);
 
-        button = (Button)findViewById(R.id.readingbook_button);
+        button = (Button) findViewById(R.id.readingbook_button);
         button.setTypeface(fontSetting.typeface_Contents);
 
         button.setOnClickListener(new View.OnClickListener() {
@@ -67,10 +67,10 @@ public class ReadingBookActivity extends AppCompatActivity {
             public void onClick(View view) {
                 FirebaseDatabase.getInstance().getReference().child("users").child(ApplicationController.currentUser.uid).child("MyBook_title").setValue(title);
                 FirebaseDatabase.getInstance().getReference().child("users").child(ApplicationController.currentUser.uid).child("MyBook_img").setValue(imgURL);
-                FirebaseDatabase.getInstance().getReference().child("users").child(ApplicationController.currentUser.uid).child("MyBook_totalPage").setValue(editText1.getText().toString());
-                FirebaseDatabase.getInstance().getReference().child("users").child(ApplicationController.currentUser.uid).child("MyBook_currentPage").setValue(editText2.getText().toString());
+                FirebaseDatabase.getInstance().getReference().child("users").child(ApplicationController.currentUser.uid).child("MyBook_totalPage").setValue(editText2.getText().toString());
+                FirebaseDatabase.getInstance().getReference().child("users").child(ApplicationController.currentUser.uid).child("MyBook_currentPage").setValue(editText1.getText().toString());
 
-                    finish();
+                finish();
             }
         });
 
@@ -87,12 +87,9 @@ public class ReadingBookActivity extends AppCompatActivity {
         final ViewHolder holder = new ViewHolder();
 
         FontSetting fontSetting = new FontSetting(getApplicationContext());
-        holder.title = (TextView) findViewById(R.id.HomeFrag_readingbook_title);
+        holder.title = (TextView) findViewById(R.id.readingbook_title);
         holder.title.setTypeface(fontSetting.getTypeface_Title());
-        holder.image = (ImageView) findViewById(R.id.HomeFrag_readingbook_img);
-
-        TextView textView = (TextView)findViewById(R.id.HomeFrag_readingbook_pages);
-        holder.title.setText(title);
+        holder.image = (ImageView) findViewById(R.id.readingbook_img);
 
 
         if (imgURL.length() == 0) {

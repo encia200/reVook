@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/tools"
+    android:layout_width="350dp"
+    android:layout_height="350dp"
+    android:background="@drawable/dialog_background">
+
+    <LinearLayout
+        android:id="@+id/modify_linear1"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_width="300dp"
+        android:layout_height="60dp">
+        <TextView
+            android:id="@+id/modify_totalpage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/modify_totalpage_input"
+            android:layout_alignParentLeft="true"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:text="총 페이지 수"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/modify_totalpage_input"
+            android:layout_width="80dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_below="@+id/modify_title"
+            android:layout_marginLeft="16dp"
+            android:singleLine="true"
+            android:lines="1"
+            android:text="0"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:layout_toRightOf="@+id/modify_totalpage" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/modify_linear"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/modify_linear1"
+        android:gravity="center"
+        android:layout_marginTop="8dp"
+        android:layout_width="300dp"
+        android:layout_height="60dp">
+        <TextView
+            android:id="@+id/modify_currentpage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/modify_currentpage_input"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/rmodify_totalpage"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:text="읽은 페이지 수"
+            android:textSize="24sp" />
+        <EditText
+            android:id="@+id/modify_currentpage_input"
+            android:layout_width="80dp"
+            android:layout_gravity="center_vertical"
+            android:layout_height="40dp"
+            android:layout_below="@+id/modify_totalpage"
+            android:layout_marginLeft="16dp"
+            android:singleLine="true"
+            android:lines="1"
+            android:background="@drawable/linesquare"
+            android:layout_toRightOf="@+id/modify_totalpage" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/modify_button"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:background="@drawable/linesquare_navy"
+        android:text="등록"
+        android:textColor="@android:color/white"
+        android:textSize="15sp"
+        android:layout_below="@+id/modify_linear"
+        android:layout_width="80dp"
+        android:layout_height="30dp" />
+
+</RelativeLayout>

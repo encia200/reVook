@@ -53,7 +53,7 @@
             android:layout_gravity="center_vertical"
             android:gravity="center"
             android:layout_below="@+id/readingbook_title"
-            android:text="총 페이지수"
+            android:text="총 페이지 수"
             android:textSize="24sp" />
 
         <EditText
@@ -89,7 +89,7 @@
             android:layout_below="@+id/readingbook_totalpage"
             android:layout_gravity="center_vertical"
             android:gravity="center"
-            android:text="읽은 페이지수"
+            android:text="읽은 페이지 수"
             android:textSize="24sp" />
         <EditText
             android:id="@+id/readingbook_currentpage_input"

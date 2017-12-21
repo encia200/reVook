@@ -71,7 +71,7 @@ public class FollowingFragment extends Fragment {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     userModels.clear();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        for (int i = 0; i < ApplicationController.getFollowersSize(); i++) {
+                        for (int i = 0; i < ApplicationController.currentUser.followingCount; i++) {
                             if (snapshot.getKey().equals(ApplicationController.currentUser_followings.get(i))) {
 
                                 userModels.add(snapshot.getValue(UserModel.class));

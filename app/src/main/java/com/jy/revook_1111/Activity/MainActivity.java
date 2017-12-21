@@ -71,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
                 ApplicationController.initCurrentUserInfo();
                 HomeFragment.title = ApplicationController.currentUser.MyBook_title;
                 HomeFragment.imgURL = ApplicationController.currentUser.MyBook_img;
+                HomeFragment.totalPage = ApplicationController.currentUser.MyBook_totalPage;
+                HomeFragment.currentPage = ApplicationController.currentUser.MyBook_currentPage;
             }
 
             @Override

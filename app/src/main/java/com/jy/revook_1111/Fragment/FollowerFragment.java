@@ -73,7 +73,7 @@ public class FollowerFragment extends Fragment {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     userModels.clear();
                     for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        for (int i = 0; i < ApplicationController.getFollowersSize(); i++) {
+                        for (int i = 0; i < ApplicationController.currentUser.followerCount; i++) {
                             if (snapshot.getKey().equals(ApplicationController.currentUser_followers.get(i))) {
                                 userModels.add(snapshot.getValue(UserModel.class));
                             }
@@ -111,7 +111,6 @@ public class FollowerFragment extends Fragment {
                 public void onClick(View view) {
                     Intent intent = new Intent(view.getContext(), MessageActivity.class);
                     intent.putExtra("destinationUid", userModels.get(position).uid);
-                    Log.e("message" , "destinationUID ---> " + userModels.get(position).uid);
                     ActivityOptions activityOptions = ActivityOptions.makeCustomAnimation(view.getContext(), R.anim.fromright, R.anim.toleft);
                     startActivity(intent, activityOptions.toBundle());
                 }

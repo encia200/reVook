@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/homeFragment"
     tools:context="com.jy.revook_1111.Fragment.HomeFragment">
 
     <LinearLayout
@@ -39,7 +40,7 @@
             android:layout_gravity="center"
             android:layout_marginBottom="24dp"
             android:layout_marginTop="10dp"
-            android:text="책 제목"
+            android:text="불러오는중..."
             android:textSize="24dp" />
 
 
@@ -56,36 +57,47 @@
         android:orientation="vertical"
         android:layout_marginTop="2dp"
         android:layout_below="@+id/HomeFrag_linear1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
         <TextView
             android:id="@+id/HomeFrag_readingbook_text2"
             android:text="도서 진행률"
             android:textSize="25dp"
+            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+
             <TextView
                 android:id="@+id/HomeFrag_readingbook_pages"
                 android:layout_marginTop="20dp"
-                android:text="324/600"
-                android:textSize="60dp"
+                android:text="0/0"
+                android:layout_gravity="center"
+                android:textSize="40dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <TextView
                 android:id="@+id/HomeFrag_readingbook_progress"
-                android:text="51%"
-                android:textSize="60dp"
-                android:singleLine="true"
-                android:layout_marginTop="100dp"
-                android:layout_marginLeft="40dp"
+                android:text="0%"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:textSize="40dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-        </LinearLayout>
+
+        <Button
+            android:id="@+id/HomeFrag_modify"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/linesquare_navy"
+            android:textColor="@android:color/white"
+            android:text="수정"
+            android:textSize="15dp"
+            />
+
 
     </LinearLayout>
 
