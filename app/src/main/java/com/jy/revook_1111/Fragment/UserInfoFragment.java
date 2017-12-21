@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.service.autofill.Dataset;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -22,10 +21,7 @@ import com.facebook.login.LoginManager;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.UploadTask;
 import com.jy.revook_1111.Activity.LoginActivity;
@@ -67,7 +63,7 @@ public class UserInfoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_user_info, container, false);
 
-       buttonLogout = (Button) v.findViewById(R.id.userfragment_button_logout);
+        buttonLogout = (Button) v.findViewById(R.id.userfragment_button_logout);
         buttonLogout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,11 +94,11 @@ public class UserInfoFragment extends Fragment {
         if (ApplicationController.currentUser.profileImageUrl != null)
             Glide.with(this).load(ApplicationController.currentUser.profileImageUrl).into(profileImageView);
 
-        textViewFollowers = (TextView)v.findViewById(R.id.userfragment_textview_followers);
+        textViewFollowers = (TextView) v.findViewById(R.id.userfragment_textview_followers);
         textViewFollowers.setTypeface(fontSetting.typeface_Title);
-        textViewFollowings = (TextView)v.findViewById(R.id.userfragment_textview_followings);
+        textViewFollowings = (TextView) v.findViewById(R.id.userfragment_textview_followings);
         textViewFollowings.setTypeface(fontSetting.typeface_Title);
-        textViewPost = (TextView)v.findViewById(R.id.userfragment_textview_post);
+        textViewPost = (TextView) v.findViewById(R.id.userfragment_textview_post);
         textViewPost.setTypeface(fontSetting.typeface_Title);
         buttonFollowers = (Button) v.findViewById(R.id.userfragment_buttton_followers);
         buttonFollowers.setTypeface(fontSetting.typeface_Contents);
@@ -123,7 +119,7 @@ public class UserInfoFragment extends Fragment {
                     public void run() {
                         buttonLogout.setVisibility(View.INVISIBLE);
                         Fragment fragment = new FollowerFragment();
-                         fragmentManager = getFragmentManager();
+                        fragmentManager = getFragmentManager();
                         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                         fragmentTransaction.replace(R.id.userInfofragment, fragment);
                         fragmentTransaction.addToBackStack(null);
@@ -135,7 +131,7 @@ public class UserInfoFragment extends Fragment {
             }
         });
 
-        buttonFollowings.setOnClickListener(new View.OnClickListener(){
+        buttonFollowings.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -149,7 +145,7 @@ public class UserInfoFragment extends Fragment {
             }
         });
 
-        buttonPost.setOnClickListener(new View.OnClickListener(){
+        buttonPost.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -166,8 +162,7 @@ public class UserInfoFragment extends Fragment {
         return v;
     }
 
-    public void setUserCount(){
-
+    public void setUserCount() {
         Log.e("message", String.valueOf(ApplicationController.currentUser.followerCount));
         Log.e("message", String.valueOf(ApplicationController.currentUser.followingCount));
         Log.e("message", String.valueOf(ApplicationController.currentUser.reviewCount));
@@ -175,7 +170,6 @@ public class UserInfoFragment extends Fragment {
         textViewFollowers.setText(String.valueOf(ApplicationController.currentUser.followerCount));
         textViewFollowings.setText(String.valueOf(ApplicationController.currentUser.followingCount));
         textViewPost.setText(String.valueOf(ApplicationController.currentUser.reviewCount));
-
     }
 
     @Override
@@ -189,14 +183,7 @@ public class UserInfoFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                         String imageUrl = task.getResult().getDownloadUrl().toString();
-
-                        UserModel userModel = new UserModel();
-                        userModel.userName = auth.getCurrentUser().getDisplayName();
-                        userModel.email = auth.getCurrentUser().getEmail();
-                        userModel.profileImageUrl = imageUrl;
-                        ApplicationController.currentUser = userModel;
-
-                        FirebaseDatabase.getInstance().getReference().child("users").child(uid).setValue(userModel);
+                        FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("profileImageUrl").setValue(imageUrl);
                     }
                 });
             }

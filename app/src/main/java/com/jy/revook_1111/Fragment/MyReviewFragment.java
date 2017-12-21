@@ -95,8 +95,10 @@ public class MyReviewFragment extends Fragment {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     ReviewDTO reviewDTO = snapshot.getValue(ReviewDTO.class);
                     String reviewUidKey = snapshot.getKey();
-                    reviewDTOs.add(reviewDTO);
-                    reviewUidLists.add(reviewUidKey);
+                    if(reviewDTO.uid.equals(ApplicationController.currentUser.uid)) {
+                        reviewDTOs.add(reviewDTO);
+                        reviewUidLists.add(reviewUidKey);
+                    }
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -162,7 +164,6 @@ public class MyReviewFragment extends Fragment {
 
                     }
                 });
-
 
                 if (reviewDTOs.get(position).imageUrl != null)
                     Glide.with(parent.getContext()).load(reviewDTOs.get(position).imageUrl).into(((CustomViewHolder) holder).imageView);

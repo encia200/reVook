@@ -5,14 +5,13 @@ import android.app.Application;
 import com.jy.revook_1111.model.UserModel;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 public class ApplicationController extends Application{
     public static UserModel currentUser;
     public static ArrayList<String> currentUser_followers;
     public static ArrayList<String> currentUser_followings;
     public static ArrayList<String> currentUser_reviews;
+    public static int currentUser_reviewCount;
 
     public static void initCurrentUserInfo()
     {
@@ -33,6 +32,7 @@ public class ApplicationController extends Application{
         {
             currentUser_reviews.add(str);
         }
+        currentUser_reviewCount = currentUser.reviewCount;
     }
 
     public static int getFollowersSize()

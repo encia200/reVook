@@ -6,10 +6,47 @@
     android:padding="16dp"
     tools:context="com.jy.revook_1111.Fragment.ReviewFragment">
 
+    <TextView
+        android:id="@+id/sw_off"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="8dp"
+        android:layout_toLeftOf="@+id/sw"
+        android:background="@drawable/background_editor_btn"
+        android:paddingHorizontal="8dp"
+        android:text="모두"
+        android:textColor="@android:color/white"
+        android:textSize="20dp" />
+
+    <Switch
+        android:id="@+id/sw"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:switchMinWidth="50dp"
+        android:text=""
+        android:textOff=""
+        android:textOn=""
+        android:thumb="@drawable/switch_thumb_selector"
+        android:track="@drawable/switch_track_selector" />
+
+    <TextView
+        android:id="@+id/sw_on"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dp"
+        android:layout_toRightOf="@+id/sw"
+        android:background="@drawable/dialog_background_white"
+        android:paddingHorizontal="8dp"
+        android:text="팔로잉"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="20dp" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-    </android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/sw"></android.support.v7.widget.RecyclerView>
 </RelativeLayout>
 

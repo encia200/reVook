@@ -11,7 +11,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -45,6 +47,8 @@ public class ReviewFragment extends Fragment {
     private List<String> reviewUidLists = new ArrayList<>();
     private List<UserModel> userModels = new ArrayList<>();
     private List<String> userUidLists = new ArrayList<>();
+    private Switch aSwitch;
+    TextView switchOn, switchOff;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -60,12 +64,51 @@ public class ReviewFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(mLinearLayoutManager);
 
+
+
         //카드 리스트뷰 어댑터에 연결
         final ReviewRecyclerViewAdapter adapter = new ReviewRecyclerViewAdapter();
-        recyclerView.
-                setAdapter(adapter);
+        recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+        aSwitch = (Switch) v.findViewById(R.id.sw);
+        switchOff = (TextView) v.findViewById(R.id.sw_off);
+        switchOn = (TextView) v.findViewById(R.id.sw_on);
 
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    switchOn.setBackgroundResource(R.drawable.background_editor_btn);
+                    switchOn.setTextColor(getResources().getColor(android.R.color.white));
+                    switchOn.setPadding(16, 0, 16, 0);
+                    switchOff.setBackgroundResource(R.drawable.dialog_background_white);
+                    switchOff.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    switchOff.setPadding(16, 0, 16, 0);
+                    update(adapter, true);
+                } else {
+                    switchOff.setBackgroundResource(R.drawable.background_editor_btn);
+                    switchOff.setTextColor(getResources().getColor(android.R.color.white));
+                    switchOff.setPadding(16, 0, 16, 0);
+                    switchOn.setBackgroundResource(R.drawable.dialog_background_white);
+                    switchOn.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                    switchOn.setPadding(16, 0, 16, 0);
+                    update(adapter, false);
+                }
+            }
+        });
+        switchOff.setBackgroundResource(R.drawable.background_editor_btn);
+        switchOff.setTextColor(getResources().getColor(android.R.color.white));
+        switchOff.setPadding(16, 0, 16, 0);
+        switchOn.setBackgroundResource(R.drawable.dialog_background_white);
+        switchOn.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+        switchOn.setPadding(16, 0, 16, 0);
+        update(adapter, false);
+
+
+        return v;
+    }
+
+    public void update(final ReviewRecyclerViewAdapter adapter, final boolean switchOn) {
         // db 불러오기
         database.getReference().child("reviews").addValueEventListener(new ValueEventListener() {
             @Override
@@ -76,8 +119,15 @@ public class ReviewFragment extends Fragment {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     ReviewDTO reviewDTO = snapshot.getValue(ReviewDTO.class);
                     String reviewUidKey = snapshot.getKey();
-                    reviewDTOs.add(reviewDTO);
-                    reviewUidLists.add(reviewUidKey);
+                    if (switchOn) {
+                        if (ApplicationController.currentUser.followings.containsKey(reviewDTO.uid)) {
+                            reviewDTOs.add(reviewDTO);
+                            reviewUidLists.add(reviewUidKey);
+                        }
+                    } else {
+                        reviewDTOs.add(reviewDTO);
+                        reviewUidLists.add(reviewUidKey);
+                    }
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -94,9 +144,17 @@ public class ReviewFragment extends Fragment {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     UserModel userModel = snapshot.getValue(UserModel.class);
                     String userUidKey = snapshot.getKey();
-                    userModels.add(userModel);
-                    userUidLists.add(userUidKey);
+                    if (switchOn) {
+                        if (ApplicationController.currentUser.followings.containsKey(userModel.uid)) {
+                            userModels.add(userModel);
+                            userUidLists.add(userUidKey);
+                        }
+                    } else {
+                        userModels.add(userModel);
+                        userUidLists.add(userUidKey);
+                    }
                 }
+
                 adapter.notifyDataSetChanged();
             }
 
@@ -105,7 +163,6 @@ public class ReviewFragment extends Fragment {
 
             }
         });
-        return v;
     }
 
     public class ReviewRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -162,7 +219,7 @@ public class ReviewFragment extends Fragment {
                     onFollowClicked(database.getReference().child("users").child(reviewDTOs.get(position).uid), database.getReference().child("users").child(auth.getCurrentUser().getUid()));
                 }
             });
-            if(reviewDTOs.get(position).uid.equals(ApplicationController.currentUser.uid)){
+            if (reviewDTOs.get(position).uid.equals(ApplicationController.currentUser.uid)) {
                 ((CustomViewHolder) holder).delete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -171,7 +228,7 @@ public class ReviewFragment extends Fragment {
                         database.getReference().child("reviews").child(reviewUidLists.get(position)).removeValue();
                     }
                 });
-            }else {
+            } else {
                 ((CustomViewHolder) holder).delete.setVisibility(View.GONE);
             }
 
@@ -304,7 +361,6 @@ public class ReviewFragment extends Fragment {
             TextView starCount;
             Button follow;
             Button delete;
-
 
             CustomViewHolder(View view) {
                 super(view);
