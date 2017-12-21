@@ -65,6 +65,7 @@ public class EditorActivity extends AppCompatActivity implements View.OnClickLis
     private EditText editor_content_date;
     private EditText editor_content_watermark;
     boolean isdrawable = false;
+    boolean isbgColor;
     byte[] data;
     private EditText editor_content_edittext;
     private Button btn_toolbar_img;
@@ -154,15 +155,7 @@ public class EditorActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onChange() {
 
-                /*Glide.with(getApplicationContext()).load(imagePathVariable.imagePath).into(editor_img);
-                editor_img.setImageURI(Uri.parse(imagePathVariable.imagePath));
-                editor_img.setDrawingCacheEnabled(true);
-                editor_img.buildDrawingCache();
-                Bitmap bitmap = editor_img.getDrawingCache();
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                data = baos.toByteArray();
-                isdrawable = true;*/
+
 
 
                 ImageLoader imageLoader = ImageLoader.getInstance();
@@ -172,25 +165,39 @@ public class EditorActivity extends AppCompatActivity implements View.OnClickLis
                         .showImageForEmptyUri(defaultImage)
                         .showImageOnFail(defaultImage)
                         .showImageOnLoading(defaultImage).build();
-                imageLoader.displayImage(imagePathVariable.imagePath, editor_img, options, new ImageLoadingListener() {
-                            @Override
-                            public void onLoadingStarted(String imageUri, View view) {
-                            }
 
-                            @Override
-                            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                            }
+                if (!isbgColor) {
+                    imageLoader.displayImage(imagePathVariable.imagePath, editor_img, new ImageLoadingListener() {
+                                @Override
+                                public void onLoadingStarted(String imageUri, View view) {
+                                }
 
-                            @Override
-                            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                                editor_img.setColorFilter(Color.rgb(155, 155, 155), android.graphics.PorterDuff.Mode.MULTIPLY);
-                            }
+                                @Override
+                                public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                                }
 
-                            @Override
-                            public void onLoadingCancelled(String imageUri, View view) {
+                                @Override
+                                public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                                    editor_img.setColorFilter(Color.rgb(155, 155, 155), android.graphics.PorterDuff.Mode.MULTIPLY);
+                                }
+
+                                @Override
+                                public void onLoadingCancelled(String imageUri, View view) {
+                                }
                             }
-                        }
-                );
+                    );
+                }
+                else{
+                    Glide.with(getApplicationContext()).load(imagePathVariable.imagePath).into(editor_img);
+                    editor_img.setImageURI(Uri.parse(imagePathVariable.imagePath));
+                    editor_img.setDrawingCacheEnabled(true);
+                    editor_img.buildDrawingCache();
+                    Bitmap bitmap = editor_img.getDrawingCache();
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    data = baos.toByteArray();
+                    isdrawable = true;
+                }
             }
         });
 
@@ -366,21 +373,27 @@ public class EditorActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.bg_dialog_color_yellow:
+                isbgColor=true;
                 imagePathVariable.setImagePath(Uri.parse("android.resource://" + "com.jy.revook_1111" + "/drawable/bg_yellow").toString());
                 break;
             case R.id.bg_dialog_color_brown:
+                isbgColor=true;
                 imagePathVariable.setImagePath(Uri.parse("android.resource://" + "com.jy.revook_1111" + "/drawable/bg_brown").toString());
                 break;
             case R.id.bg_dialog_color_mint:
+                isbgColor=true;
                 imagePathVariable.setImagePath(Uri.parse("android.resource://" + "com.jy.revook_1111" + "/drawable/bg_mint").toString());
                 break;
             case R.id.bg_dialog_color_lightnavy:
+                isbgColor=true;
                 imagePathVariable.setImagePath(Uri.parse("android.resource://" + "com.jy.revook_1111" + "/drawable/bg_lightnavy").toString());
                 break;
             case R.id.bg_dialog_color_navy:
+                isbgColor=true;
                 imagePathVariable.setImagePath(Uri.parse("android.resource://" + "com.jy.revook_1111" + "/drawable/bg_navy").toString());
                 break;
             case R.id.bg_dialog_color_gray:
+                isbgColor=true;
                 imagePathVariable.setImagePath(Uri.parse("android.resource://" + "com.jy.revook_1111" + "/drawable/bg_gray").toString());
                 break;
             case R.id.editoractivity_font_dxsaenal_bold:
