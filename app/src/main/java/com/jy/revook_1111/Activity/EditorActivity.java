@@ -41,6 +41,10 @@ import com.google.firebase.storage.UploadTask;
 import com.jy.revook_1111.ApplicationController;
 import com.jy.revook_1111.Data.ReviewDTO;
 import com.jy.revook_1111.R;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.assist.FailReason;
+import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -126,7 +130,7 @@ public class EditorActivity extends AppCompatActivity implements View.OnClickLis
         editor_img = (ImageView) findViewById(R.id.editoractivity_editor_img);
 
 
-        imagePathVariable = new ImagePathVariable();
+        /*imagePathVariable = new ImagePathVariable();
         imagePathVariable.setImagePath(Uri.parse("android.resource://" + "com.jy.revook_1111" + "/drawable/dialog_background_gray").toString());
 
         imagePathVariable.setListener(new ImagePathVariable.ChangeListener() {
@@ -142,8 +146,55 @@ public class EditorActivity extends AppCompatActivity implements View.OnClickLis
                 data = baos.toByteArray();
                 isdrawable = true;
             }
+        });*/
+        Intent intent = getIntent();
+        imagePathVariable = new ImagePathVariable();
+        imagePathVariable.setImagePath(intent.getStringExtra("image"));
+        imagePathVariable.setListener(new ImagePathVariable.ChangeListener() {
+            @Override
+            public void onChange() {
+
+                /*Glide.with(getApplicationContext()).load(imagePathVariable.imagePath).into(editor_img);
+                editor_img.setImageURI(Uri.parse(imagePathVariable.imagePath));
+                editor_img.setDrawingCacheEnabled(true);
+                editor_img.buildDrawingCache();
+                Bitmap bitmap = editor_img.getDrawingCache();
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                data = baos.toByteArray();
+                isdrawable = true;*/
+
+
+                ImageLoader imageLoader = ImageLoader.getInstance();
+                int defaultImage = getApplicationContext().getResources().getIdentifier("@drawable/nobookimg", null, getApplicationContext().getPackageName());
+                DisplayImageOptions options = new DisplayImageOptions.Builder().cacheInMemory(true)
+                        .cacheOnDisc(true).resetViewBeforeLoading(true)
+                        .showImageForEmptyUri(defaultImage)
+                        .showImageOnFail(defaultImage)
+                        .showImageOnLoading(defaultImage).build();
+                imageLoader.displayImage(imagePathVariable.imagePath, editor_img, options, new ImageLoadingListener() {
+                            @Override
+                            public void onLoadingStarted(String imageUri, View view) {
+                            }
+
+                            @Override
+                            public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
+                            }
+
+                            @Override
+                            public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                            }
+
+                            @Override
+                            public void onLoadingCancelled(String imageUri, View view) {
+                            }
+                        }
+
+                );
+            }
         });
 
+        imagePathVariable.setImagePath(intent.getStringExtra("image"));
         storage = FirebaseStorage.getInstance();
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
@@ -393,26 +444,4 @@ public class EditorActivity extends AppCompatActivity implements View.OnClickLis
             void onChange();
         }
     }
-        /*private void save_diary(){
-        diary.setDrawingCacheEnabled(true);
-        diary.setDrawingCacheBackgroundColor(Color.WHITE);
-        diary.buildDrawingCache();
-        Bitmap bitmap =diary.getDrawingCache();
-        String FileName = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date())+".jpg";
-        String path = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES).toString() + "/Fairy";
-        try {
-            File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),"Fairy");
-            if(!file.isDirectory()){
-                file.mkdir();
-            }
-            FileOutputStream outputStream = new FileOutputStream(file+"/"+FileName);
-            bitmap.compress(Bitmap.CompressFormat.JPEG,100,outputStream);
-            outputStream.close();
-            bitmap.recycle();
-            Toast.makeText(mContext, "일기로 저장하였습니다.", Toast.LENGTH_SHORT).show();
-            detail_title.setSelected(true);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }*/
 }

@@ -35,6 +35,7 @@ public class CustomDialog extends Dialog {
     private int fragmentIdentifier;
     public static final int SEARCH_FRAGMENT = 2;
     public static final int BOOK_SEARCH_FRAGMENT = 1;
+    public String bookUrl;
     FloatingActionButton menu1, menu2;
 
     public CustomDialog(Activity c, int i, int FRAGMENT) {
@@ -59,6 +60,18 @@ public class CustomDialog extends Dialog {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), EditorActivity.class);
+                if(fragmentIdentifier == 3)
+                {
+                    intent.putExtra("image",SearchFragment.famousNobleList.get(index).imageURL);
+                }
+                else if(fragmentIdentifier == 4)
+                {
+                    intent.putExtra("image", SearchFragment.famousComicList.get(index).imageURL);
+                }
+                else if(fragmentIdentifier == BOOK_SEARCH_FRAGMENT)
+                {
+                    intent.putExtra("image", APISearchNaverBook.bookInfoList.get(index).imageURL);
+                }
                 getContext().startActivity(intent);
             }
         });
@@ -66,8 +79,8 @@ public class CustomDialog extends Dialog {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), ReadingBookActivity.class);
-                intent.putExtra("title",APISearchNaverBook.bookInfoList.get(index).title.toString());
-                intent.putExtra("image",APISearchNaverBook.bookInfoList.get(index).imageURL.toString());
+                intent.putExtra("title", APISearchNaverBook.bookInfoList.get(index).title.toString());
+                intent.putExtra("image", APISearchNaverBook.bookInfoList.get(index).imageURL.toString());
                 getContext().startActivity(intent);
             }
         });
@@ -158,6 +171,7 @@ public class CustomDialog extends Dialog {
         holder.isbn.setText(isbn);
         holder.description.setText(description);
 
+        bookUrl = imgUrl;
         if (imgUrl.length() == 0) {
             holder.image.setImageResource(R.drawable.nobookimg);
         }
