@@ -136,8 +136,8 @@ public class EditorActivity extends AppCompatActivity implements View.OnClickLis
         imagePathVariable.setListener(new ImagePathVariable.ChangeListener() {
             @Override
             public void onChange() {
-                Glide.with(getApplicationContext()).load(imagePathVariable.imagePath).into(editor_img);
-                editor_img.setImageURI(Uri.parse(imagePathVariable.imagePath));
+                Glide.with(getApplicationContext()).load(imagePathVariable.data).into(editor_img);
+                editor_img.setImageURI(Uri.parse(imagePathVariable.data));
                 editor_img.setDrawingCacheEnabled(true);
                 editor_img.buildDrawingCache();
                 Bitmap bitmap = editor_img.getDrawingCache();
@@ -154,8 +154,8 @@ public class EditorActivity extends AppCompatActivity implements View.OnClickLis
             @Override
             public void onChange() {
 
-                /*Glide.with(getApplicationContext()).load(imagePathVariable.imagePath).into(editor_img);
-                editor_img.setImageURI(Uri.parse(imagePathVariable.imagePath));
+                /*Glide.with(getApplicationContext()).load(imagePathVariable.data).into(editor_img);
+                editor_img.setImageURI(Uri.parse(imagePathVariable.data));
                 editor_img.setDrawingCacheEnabled(true);
                 editor_img.buildDrawingCache();
                 Bitmap bitmap = editor_img.getDrawingCache();
