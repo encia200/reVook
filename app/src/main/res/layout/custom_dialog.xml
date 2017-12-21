@@ -1,86 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/tools"
     android:layout_width="340dp"
     android:layout_height="590dp"
     android:background="@drawable/dialog_background">
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <android.support.constraint.ConstraintLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            fab:context="com.android_examples.floatingactionmenu_android_examplescom.MainActivity">
 
 
             <ImageView
                 android:id="@+id/custom_dialog_bookimg"
                 android:layout_width="167dp"
                 android:layout_height="223dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="60dp" />
+
+            <TextView
+                android:id="@+id/custom_dialog_title"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
-
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.502"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
-            <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:background="@drawable/dialog_background_navy"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/custom_dialog_title"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:gravity="center"
-                    android:text="TITLE"
-                    android:textColor="@android:color/white"
-                    android:textSize="20sp"
-
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.501"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-
-            </LinearLayout>
+                android:gravity="center"
+                android:text="TITLE"
+                android:textColor="@android:color/white"
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/custom_dialog_author"
                 android:layout_width="66dp"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/custom_dialog_bookimg"
                 android:layout_marginTop="24dp"
                 android:gravity="end"
                 android:text="저자"
                 android:textColor="@android:color/black"
-                android:textSize="16dp"
-                app:layout_constraintTop_toBottomOf="@+id/custom_dialog_bookimg" />
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/custom_dialog_author_input"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/custom_dialog_bookimg"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="24dp"
+                android:layout_toRightOf="@+id/custom_dialog_author"
                 android:text="홍길동"
                 android:textColor="@android:color/black"
-                android:textSize="16dp"
-
-                app:layout_constraintStart_toEndOf="@+id/custom_dialog_author"
-                app:layout_constraintTop_toBottomOf="@+id/custom_dialog_bookimg" />
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/custom_dialog_publisher"
@@ -91,8 +71,7 @@
                 android:gravity="end"
                 android:text="출판사"
                 android:textColor="@android:color/black"
-                android:textSize="16dp"
-                app:layout_constraintTop_toBottomOf="@+id/custom_dialog_author" />
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/custom_dialog_publisher_input"
@@ -101,12 +80,10 @@
                 android:layout_below="@+id/custom_dialog_author"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
+                android:layout_toRightOf="@+id/custom_dialog_publisher"
                 android:text="숭실출판"
                 android:textColor="@android:color/black"
-                android:textSize="16dp"
-
-                app:layout_constraintStart_toEndOf="@+id/custom_dialog_publisher"
-                app:layout_constraintTop_toBottomOf="@+id/custom_dialog_author_input" />
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/custom_dialog_price"
@@ -117,8 +94,7 @@
                 android:gravity="end"
                 android:text="가격"
                 android:textColor="@android:color/black"
-                android:textSize="16dp"
-                app:layout_constraintTop_toBottomOf="@+id/custom_dialog_publisher" />
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/custom_dialog_price_input"
@@ -127,18 +103,16 @@
                 android:layout_below="@+id/custom_dialog_publisher"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
+                android:layout_toRightOf="@+id/custom_dialog_price"
                 android:text="20000원"
                 android:textColor="@android:color/black"
-                android:textSize="16dp"
-
-                app:layout_constraintStart_toEndOf="@+id/custom_dialog_price"
-                app:layout_constraintTop_toBottomOf="@+id/custom_dialog_publisher_input" />
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/custom_dialog_isbn"
                 android:layout_width="66dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/custom_dialog_publisher"
+                android:layout_below="@+id/custom_dialog_price"
                 android:layout_marginTop="8dp"
                 android:gravity="end"
                 android:text="ISBN"
@@ -151,9 +125,10 @@
                 android:id="@+id/custom_dialog_price_isbn_input"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/custom_dialog_publisher"
+                android:layout_below="@+id/custom_dialog_price"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
+                android:layout_toRightOf="@+id/custom_dialog_isbn"
                 android:text="12345"
                 android:textColor="@android:color/black"
                 android:textSize="16dp"
@@ -164,52 +139,31 @@
                 android:id="@+id/custom_dialog_description"
                 android:layout_width="66dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/custom_dialog_publisher"
+                android:layout_below="@+id/custom_dialog_isbn"
                 android:layout_marginTop="8dp"
                 android:gravity="end"
                 android:text="설명"
                 android:textColor="@android:color/black"
                 android:textSize="16dp"
-                app:layout_constraintTop_toBottomOf="@+id/custom_dialog_isbn" />
+                />
 
             <TextView
                 android:id="@+id/custom_dialog_description_input"
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/custom_dialog_publisher"
+                android:layout_below="@+id/custom_dialog_price_isbn_input"
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
                 android:text="어쩌구 저쩌구"
                 android:textColor="@android:color/black"
                 android:textSize="16dp"
-                app:layout_constraintStart_toEndOf="@+id/custom_dialog_description"
-                app:layout_constraintTop_toBottomOf="@+id/custom_dialog_price_isbn_input" />
-
-
-            <android.support.design.widget.FloatingActionButton
-                android:id="@+id/btn_upload_review"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="12dp"
-                android:clickable="true"
-                app:backgroundTint="@color/colorPrimaryDark"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.927"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/custom_dialog_description_input"
-                app:layout_constraintVertical_bias="0.0"
-                app:srcCompat="@drawable/review" />
+                android:layout_toRightOf="@+id/custom_dialog_description"/>
 
             <ProgressBar
                 android:id="@+id/custom_dialog_progress"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:layout_centerInParent="true"
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
@@ -220,7 +174,75 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.536" />
 
-        </android.support.constraint.ConstraintLayout>
+            <com.github.clans.fab.FloatingActionMenu
+                android:id="@+id/FloatingActionMenu1"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_below="@+id/custom_dialog_description"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="12dp"
+
+                fab:menu_animationDelayPerItem="50"
+                fab:menu_backgroundColor="@android:color/transparent"
+                fab:menu_buttonSpacing="0dp"
+                fab:menu_colorNormal="#DA4336"
+                fab:menu_colorPressed="#E75043"
+                fab:menu_colorRipple="#99FFFFFF"
+                fab:menu_fab_hide_animation="@anim/my_hide_animation"
+                fab:menu_fab_label="your_label_here"
+                fab:menu_fab_show_animation="@anim/my_show_animation"
+                fab:menu_fab_size="normal"
+                fab:menu_icon="@drawable/fab_add"
+                fab:menu_labels_colorNormal="#333333"
+                fab:menu_labels_colorPressed="#444444"
+                fab:menu_labels_colorRipple="#66FFFFFF"
+                fab:menu_labels_cornerRadius="3dp"
+                fab:menu_labels_ellipsize="none"
+                fab:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
+                fab:menu_labels_margin="0dp"
+                fab:menu_labels_maxLines="-1"
+                fab:menu_labels_padding="8dp"
+                fab:menu_labels_paddingBottom="4dp"
+                fab:menu_labels_paddingLeft="8dp"
+                fab:menu_labels_paddingRight="8dp"
+                fab:menu_labels_paddingTop="4dp"
+                fab:menu_labels_position="left"
+                fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
+                fab:menu_labels_showShadow="true"
+                fab:menu_labels_singleLine="false"
+                fab:menu_labels_style="@style/YourCustomLabelsStyle"
+                fab:menu_labels_textColor="#FFFFFF"
+                fab:menu_labels_textSize="14sp"
+                fab:menu_openDirection="up"
+                fab:menu_shadowColor="#66000000"
+                fab:menu_shadowRadius="4dp"
+                fab:menu_shadowXOffset="1dp"
+                fab:menu_shadowYOffset="3dp"
+                fab:menu_showShadow="true">
+
+
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/btn_upload_review"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:clickable="true"
+                    android:src="@drawable/ic_create_black_24dp"
+                    fab:fab_label="Sub Menu Item 1"
+                    fab:fab_size="mini" />
+
+                <com.github.clans.fab.FloatingActionButton
+                    android:id="@+id/subFloatingMenu2"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:clickable="true"
+                    android:src="@drawable/ic_touch_app_black_24dp"
+                    fab:fab_label="Sub Menu Item 2"
+                    fab:fab_size="mini" />
+            </com.github.clans.fab.FloatingActionMenu>
+        </RelativeLayout>
     </ScrollView>
 
-</LinearLayout>
+</RelativeLayout>

@@ -1,7 +1,5 @@
 package com.jy.revook_1111.Data;
 
-import android.app.ProgressDialog;
-
 /**
  * Created by remna on 2017-11-27.
  */
@@ -50,6 +48,5 @@ public class BookInfo {
     }
     public void editBookImageURL(){
         this.imageURL = this.imageURL.replace("type=m1", "");
-        System.out.println("***************************" + this.imageURL);
     }
 }
