@@ -48,8 +48,8 @@ public class ReadingBookActivity extends AppCompatActivity {
         imgURL = intent.getStringExtra("imageURL");
 
         FontSetting fontSetting = new FontSetting(getApplicationContext());
-        textView_title = (TextView) findViewById(R.id.readingbook_text1);
-        textView_title.setTypeface(fontSetting.typeface_Title);
+        textView1 = (TextView) findViewById(R.id.readingbook_text1);
+        textView1.setTypeface(fontSetting.typeface_Title);
         textView1 = (TextView) findViewById(R.id.readingbook_currentpage);
         textView1.setTypeface(fontSetting.typeface_Contents);
         textView2 = (TextView) findViewById(R.id.readingbook_totalpage_input);
@@ -89,6 +89,7 @@ public class ReadingBookActivity extends AppCompatActivity {
         FontSetting fontSetting = new FontSetting(getApplicationContext());
         holder.title = (TextView) findViewById(R.id.readingbook_title);
         holder.title.setTypeface(fontSetting.getTypeface_Title());
+        holder.title.setText(title);
         holder.image = (ImageView) findViewById(R.id.readingbook_img);
 
 
