@@ -185,13 +185,15 @@ public class ReviewFragment extends Fragment {
         @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
         @Override
         public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int position) {
-            final UserModel[] userModel = new UserModel[1];
-            database.getReference().child("users").child(reviewDTOs.get(position).uid).addValueEventListener(new ValueEventListener() {
+
+            database.getReference().child("users").child(reviewDTOs.get(position).uid).child("profileImageUrl").addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    userModel[0] = dataSnapshot.getValue(UserModel.class);
-                    if (userModel[0].profileImageUrl != null)
-                        Glide.with(parent.getContext()).load(userModel[0].profileImageUrl).into(((CustomViewHolder) holder).profileImage);
+                    UserModel userModel = new UserModel();
+                    String a = dataSnapshot.getValue().toString();
+                    userModel.profileImageUrl = a;
+                    if (userModel.profileImageUrl != null)
+                        Glide.with(parent.getContext()).load(userModel.profileImageUrl).into(((CustomViewHolder) holder).profileImage);
                 }
 
                 @Override

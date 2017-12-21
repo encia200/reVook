@@ -183,13 +183,13 @@ public class EditorActivity extends AppCompatActivity implements View.OnClickLis
 
                             @Override
                             public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
+                                editor_img.setColorFilter(Color.rgb(155, 155, 155), android.graphics.PorterDuff.Mode.MULTIPLY);
                             }
 
                             @Override
                             public void onLoadingCancelled(String imageUri, View view) {
                             }
                         }
-
                 );
             }
         });
