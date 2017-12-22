@@ -268,6 +268,7 @@ public class ReviewFragment extends Fragment {
         }
 
         private void onStarClicked(DatabaseReference postRef) {
+
             postRef.runTransaction(new Transaction.Handler() {
                 @Override
                 public Transaction.Result doTransaction(MutableData mutableData) {
@@ -276,6 +277,27 @@ public class ReviewFragment extends Fragment {
                         return Transaction.success(mutableData);
                     }
 
+                    String destination_uid = reviewDTO.uid;
+                    UserModel destination_model = null;
+                    for (int i = 0; i < userModels.size(); i++) {
+                        if(destination_uid.equals(userModels.get(i).uid))
+                            destination_model = userModels.get(i);
+                    }
+
+                    /*FirebaseDatabase.getInstance().getReference().child("users").child(reviewDTO.uid).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            userModel[0] = dataSnapshot.getValue(UserModel.class);
+
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });*/
+
+
                     if (reviewDTO.stars.containsKey(auth.getCurrentUser().getUid())) {
                         // Unstar the post and remove self from stars
                         reviewDTO.starCount = reviewDTO.starCount - 1;
@@ -283,7 +305,9 @@ public class ReviewFragment extends Fragment {
                     } else {
                         // Star the post and add self to stars
                         //좋아요눌렀을때
-                       // sendGcm(, LIKE_PUSH);
+                        // sendGcm(, LIKE_PUSH);
+                        if(destination_model!=null)
+                        sendGcm(destination_model, LIKE_PUSH);
                         reviewDTO.starCount = reviewDTO.starCount + 1;
                         reviewDTO.stars.put(auth.getCurrentUser().getUid(), true);
                     }
@@ -319,9 +343,8 @@ public class ReviewFragment extends Fragment {
                             toUserModel[0].followerCount = toUserModel[0].followerCount - 1;
                             toUserModel[0].followers.remove(auth.getCurrentUser().getUid());
                         } else {
-                            // 팔로우 취소할때
-                            // Star the post and add self to stars
 
+                            // Star the post and add self to stars
                             toUserModel[0].followerCount = toUserModel[0].followerCount + 1;
                             toUserModel[0].followers.put(auth.getCurrentUser().getUid(), true);
                         }
@@ -378,14 +401,16 @@ public class ReviewFragment extends Fragment {
             NotificationModel notificationModel = new NotificationModel();
             notificationModel.to = destinationUserModel.pushToken;
             notificationModel.notification.title = userName;
-            notificationModel.notification.text = "안ㄴ옇세요.";
+
             notificationModel.data.title = userName;
             switch (mode) {
                 case FOLLOWING_PUSH:
                     notificationModel.data.text = ApplicationController.currentUser.userName + "님이 당신을 팔로우하였습니다.";
+                    notificationModel.notification.text = ApplicationController.currentUser.userName + "님이 당신을 팔로우하였습니다.";
                     break;
                 case LIKE_PUSH:
                     notificationModel.data.text = ApplicationController.currentUser.userName + "님이 회원님의 게시물을 좋아합니다.";
+                    notificationModel.notification.text = ApplicationController.currentUser.userName + "님이 회원님의 게시물을 좋아합니다.";
                     break;
             }
 
