@@ -201,7 +201,9 @@ public class ReviewFragment extends Fragment {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     UserModel userModel = new UserModel();
-                    String a = dataSnapshot.getValue().toString();
+                    String a = null;
+                    if(dataSnapshot.getValue() != null)
+                        a = dataSnapshot.getValue().toString();
                     userModel.profileImageUrl = a;
                     if (userModel.profileImageUrl != null)
                         Glide.with(parent.getContext()).load(userModel.profileImageUrl).into(((CustomViewHolder) holder).profileImage);

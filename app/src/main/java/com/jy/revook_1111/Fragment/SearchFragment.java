@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -18,6 +17,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -82,7 +82,7 @@ public class SearchFragment extends Fragment {
     private EditText editText_search;
     private Button btn_search;
 
-    private ConstraintLayout constraintLayout;
+    private RelativeLayout relativeLayout;
     private InputMethodManager imm;
     private FontSetting fontSetting;
 
@@ -220,8 +220,8 @@ public class SearchFragment extends Fragment {
         famousComic_img1 = (ImageView) v.findViewById(R.id.search_famous_comic_img1);
         famousComic_img2 = (ImageView) v.findViewById(R.id.search_famous_comic_img2);
         famousComic_img3 = (ImageView) v.findViewById(R.id.search_famous_comic_img3);
-        constraintLayout = (ConstraintLayout) v.findViewById(R.id.searchFragment);
-        constraintLayout.setOnTouchListener(new View.OnTouchListener() {
+        relativeLayout = (RelativeLayout) v.findViewById(R.id.searchFragment);
+        relativeLayout.setOnTouchListener(new View.OnTouchListener() {
                                                 @Override
                                                 public boolean onTouch(View view, MotionEvent motionEvent) {
                                                     editText_search.clearFocus();

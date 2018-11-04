@@ -213,8 +213,8 @@ public class EditorActivity extends AppCompatActivity implements View.OnClickLis
         editor_content_date.setText(mFormat.format(new Date(System.currentTimeMillis())));
         editor_content_date.setOnTouchListener(this);
         editor_content_watermark = (EditText) findViewById(R.id.editoractivity_editor_watermarktext);
-        StringTokenizer tokens = new StringTokenizer(FirebaseAuth.getInstance().getCurrentUser().getEmail());
-        editor_content_watermark.setText(tokens.nextToken("@"));
+//        StringTokenizer tokens = new StringTokenizer(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+//        editor_content_watermark.setText(tokens.nextToken("@"));
         editor_content_watermark.setOnTouchListener(this);
         /*btn_toolbar_background = (Button) findViewById(R.id.editoractivity_btn_background_color_select);
         btn_toolbar_background.setOnClickListener(new View.OnClickListener() {
